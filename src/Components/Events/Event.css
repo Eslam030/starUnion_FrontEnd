@@ -1,0 +1,47 @@
+.events {
+    background: linear-gradient(-292deg, #1F1C2B 33%, #5B36C2);
+    padding-left: 5%;
+    padding-right: 5%;
+}
+
+.events .title {
+    padding-bottom: 90px;
+}
+
+.cards {
+    display: flex;
+    justify-content: center;
+    flex-flow: row wrap;
+    position: relative;
+    padding-bottom: 40px;
+}
+
+.event {
+    flex: 1;
+    background-color: #c9c9c9;
+    border-radius: 10px;
+    margin: 5px;
+    padding: 15px;
+}
+.event .date {
+    position: absolute;
+    top: -32px;
+    color: #F8F8F8;
+
+}
+
+.event .card .handel {
+    padding-bottom: 15px;
+}
+
+.event .card p {
+    color: #00000066;
+    font-size: 18px;
+    padding-bottom: 10px;
+}
+
+.events .btn_div {
+    display: flex;
+    justify-content: center;
+    padding-bottom: 70px;
+}

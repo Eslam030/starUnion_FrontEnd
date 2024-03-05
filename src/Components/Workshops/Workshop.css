@@ -1,0 +1,64 @@
+.workshop {
+    background: linear-gradient(120deg, #222128 42%, #5D37C6);
+}
+
+.cards_container {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-top: 50px;
+}
+
+.workS_card {
+    width: 345px;
+    background-color: #f0f0f0;
+    border-radius: 20px 20px 0 0;
+    overflow: hidden;
+    margin: 20px;
+    position: relative;
+}
+
+.workS_card .workS_date {
+    position: absolute;
+    background-color: #fff;
+    color: #000;
+    padding: 5px;
+    border-radius: 10px;
+    top: 6px;
+    left: 10px;
+    font-size: 9px;
+    font-weight: bold;
+
+}
+
+.card img {
+    width: 100%;
+    height: auto;
+    background-size: cover;
+    background-position: center;
+}
+
+.content {
+    padding: 16px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.content h2 {
+    font-size: 25px;
+    margin-bottom: 51px;
+}
+
+.content button {
+    padding: 14px 0 20px 0;
+    width: 200px;
+}
+
+.workshop .btn_div {
+    display: flex;
+    justify-content: center;
+    padding-top: 60px;
+    padding-bottom: 40px;
+}
