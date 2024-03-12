@@ -4,7 +4,7 @@ import workshop_img from '../../assets/workshop_img.png'
 
 const Workshop = () => {
     return (
-        <div className='workshop'>
+        <div className='workshop' id='Workshop'>
             <div className="title">
                 <h1>Our Workshops</h1>
                 <p>Highlights the workshops that will be offered during the event, including the 

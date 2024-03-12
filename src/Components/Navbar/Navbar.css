@@ -27,7 +27,7 @@ ul li a:hover {
     background-color: #6441CD;
 }
 
-nav .login {
+nav .login_btn {
     outline: none;
     border: 1px solid #6139D0;
     background-color: #191919;
@@ -42,7 +42,7 @@ nav .login {
     cursor: pointer;
 }
 
-nav .login .user_img {
+nav .login_btn .user_img {
     width: 26px;
     margin-left: 10px;
 }

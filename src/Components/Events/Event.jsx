@@ -1,9 +1,9 @@
-import React from 'react'
+
 import './Event.css'
 
 const Event = () => {
     return (
-        <div className='events '>
+        <div className='events' id='Events'>
             <div className="title">
                 <h1>Events</h1>
             </div>

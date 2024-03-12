@@ -1,5 +1,5 @@
 .events {
-    background: linear-gradient(-292deg, #1F1C2B 33%, #5B36C2);
+    background: linear-gradient(-292deg, #1F1C2B 37%, #5B36C2);
     padding-left: 5%;
     padding-right: 5%;
 }
@@ -26,8 +26,10 @@
 .event .date {
     position: absolute;
     top: -32px;
-    color: #F8F8F8;
-
+    color: #000;
+    background-color: #c9c9c9;
+    padding: 5px;
+    border-radius: 10px;
 }
 
 .event .card .handel {

@@ -1,0 +1,24 @@
+.error {
+    margin: auto;
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;    
+    padding: 10px;
+    background: linear-gradient(120deg, #222128 50%, #5D37C6);
+}
+
+.error h1 {
+    margin-bottom: 15px;
+    font-size: 225px;
+    color: #fff;
+}
+
+.error p {
+    font-size: 20px;
+    color: #fff;
+    padding-top: 20px;
+    padding-bottom: 40px;
+}

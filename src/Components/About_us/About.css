@@ -1,5 +1,6 @@
 .About {
     background: linear-gradient(120deg, #222128 50%, #5D37C6);
+    transition: .3s;
 }
 
 
