@@ -5,6 +5,8 @@ import Errorpage from "./Pages/Error/Errorpage.jsx";
 import App from "./App.jsx";
 import "./index.css";
 import Login from "./Pages/Login/Login.jsx";
+import UserPage from "./Pages/User page/UserPage.jsx";
+import Register from "./Pages/Register/Register.jsx";
 
 const AppRouter = createBrowserRouter([
   {
@@ -16,6 +18,14 @@ const AppRouter = createBrowserRouter([
     path: "/login",
     element: <Login />,
   },
+  {
+    path: "/userPage",
+    element: <UserPage />,
+  },
+  {
+    path: "/register",
+    element: <Register />,
+  }
 ]);
 
 ReactDOM.createRoot(document.getElementById("root")).render(

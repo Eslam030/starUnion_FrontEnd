@@ -61,10 +61,12 @@ const Navbar = () => {
           </LinkRoll>
         </li>
       </ul>
-      <button className="login_btn">
-        <Link to="/login">Log In</Link>{" "}
+      <Link to="/login">
+      <button className="login_btn">    
+         Log In
         <img src={User_01} alt="User" className="user_img" />
       </button>
+      </Link>{" "}
     </nav>
   );
 };

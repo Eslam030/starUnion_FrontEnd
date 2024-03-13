@@ -37,7 +37,7 @@ ul li {
     width: 100%;
 }
 
-.btn {
+ .btn {
     width: 250px;
     background-color: #F8F8F8;
     color: #5F37C9;
@@ -108,6 +108,7 @@ ul li {
     position: absolute;
     top: 17px;
     left: 70px;
+    z-index: 1000;
 }
 
 .logoLayout img {

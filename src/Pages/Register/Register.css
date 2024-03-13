@@ -1,0 +1,105 @@
+.register {
+    background: linear-gradient(120deg, #222128 50%, #5D37C6);
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 185px 10% 10% 10%;
+}
+
+.form_container {
+    max-width: 650px;
+    width: 100%;
+    background-color: #eaeaea;
+    padding: 25px 30px;
+    border-radius: 10px;
+}
+
+.form_container .reg_title {
+    font-size: 35px;
+    font-weight: bold;
+    color: #5B36C2;
+    margin: 10px 0;
+}
+
+.form_container form .user_reg {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+.form_container form .user_reg .input_box {
+    width: calc(100% / 2 - 20px);
+    margin: 20px 0 10px 0;
+}
+
+.input_box .reg_detail {
+    font-size: 14px;
+    font-weight: 500;
+}
+
+.form_container form .user_reg .input_box input {
+    height: 45px;
+    width: 100%;
+    margin-top: 10px;
+    outline: none;
+    border: none;
+    background-color: #fff;
+    border-radius: 10px;
+    padding-left: 15px;
+}
+
+.form_container form .gender_details {
+    padding: 20px 0;
+}
+
+.form_container form .gender_details .gender_title {
+    display: block;
+    font-weight: bold;
+    padding-bottom: 5px;
+    font-size: 15px;
+}
+
+.form_container form .gender_details .gender_box {
+    display: flex;
+    align-items: center;
+    gap: 3px;
+    font-size: 15px;
+    padding-bottom: 5px;
+}
+
+
+
+input[type=radio] {
+    accent-color: rgb(10, 165, 124);
+    width: 17px;
+}
+
+.btn_container {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    padding: 5px 0;
+}
+
+.form_container form .Register_btn {
+    width: 150px;
+    height: 45px;
+    border: 1px solid rgb(10, 165, 124);
+    color: rgb(10, 165, 124);
+    outline: none;
+    border-radius: 30px;
+    font-size: 15px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: .3s;
+}
+
+.form_container form .Register_btn:hover {
+    color: #fff;
+    background-color: rgb(10, 165, 124);
+}
+
+.register .register_img img {
+    width: 450px;
+}
