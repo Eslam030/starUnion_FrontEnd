@@ -1,0 +1,120 @@
+.workshop_container {
+    background: linear-gradient(120deg, #222128 50%, #5D37C6);
+    width: 100%;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    padding: 100px 10% 10% 10%;
+}
+
+.workshop_container .section_title {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    margin-bottom: 60px;
+}
+
+.workshop_container .section_title .section_name h1 {
+    color: #fff;
+    font-size: 40px;
+    font-weight: 500;
+}
+
+.workshop_container .section_title .section_btn {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 50px;
+}
+
+.workshop_container .section_title .section_btn button {
+    width: 170px;
+    padding: 14px;
+    border: none;
+    border-radius: 30px;
+    background: #fff;
+    color: #1D275F;
+    font-size: 15px;
+    cursor: pointer;
+}
+.workshop_container .section_title .section_btn button img {
+    padding-left: 25px;
+}
+
+.workshop_container .workshop_cards {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 30px;
+}
+
+.workshop_container  .workshop_card {
+    background: #fff;
+    border-radius: 20px 20px 15px 15px ;
+    /* padding: 10px; */
+    width: 400px;
+    overflow: hidden;
+    position: relative;
+}
+
+.workshop_container .workshop_card .workshop_card_img img {
+    width: 101%;
+    height: auto;
+    background-size: cover;
+    background-position: center;
+    border-radius: 10px 10px 0 0;
+}
+
+.workshop_container .workshop_card .workshop_card_content {
+    padding: 20px;
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+}
+
+.workshop_container .workshop_card .workshop_card_content .workshop_date{
+    text-align: center;
+}
+
+.workshop_container .workshop_card_content .workshop_date .month {
+    color: #3D37F1;
+    font-size: 15px;
+    font-weight: 700;
+}
+
+.workshop_container .workshop_card_content .workshop_date .day {
+    font-size: 40px;
+    font-weight: bold;
+}
+
+.workshop_container .workshop_card_content .workshop_card_title h1 {
+    font-size: 20px;
+    margin-bottom: 15px;
+}
+
+.workshop_container .workshop_card_content .workshop_card_title p {
+    color: #6A6A6A;
+    margin-bottom: 10px;
+}
+
+.workshop_container .sec_btn_For_More {
+    margin-top: 100px;
+}
+
+.workshop_container .sec_btn_For_More button {
+    width: 170px;
+    padding: 18px;
+    border-radius: 30px;
+    background-color: transparent;
+    border: 1px solid #ffffff;
+    color: #fff;
+    font-size: 15px;    
+    cursor: pointer;
+    transition: .3s;
+}
+.workshop_container .sec_btn_For_More button:hover {
+    background-color: #5D37C6; 
+    border: 1px solid #5D37C6; 
+}

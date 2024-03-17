@@ -7,6 +7,9 @@ import "./index.css";
 import Login from "./Pages/Login/Login.jsx";
 import UserPage from "./Pages/User page/UserPage.jsx";
 import Register from "./Pages/Register/Register.jsx";
+import WS_page from "./Pages/Workshop_page/WS_page.jsx";
+import Event_page from "./Pages/Event_page/Event_page.jsx";
+import WS_details from "./Pages/WS_Details/WS_details.jsx";
 
 const AppRouter = createBrowserRouter([
   {
@@ -25,6 +28,18 @@ const AppRouter = createBrowserRouter([
   {
     path: "/register",
     element: <Register />,
+  },
+  {
+    path: "/workshops",
+    element: <WS_page />,
+  },
+  {
+    path: "/events",
+    element: <Event_page />,
+  },
+  {
+    path: "/workshops/details",
+    element: <WS_details />,
   }
 ]);
 

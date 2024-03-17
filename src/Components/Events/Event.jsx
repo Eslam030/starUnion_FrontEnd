@@ -1,4 +1,4 @@
-
+import { Link } from 'react-router-dom'
 import './Event.css'
 
 const Event = () => {
@@ -39,7 +39,9 @@ const Event = () => {
         </div>
 
         <div className='btn_div'>
+            <Link to="events">  
             <button className='btn-op'>More</button>
+            </Link>
         </div>
         </div>
     )

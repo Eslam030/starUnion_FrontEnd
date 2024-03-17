@@ -1,6 +1,7 @@
 import React from 'react'
 import './Workshop.css'
 import workshop_img from '../../assets/workshop_img.png'
+import { Link } from 'react-router-dom'
 
 const Workshop = () => {
     return (
@@ -16,7 +17,9 @@ const Workshop = () => {
                     <img src={workshop_img} alt="workshop Image" />
                     <div className="content">
                         <h2>Interactive Workshops</h2>
+                        <Link to="/register">
                         <button className='btn-op'>Register</button>
+                        </Link>
                     </div>
                 </div>
                 <div className="workS_card">
@@ -24,7 +27,9 @@ const Workshop = () => {
                     <img src={workshop_img} alt="workshop Image" />
                     <div className="content">
                         <h2>Interactive Workshops</h2>
+                        <Link to="/register">
                         <button className='btn-op'>Register</button>
+                        </Link>
                     </div>
                 </div>
                 <div className="workS_card">
@@ -32,12 +37,16 @@ const Workshop = () => {
                     <img src={workshop_img} alt="workshop Image" />
                     <div className="content">
                         <h2>Interactive Workshops</h2>
+                        <Link to="/register">
                         <button className='btn-op'>Register</button>
+                        </Link>
                     </div>
                 </div>
             </div>
             <div className='btn_div'>
+                <Link to="/workshops">
                 <button className='btn-op'>More</button>
+                </Link>
             </div>
         </div>
     )

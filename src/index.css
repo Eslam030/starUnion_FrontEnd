@@ -7,11 +7,13 @@
 
 html {
     scroll-behavior: smooth;
+    height: 100%;
 }
 
 body {
     font-family: "DM Sans", sans-serif;
     position: relative;
+    height: 100%;
 }
 
 

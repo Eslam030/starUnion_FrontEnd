@@ -1,5 +1,5 @@
-import { Link } from "react-router-dom";
 import "./Login.css";
+import { Link } from "react-router-dom";
 import Logolayout from "../../assets/star_logo.png";
 import LogIllustrator from "../../assets/login-illustrator.svg";
 import Footer from "../../Components/Footer/Footer";

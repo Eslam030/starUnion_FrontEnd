@@ -1,0 +1,229 @@
+.workshop_details {
+    background: linear-gradient(120deg, #222128 50%, #5D37C6);
+    min-height: 100vh;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    justify-content: center;
+    padding: 90px 8% 10% 8%;
+}
+
+
+.workshop_details .Img_section {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 15px;
+    width: 100%;
+    max-width: 700px;
+}
+
+.workshop_details .Img_section .col-1 {
+    width: 100%;
+}
+.workshop_details .Img_section .col-2 {
+    width: 100%;
+}
+.workshop_details .Img_section .col-1 img {
+    width: 670px;
+    border-radius: 20px;
+}
+
+.workshop_details .Img_section .col-2 img {
+    width: 489px;
+    border-radius: 30px;
+}
+
+.workshop_details .ws_sections {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    margin-top: 30px;
+    margin-bottom: 100px;
+}
+
+
+.ws_sections .ws_section_tob5 {
+    background-color: #fff;
+    border-radius: 20px;
+    padding: 15px;
+    width: 400px;
+    height: 350px;
+    margin-top: 30px;
+}
+
+.ws_sections .ws_section_tob5 .tob5_title {
+    text-align: center;
+    color: #11CD90;
+    font-weight: bold;
+    padding-top: 10px;
+    padding-bottom: 25px;
+}
+
+.ws_sections .ws_section_tob5 .first_3 {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    text-align: center;
+    padding-bottom: 25px;
+}
+
+.ws_sections .ws_section_tob5 .last_2 {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 50px;
+    text-align: center;
+    padding-bottom: 25px;
+}
+
+.ws_sections .ws_section_tob5 .img_card img {
+    border: 1px solid #5B36C2;
+    width: 80px;
+}
+
+.ws_sections .ws_section_tob5 .img_card .name {
+    font-size: 12px;
+    font-weight: bold;
+}
+
+.img_one {
+    width: 70px !important;
+}
+
+
+
+.ws_sections .ws_section_details .ws_section_title {
+    margin-bottom: 40px;
+}
+
+.ws_sections .ws_section_details .ws_section_title h1 {
+    color: #fff;
+    font-size: 45px;
+    padding-bottom: 15px;
+}
+
+.ws_sections .ws_section_details .ws_section_title p {
+    color: rgb(177, 176, 176);
+    font-size: 19px;
+}
+
+.ws_sections .ws_details_section span {
+    font-size: 30px;
+    color: #11CD90;
+    font-weight: 700;
+}
+
+.ws_sections .ws_details_section .instructors {
+    width: 100%;
+    transition: 0.3s;
+}
+
+.ws_sections .ws_details_section .instructors .instructors_title {
+    margin-bottom: 20px;
+    margin-top: 10px;
+    display: flex;
+    align-items: center;
+    gap: 25px;
+}
+
+.ws_sections .ws_details_section .instructors .instructors_title .vec_down {
+    cursor: pointer;
+    transition: .3s;
+}
+
+
+.ws_details_section .instructors .instructors_title h1 {
+    color: #fff;
+    font-size: 25px;
+}
+
+.ws_details_section .instructors .instructors_cards {
+    display: none;
+    flex-direction: column;
+    width: 300px;
+    padding: 10px;
+    border-radius: 3px;
+    margin-left: 50px;
+    max-height: 240px;
+}
+
+.ws_details_section .instructors .active {
+    display: flex;
+    transition: .3s;
+}
+
+.ws_details_section .instructors .instructors_cards .instructors_card {
+    background-color: #a9a9a975;
+    margin-bottom: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: relative;
+    padding: 10px;
+}
+
+.ws_details_section .instructors .instructors_cards .instructors_card img {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    border: 1px solid #5B36C2;
+}
+
+.ws_details_section .instructors .instructors_cards .instructors_card .instructor_name {
+    color: #fff;
+    font-size: 17px;
+}
+
+.ws_details_section .instructors .instructors_cards .instructors_card button {
+    border: none;
+    outline: none;
+    background-color: transparent;
+    color: #11CD90;
+    padding-top: 20px;
+    cursor: pointer;
+    font-size: 12px;
+}
+
+
+.btn_click {
+    background-color: transparent;
+    outline: none;
+    border: none;
+}
+
+.ws_details_section .content_card {
+    background-color: #a9a9a975;
+    width: 650px;
+    padding: 15px;
+    margin-bottom: 40px;
+}
+
+.ws_details_section .content_card .Session .num_of_se  {
+    color: #11CD90;
+    font-size: 25px;
+    padding-bottom: 10px;
+    margin-top: 10px;
+}
+
+.ws_details_section .content_card .Session .Session_details {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
+}
+.ws_details_section .content_card .Session .Session_details p {
+    margin-left: 20px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: #fff;
+    font-size: 15px;
+}
+.ws_details_section .content_card .Session .Session_details p img {
+    width: 5px;
+}
+
+.ws_details_section .content_card .last_session {
+    margin-bottom: 40px;
+}
