@@ -1,10 +1,14 @@
-.register {
-    background: linear-gradient(120deg, #222128 50%, #5D37C6);
+.body {
+    position: relative;
+    width: 100%;
     height: 100vh;
+}
+
+.register {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 185px 10% 10% 10%;
+    padding: 120px 10% 10% 10%;
 }
 
 .form_container {
@@ -102,4 +106,192 @@ input[type=radio] {
 
 .register .register_img img {
     width: 450px;
+}
+
+.alert {
+    color: red;
+    font-size: 12px;
+    font-weight: 500;
+    margin-left: 12px;
+    margin-top: 3px;
+}
+
+.show_otp_card {
+    position: fixed;
+    inset: 0;
+    background-color: hsl(219, 28%, 16%, .7);
+    padding: 10px;
+    display: grid;
+    place-items: center;
+    transition: .4s;
+    z-index: 1000;
+    opacity: 0;
+    visibility: hidden;
+
+}
+.show {
+    opacity: 1;
+    visibility: visible;
+}
+.close {
+    opacity: 0;
+    visibility: hidden;
+}
+
+
+.otp_card{
+    box-shadow: 0 10px 40px -20px black;
+    background-color: #fffdfd;
+    padding: 3rem;
+    border-radius: 10px;
+    text-align: center;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);      
+}
+
+.otp_card_inputs {
+    margin: 30px 0;
+    display: grid;
+    gap: 30px;
+    justify-content: center;
+}
+
+.otp_card_inputs input {
+    width: 42px !important;
+    height: 56px;
+    font-size: 35px;
+    border-radius: 11px;
+    border: 1px solid #eee;
+    margin: 0 10px;
+}
+.otp_card_inputs input:focus {
+    outline: 2px solid blueviolet;
+    border-color: transparent;
+}
+.otp_card .verify_btn {
+    background-color: #5B36C2;
+    border: none;
+    outline: none;
+    padding: 15px 50px;
+    color: #fff;
+    font-size: 18px;
+    border-radius: 20px;
+    cursor: pointer;
+    margin-top: 15px;
+    transition: .3s;
+}
+
+.otp_card .verify_btn:hover {
+
+    opacity: .9;
+}
+
+.otp_card .verify_btn[disabled] {
+    opacity: .6;
+    cursor: default;
+}
+
+.resend_link {
+    color: #5B36C2;
+    border: none;
+    background: none;
+    cursor: pointer;
+}
+
+.status_msg {
+    padding-bottom: 10px;
+}
+.close_btn {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    font-size: 30px;
+    cursor: pointer;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%; 
+    background-color: #5B36C2;
+    border: none;   
+}
+.close_btn:hover .close_before::before,
+ .close_btn:hover .close_after::after {
+    background-color: #eaeaea;
+  }
+
+.otp_card .close_btn .close_before::before {
+    content: " ";
+    display: block;
+    font-weight: 900;
+    transform: rotate(45deg);
+    text-align: center;
+    width: 27px;
+    color: #ffffff;
+    border: 1px solid #fff;
+    transition: .3s;
+}
+
+.otp_card .close_btn .close_after::after {
+    content: " ";
+    display: block;
+    font-weight: 900;
+    transform: rotate(-45deg);
+    text-align: center;
+    width: 27px;
+    color: #ffffff;
+    border: 1px solid #fff;
+    transition: .3s;
+}
+
+.error_message {
+    color: red;
+}
+
+.success_message {
+    color: green;
+}
+
+@media (min-width: 1011px) and (max-width: 1300px) {
+    .register .register_img img {  
+        padding-left: 80px;
+        width: 430px;
+    }
+}
+
+@media (max-width: 1010px)   {
+    .register .register_img  {  
+        display: none;
+    }
+    .form_container {
+        margin: 40px auto;
+        max-width: 650px;
+        width: 100%;
+        background-color: #eaeaea;
+        padding: 25px 30px;
+        border-radius: 10px;
+    }
+}
+
+@media (max-width: 579px) {
+    .register {
+        padding-top: 75px;
+    }
+}
+
+@media (max-width: 510px) {
+    .register {
+        padding-top: 120px;
+    }
+    .form_container form .user_reg {
+        flex-direction: column;
+        align-items: center;
+    }
+    .form_container form .user_reg .input_box {
+        width: 100%;
+    }
+    .otp_card  {
+        padding: 1rem;
+        width: 374px;
+    }
 }

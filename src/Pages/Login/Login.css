@@ -51,13 +51,13 @@
 }
 
 .login .login_card form input {
-    outline: none;
+        outline: none;
         border: none;
         border-radius: 18px;
         padding: 20px;
         width: 100%;
         background-color: #eee;
-        margin-bottom: 20px;
+        margin-bottom: 30px;
         font-size: 13px;
         padding-left: 31px;
         height: 4px;
@@ -66,7 +66,7 @@
 .login .login_card form p {
     font-size: 12px;
     font-weight: bold;
-    padding-bottom: 30px;
+    padding-bottom: 15px;
 }
 
 .login .login_card form p .register_link {
@@ -88,3 +88,52 @@
     transition: .3s ease;
 }
 
+.form {
+    width: 100%;
+    position: relative;
+}
+.alert-log {
+    color: red;
+    font-size: 12px;
+    position: absolute;
+    left: 23px;
+    top: 43px;
+}
+
+.error_message_log,
+.success_message_log {
+    font-size: 12px;
+    padding-top: 15px;
+}
+
+.error_message_log {
+    color: red;
+}
+
+.success_message_log {
+    color: green;
+}
+
+@media (min-width: 1000px) and (max-width: 1300px) {
+    .login .log_img img {
+        width: 540px;
+        padding-left: 20px;
+    }
+
+}
+
+@media (max-width: 999px)  {
+    .login .log_img img {
+        width: 450px;
+        padding-left: 20px;
+    }
+}
+
+@media (max-width: 800px) {
+    .login .log_img {
+        display: none;
+    }
+    .login .login_card {
+        margin: 5px auto;
+    }
+}

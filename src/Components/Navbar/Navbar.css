@@ -5,6 +5,7 @@ nav {
     padding: 22px;
     width: 100%;
     background-color: #191919;
+    position: relative;
 }
 
 nav .logo {
@@ -32,17 +33,71 @@ nav .login_btn {
     border: 1px solid #6139D0;
     background-color: #191919;
     color: #fff;
+    padding: 15px;
     font-size: 14px;
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    padding: 5px 15px;
     border-radius: 10px;
     width: 120px;
     cursor: pointer;
+    transition: .3s;
+}
+
+nav .login_btn:hover {
+    background-color: #6139D0;
+    color: #fff;
 }
 
 nav .login_btn .user_img {
     width: 26px;
     margin-left: 10px;
+}
+
+.logout_container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 25px;
+}
+
+.logout {
+    padding: 15px !important;
+}
+
+.user-page {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    border: 1px solid #6139D0;
+    text-align: center;  
+    display: flex;
+    align-items: center;
+    justify-content: center;  
+    transition: .3s;
+}
+
+.user-page:hover {
+    opacity: 0.8;
+    background-color: #221645;
+}
+
+@media (max-width: 768px) {
+    nav {
+        justify-content: space-between;
+    }
+    .navLinks {
+        display: none;
+        width: 100%;
+        position: absolute;
+        top: 60px;
+        left: 0;
+    }
+    .navLinks .show_nav li{
+        display: block;
+    }
+}
+
+svg {
+    cursor: pointer;
 }

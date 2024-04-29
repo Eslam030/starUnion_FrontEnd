@@ -1,7 +1,6 @@
+
+
 .workshop_details {
-    background: linear-gradient(120deg, #222128 50%, #5D37C6);
-    min-height: 100vh;
-    width: 100%;
     display: flex;
     align-items: center;
     flex-direction: column;
@@ -10,20 +9,21 @@
 }
 
 
-.workshop_details .Img_section {
+/* .workshop_details .Img_section {
     display: flex;
     align-items: center;
     justify-content: center;
     gap: 15px;
     width: 100%;
     max-width: 700px;
-}
+} */
 
 .workshop_details .Img_section .col-1 {
     width: 100%;
 }
 .workshop_details .Img_section .col-2 {
     width: 100%;
+    display: none;
 }
 .workshop_details .Img_section .col-1 img {
     width: 670px;
@@ -40,9 +40,25 @@
     justify-content: space-between;
     width: 100%;
     margin-top: 30px;
-    margin-bottom: 100px;
 }
 
+.main_details {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 26px;
+    margin-bottom: 26px;
+    background-color: #a9a9a975;
+    padding: 12px;
+    border-radius: 6px;
+}
+
+.main_details p {
+    color: #11CD90;
+}
+
+.main_details p span {
+    color: #fff;
+}
 
 .ws_sections .ws_section_tob5 {
     background-color: #fff;
@@ -146,7 +162,6 @@
     padding: 10px;
     border-radius: 3px;
     margin-left: 50px;
-    max-height: 240px;
 }
 
 .ws_details_section .instructors .active {
@@ -197,7 +212,6 @@
     background-color: #a9a9a975;
     width: 650px;
     padding: 15px;
-    margin-bottom: 40px;
 }
 
 .ws_details_section .content_card .Session .num_of_se  {
@@ -227,3 +241,45 @@
 .ws_details_section .content_card .last_session {
     margin-bottom: 40px;
 }
+
+
+@media (max-width: 760px) {
+    .ws_details_section .content_card {
+        width: 300px;
+        border-radius: 5px;
+    }
+    .ws_details_section .content_card .Session .Session_details {
+        grid-template-columns: 1fr;
+    }
+    .ws_details_section .instructors .instructors_cards {
+        margin-left: 15px;
+    }
+    .ws_sections {
+        flex-direction: column;
+    }
+    .ws_section_tob5  {
+        margin: 20px auto;
+        width: 333px !important;
+        height: 333px !important;
+    }
+    .workshop_details .Img_section .col-1 img {
+        width: 595px;
+        margin: auto;
+    }
+    .ws_sections .ws_section_details .ws_section_title h1 {
+        font-size: 35px;
+    }
+    .main_details {
+        grid-template-columns: 1fr;
+        width: 250px;
+    }
+}
+
+@media (max-width: 450px) {
+    .workshop_details .Img_section .col-1 img {
+        width: 334px;
+        margin: auto;
+    }
+
+}
+

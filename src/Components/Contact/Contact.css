@@ -1,5 +1,5 @@
 .contact {
-    background: linear-gradient(64deg, #222128 26%, #5D37C6);
+    background: linear-gradient(64deg, #1A191F 28%, #5D37C6 76%);
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -72,4 +72,28 @@ textarea {
     outline: none;
     border: none;
     cursor: pointer;
+    transition: .3s;
 }
+.contact_form .sub_form button:hover {
+    opacity: 0.8;
+}
+
+.progress {
+    color: rgb(3, 174, 3);
+}
+
+@media(max-width: 768px) {
+    .contact {
+        background: linear-gradient(117deg, #222128 44%, #5D37C6);
+        flex-direction: column;
+        padding-top: 5px;
+    }
+    .contact_form form {
+        width: 96%;
+        margin: 41px 0 24px 7px;
+        padding: 10px;
+    }
+    .title p {
+        font-size: 19px;
+    }
+}   

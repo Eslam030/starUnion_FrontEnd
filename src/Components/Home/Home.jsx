@@ -1,6 +1,6 @@
 import React from "react";
 import "./Home.css";
-import Star_logo2 from "../../assets/star logo 2.png";
+import Star_logo2 from "../../assets/star_logo2.png";
 import { Link } from "react-router-dom";
 
 const Home = () => {
@@ -11,7 +11,7 @@ const Home = () => {
         <p>
           Discover the ultimate destination for all your needs - join us now!
         </p>
-        <Link to="/userPage">
+        <Link>
           <button className="btn">Join Us</button>
         </Link>
       </div>
@@ -21,3 +21,4 @@ const Home = () => {
 };
 
 export default Home;
+ 

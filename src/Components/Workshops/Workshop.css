@@ -1,5 +1,5 @@
 .workshop {
-    background: linear-gradient(120deg, #222128 30%, #5D37C6);
+    background: linear-gradient(120deg, #1A191F 30%, #5D37C6 77%);
 }
 
 .cards_container {
@@ -11,11 +11,21 @@
 
 .workS_card {
     width: 345px;
+    height:  430px;
     background-color: #f0f0f0;
     border-radius: 20px 20px 0 0;
     overflow: hidden;
     margin: 20px;
     position: relative;
+    transition: 0.3s;
+}
+
+.workS_card:hover {
+    transform: translateY(-15px);
+}
+
+.workS_card:hover .content h2 {
+    color: #5D37C6;
 }
 
 .workS_card .workS_date {
@@ -31,11 +41,16 @@
 
 }
 
-.card img {
+.workS_card img {
     width: 100%;
     height: auto;
     background-size: cover;
     background-position: center;
+    width: 101%;
+    height: 100%;
+    border-radius: 10px 10px 0 0;
+    max-width: 100%;
+    max-height: 250px;
 }
 
 .content {
@@ -49,6 +64,7 @@
 .content h2 {
     font-size: 25px;
     margin-bottom: 51px;
+    transition: .3s;
 }
 
 .content button {
@@ -61,4 +77,9 @@
     justify-content: center;
     padding-top: 60px;
     padding-bottom: 40px;
+}
+@media(max-width: 768px) {
+    .workshop {
+        background: linear-gradient(72deg, #222128 58%, #5D37C6);
+    }
 }

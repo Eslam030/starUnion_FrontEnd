@@ -1,5 +1,5 @@
 .events {
-    background: linear-gradient(-292deg, #1F1C2B 37%, #5B36C2);
+    background: linear-gradient(-292deg, #1A191F 35%, #5B36C2 87%);
     padding-left: 5%;
     padding-right: 5%;
 }
@@ -46,4 +46,10 @@
     display: flex;
     justify-content: center;
     padding-bottom: 70px;
+}
+
+@media (max-width: 768px) {
+    .events {
+        background: linear-gradient(-241deg, #1F1C2B 49%, #5B36C2 96%);
+    }
 }

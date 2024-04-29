@@ -26,3 +26,63 @@
     font-size: 18px;
     margin-bottom: 40px;
 }
+
+@media (max-width: 1145px) {
+    .Home_page img {
+        width: 600px;
+    }
+    .txt h1 {
+        font-size: 65px;
+    }
+    .txt p {
+        font-size: 16px;
+    }   
+    .btn {
+        width: 225px;
+        font-size: 20px;
+    }
+}
+@media (max-width: 1000px) {
+    .Home_page img {
+        width: 550px;
+    }
+    .txt {
+        padding-left: 0;
+    }
+    .txt h1 {
+        font-size: 50px;
+        color: #fff;
+    }
+    .txt p {
+        font-size: 13px;
+        padding-bottom: 100px;
+    }   
+    .btn {
+        width: 200px;
+        font-size: 15px;
+    }
+}
+
+@media (max-width: 900px) {
+    .Home_page {
+        height: 87vh;
+        background-image: linear-gradient(rgba(29, 29, 29, 0.7), rgba(30, 24, 36, 0.7)) ,url(../../assets/star_logo2.png);
+        background-repeat: no-repeat;
+        background-size: cover;
+        background-position: center;
+    }
+    .Home_page img {
+        display: none;
+    }
+    .txt {
+        text-align: center;
+        margin: 5px auto;
+    }
+    .btn {
+        width: 150px;
+        font-size: 12px;
+        position: absolute;
+        bottom: 48px;
+        left: 74px;
+    }
+}

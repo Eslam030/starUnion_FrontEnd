@@ -44,3 +44,14 @@ footer h1 span {
     right: 20px;
     font-size: 10px;
 }
+
+@media(max-width: 768px) {
+    footer {
+        grid-template-columns: repeat(auto-fit, minmax(55px, auto));
+        gap: 4rem;
+        padding: 68px 25px;
+    }
+     footer h1 {
+        font-size: 40px;
+     }
+}

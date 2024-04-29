@@ -1,9 +1,44 @@
-import React from 'react'
-import './Workshop.css'
-import workshop_img from '../../assets/workshop_img.png'
+import { useState, useEffect } from 'react';  
 import { Link } from 'react-router-dom'
+import { workShopPages } from '../../Api/Endpoints/AppEndPoints'; // api
+import { DOMAIN } from '../../Api/config';
+// CSS file
+import './Workshop.css'
 
 const Workshop = () => {
+    const [workShop, setWorkShop] = useState([]);
+
+    useEffect(() => {
+      workShopPages(
+        (response) => {
+          if (response.data) {
+            // Slice the array to keep only the first three events
+            setWorkShop(response.data.slice(0, 3));
+            if (response.access) {
+              console.log(response.access);
+            }
+            if (response.modified) {
+              console.log('Token is modified');
+            }
+          }
+        },
+        (error) => {
+          console.error('Error fetching events:', error);
+        }
+      )
+      }, []);
+
+      const getMonthFromDate = (dateString) => {
+        const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+        const date = new Date(dateString);
+        return months[date.getMonth()];
+      };
+
+      const getDayFromDate = (dateString) => {
+        const date = new Date(dateString);
+        return date.getDate(); 
+      };
+
     return (
         <div className='workshop' id='Workshop'>
             <div className="title">
@@ -12,36 +47,20 @@ const Workshop = () => {
                 <br />topics, speakers, and registration details.</p>
             </div>
             <div className="cards_container">
-                <div className="workS_card">
-                    <div className="workS_date">January 18</div>
-                    <img src={workshop_img} alt="workshop Image" />
-                    <div className="content">
-                        <h2>Interactive Workshops</h2>
-                        <Link to="/register">
-                        <button className='btn-op'>Register</button>
-                        </Link>
-                    </div>
-                </div>
-                <div className="workS_card">
-                <div className="workS_date">January 18</div>
-                    <img src={workshop_img} alt="workshop Image" />
-                    <div className="content">
-                        <h2>Interactive Workshops</h2>
-                        <Link to="/register">
-                        <button className='btn-op'>Register</button>
-                        </Link>
-                    </div>
-                </div>
-                <div className="workS_card">
-                <div className="workS_date">January 18</div>
-                    <img src={workshop_img} alt="workshop Image" />
-                    <div className="content">
-                        <h2>Interactive Workshops</h2>
-                        <Link to="/register">
-                        <button className='btn-op'>Register</button>
-                        </Link>
-                    </div>
-                </div>
+                {workShop.map((w) => (
+                  <div className="workS_card" key={w.id}>
+                    <Link to={`/workshops/details/${w.pk}`}>             
+                        <div className="workS_date">{`${getMonthFromDate(w.fields.start_date)} ${getDayFromDate(w.fields.start_date)} `}</div>
+                        <img src={`${DOMAIN}/main/getImage?path=${w.fields.logo}`} alt="workshop Image" />
+                        <div className="content">
+                            <h2>{w.pk}</h2>
+                            <Link to="/register">
+                            <button className='btn-op'>Register</button>
+                            </Link>
+                        </div>
+                    </Link>
+                  </div>
+                ))} 
             </div>
             <div className='btn_div'>
                 <Link to="/workshops">

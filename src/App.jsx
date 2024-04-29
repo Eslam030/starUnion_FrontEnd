@@ -1,7 +1,6 @@
 import React from 'react'
 import Navbar from './Components/Navbar/Navbar';
 import Home from './Components/Home/Home'
-import Title from './Components/Title/Title';
 import About_us from './Components/About_us/About_us';
 import Sponsors from './Components/Sponsors/Sponsors';
 import Event from './Components/Events/Event';
@@ -14,7 +13,6 @@ const App = () => {
     <div>
       <Navbar />
         <Home />
-        {/* <Title subTitle="About Us" title="Get to know about us and relive our journey" /> */}
         <About_us />
         <Sponsors />
         <Event />

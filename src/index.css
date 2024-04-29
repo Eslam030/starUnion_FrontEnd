@@ -7,13 +7,15 @@
 
 html {
     scroll-behavior: smooth;
-    height: 100%;
+    min-height: 100%; /* Ensures at least viewport height */
+    height: 100%;  
 }
 
 body {
     font-family: "DM Sans", sans-serif;
     position: relative;
-    height: 100%;
+    min-height: 100vh; /* Ensures at least viewport height */
+    height: 100%;  
 }
 
 
@@ -111,6 +113,12 @@ ul li {
     top: 17px;
     left: 70px;
     z-index: 1000;
+}
+
+@media (max-width: 768px) {
+    .logoLayout {
+        left: 15px;
+    }
 }
 
 .logoLayout img {

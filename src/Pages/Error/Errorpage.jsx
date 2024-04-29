@@ -13,9 +13,9 @@ const Errorpage = () => {
       </div>
       <h1>Oops!</h1>
       <p>Page not found</p>
-      <button className="btn">
-        <Link to="/">Back to home</Link>
-      </button>
+        <Link to="/" replace={true}>
+          <button className="btn">Back to home </button>
+        </Link>
     </div>
   );
 };

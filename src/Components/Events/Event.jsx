@@ -1,7 +1,48 @@
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom'
+import { eventPages } from '../../Api/Endpoints/AppEndPoints'; // api
+// CSS file
 import './Event.css'
 
 const Event = () => {
+    const [events, setEvents] = useState([]);
+
+    useEffect(() => {
+      eventPages(
+        (response) => {
+          if (response.data) {
+            // Slice the array to keep only the first three events
+            setEvents(response.data.slice(0, 3));
+            if (response.access) {
+              console.log(response.access);
+            }
+            if (response.modified) {
+              console.log('Token is modified');
+            }
+          }
+        },
+        (error) => {
+          console.error('Error fetching events:', error);
+        }
+      )
+      }, []);
+    
+      const getMonthFromDate = (dateString) => {
+        const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+        const date = new Date(dateString);
+        return months[date.getMonth()];
+      };
+    
+      const getDayFromDate = (dateString) => {
+        const date = new Date(dateString);
+        return date.getDate(); 
+      };
+
+      const getYearFromDate = (dateString) => {
+        const date = new Date(dateString);
+        return date.getFullYear();
+      }
+    
     return (
         <div className='events' id='Events'>
             <div className="title">
@@ -9,33 +50,18 @@ const Event = () => {
             </div>
 
         <div className="cards">
+        {events.map((e) =>(
 
-        <div className="event">
-                <p className='date'>October 15, 2024</p>
+        <div className="event" key={e.id}>
+                <p className='date'>{`${getMonthFromDate(e.fields.date)} ${getDayFromDate(e.fields.date)}, ${getYearFromDate(e.fields.date)}`}</p>
                 <div className="card">
-                    <h1>Web Development </h1>
+                    <h1>{e.pk} </h1>
                     <h1 className='handel'>Workshop</h1>
-                    <p>Learn the basics of web development and build your own website.</p>
+                    <p>{e.fields.description}</p>
                 </div>
             </div>
+        ))}
 
-            <div className="event">
-                <p className='date'>November 5, 2024</p>
-                <div className="card">
-                    <h1>Digital Marketing</h1>
-                    <h1 className='handel'>Seminar</h1>
-                    <p>Discover the latest trends in digital marketing and how to leverage them for your business.</p>
-                </div>
-            </div>
-
-            <div className="event">
-                <p className='date'>November 5, 2024</p>
-                <div className="card">
-                    <h1>Digital Marketing</h1>
-                    <h1 className='handel'>Seminar</h1>
-                    <p>Discover the latest trends in digital marketing and how to leverage them for your business.</p>
-                </div>
-            </div>
         </div>
 
         <div className='btn_div'>
