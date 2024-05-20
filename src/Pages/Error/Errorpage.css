@@ -7,7 +7,7 @@
     align-items: center;
     flex-direction: column;    
     padding: 10px;
-    background: linear-gradient(120deg, #222128 50%, #5D37C6);
+    background: linear-gradient(120deg, #000 50%, #5D37C6);
 }
 
 .error h1 {

@@ -1,5 +1,5 @@
 .About {
-    background: linear-gradient(120deg, #1A191F 50%, #5D37C6);
+    background: linear-gradient(120deg, #000 50%, #5D37C6);
     transition: .3s;
 }
 
@@ -12,4 +12,10 @@
     margin: 0px auto;
     line-height: 1.4;
     padding: 54px 20px 190px 20px;
+}
+
+@media(max-width: 768px) {
+    .About {
+        background: linear-gradient(66deg, #000 44%, #5D37C6);
+    }
 }

@@ -25,6 +25,7 @@ const Register = () => {
   const [isMessageError, setIsMessageError] = useState(false); 
   const [timer, setTimer] = useState(0);
   const [registrationData, setRegistrationData] = useState({});
+  const [gender, setGender] = useState(false);
 
   useEffect(() => {
     let interval;
@@ -100,7 +101,7 @@ const Register = () => {
   };
 
   const checkOTP = () => {
-    check_OTP(userEmail, otp, 
+    check_OTP(userEmail, otp, "register", 
       (response) => {
           console.log(response.message);
           if (response.message == "Done") {
@@ -373,39 +374,17 @@ const Register = () => {
 
               {/* ================================= */}
               
-              {/* Levels */}
-              {/* {Levels_Input === "other" && (
 
-                <div className="input_box">
-                  <span className="reg_detail">{`Other (Write your level)`}</span>
-                  <Controller
-                    name="Other"
-                    rules={{
-                      required: "Other is required",
-                      minLength:{
-                          value: 3,
-                          message: "Must be at least 3 characters",
-                        },
-                        pattern: {
-                          value: /^[a-zA-Z0-9_ ]+$/,
-                          message: "Not a valid name",
-                        }
-                    }}
-                    control={control}
-                    render={({ field }) => (<Input  error={Boolean(errors?.Other?.message)} placeholder="Level 5" {...field}/>)}
-                  />
-                  {errors?.Other?.message && <span className="alert">{errors?.Other?.message} *</span>}
-                </div>
-              )} */}
             </div>
             <div className="gender_details">
               <span className="gender_title">Gender</span>
+              {errors.gender && <span className="alert">{errors.gender.message}</span>}
               <div className="gender_box">
                 <Input id="male" type="radio"{...register("gender")} value="Male"/>
                 <label htmlFor="male">Male</label>
               </div>
               <div className="gender_box">
-                <Input id="female" type="radio" {...register("gender")} value="Female"/>
+                <Input id="female" type="radio" {...register("gender", {required: "Gender is Required"} )} value="Female"/>
                 <label htmlFor="female">Female</label>
               </div>
             </div>

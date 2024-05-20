@@ -95,7 +95,7 @@
 }
 
 .ws_sections .ws_section_tob5 .img_card img {
-    border: 1px solid #5B36C2;
+    filter: drop-shadow(0px 0px 4px);
     width: 80px;
 }
 
@@ -150,6 +150,7 @@
 }
 
 
+
 .ws_details_section .instructors .instructors_title h1 {
     color: #fff;
     font-size: 25px;
@@ -201,6 +202,13 @@
     font-size: 12px;
 }
 
+.Register_WS {
+    margin-top: 70px;
+}
+.Register_WS button {
+    padding: 20px;
+    width: 195px;
+}
 
 .btn_click {
     background-color: transparent;
@@ -279,6 +287,16 @@
     .workshop_details .Img_section .col-1 img {
         width: 334px;
         margin: auto;
+    }
+    .Register_WS {
+        margin-top: 52px;
+        display: flex;
+        justify-content: center;
+    }
+
+    .Register_WS button {
+        padding: 15px;
+        width: 243px;
     }
 
 }

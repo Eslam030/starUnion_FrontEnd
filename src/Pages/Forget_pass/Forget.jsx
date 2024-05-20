@@ -57,7 +57,7 @@ const Forget = () => {
         setUserEmail(data.email);
         setClassShow("show");
         send_the_otp(data.email);
-    } else {
+    } else { 
         updatePassword(data);
     }
 };
@@ -78,7 +78,7 @@ const updatePassword = (data) => {
 
 
   const checkOTP = () => {
-    check_OTP(userEmail, otp, 
+    check_OTP(userEmail, otp, "forget password",
       (response) => {
         if (response.message == "Done") {
           setMessage("OTP verified successfully!");
@@ -88,7 +88,7 @@ const updatePassword = (data) => {
         } else {
           setMessage("Invalid OTP. Please try again.");
           setIsMessageError(true);
-          setIsDone(false)
+          setIsDone(false);
         }
       },
       (error) => {

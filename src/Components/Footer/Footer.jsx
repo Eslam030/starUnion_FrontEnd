@@ -18,7 +18,7 @@ const Footer = () => {
       <div className="footer_content">
         <h4>Company</h4>
         <li>
-          <Link to="/" spy={true} smooth={true} offset={50} duration={0}>
+          <Link to="HOME" spy={true} smooth={true} offset={50} duration={0}>
             Home
           </Link>
         </li>

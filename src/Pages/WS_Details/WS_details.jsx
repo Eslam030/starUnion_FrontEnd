@@ -1,8 +1,9 @@
-import { Link, useParams } from "react-router-dom";
+import { Link, useParams, useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
+import { useSelector } from 'react-redux';
 import PreLoader from '../../Components/Loading/PreLoader';
 import { DOMAIN } from "../../Api/config";
-import { workShopDetails, instructors, Tob5 } from "../../Api/Endpoints/AppEndPoints"; // api
+import { workShopDetails, instructors, Tob5, registerWorkShop, userRegistrations } from "../../Api/Endpoints/AppEndPoints"; // api
 // Images
 import Logolayout from "../../assets/star_logo.png";
 import img1 from "../../assets/Image1.png"
@@ -18,11 +19,16 @@ import "./WS_details.css";
 
 
 const WS_details = () => {
+  const token = useSelector((state) => state.auth.token);
+  const username = useSelector((state) => state.auth.username);
   const { name } = useParams();
+  const navigate = useNavigate();
   const [btnState1, setBtnState1] = useState(false);
   const [btnState2, setBtnState2] = useState(false);
   const [workShop, setWorkShop] = useState([]);
   const [instructorData, setInstructorData] = useState([]);
+  const [registeredWorkshops, setRegisteredWorkshops] = useState([]);
+  const [Tob5Data, setTob5Data] = useState([]);
 
   function addActive1() {
     setBtnState1((btnState1) => !btnState1);
@@ -41,6 +47,7 @@ const WS_details = () => {
         (response) => {
           if (response.data) {
             const updatedWorkshops = response.data.map(workshop => {
+              console.log(response.data)
               // Attempt to fix and parse the content JSON string
               const contentString = workshop.fields.content.replace(/'/g, '"');
               try {
@@ -70,21 +77,72 @@ const WS_details = () => {
         console.log(error)
       }
     )
-
-  //* Top 5
-  // Tob5(test, 
-  //   (response) => {
-  //       console.log(response['message']) 
-  //       for (let i = 0 ; i < response['data'].length ; i ++) {
-  //         // getting logo
-  //         console.log(response['data'][i])
-  //       }
-  //   },
-  //   (error) => {
-  //     console.log(error)
-  //   }
-  // ) 
     },[])
+
+    useEffect(() => {
+      if(token) {
+        userRegistrations(username, 
+        (response) => {
+          // console.log(response.data);
+          setRegisteredWorkshops(response.data);
+        },
+        (error) => {
+          console.log(error.message);
+        }
+      )
+      }
+
+      //* Tob 5
+      Tob5(name, 
+        (response) => {
+          // console.log("From Tob 5" + response['data'])
+          // console.log(name);
+          // console.log(response.data)
+          // console.log(response['data'])
+
+          setTob5Data(response['data']);
+        //   for (let i = 0 ; i < response['data'].length ; i ++) {
+        //     // getting logo
+        //     console.log(response['data'][i])
+
+        // }
+        },
+        (error) => {
+          console.error('Error fetching events:', error);
+        }
+
+    )
+    }, [name])
+
+    const firstThree = Tob5Data.slice(0, 3);
+    console.log(firstThree)
+    const lastTwo = Tob5Data.slice(3, 5);
+
+
+    const onClickToRegister = (nameOfWS) => {
+      if(!token) {
+          navigate('/login')
+      } else {
+        registerWorkShop(token, nameOfWS, 
+          (response) => {
+            console.log("From register WS: " + response.message);
+            setRegisteredWorkshops(prevState => [...prevState, { pk: nameOfWS, status: "register" }]);
+            // setIsLogin(true);
+          },
+          (error) => {
+            console.error('Error fetching events:', error);
+          }
+        )
+      }
+    }
+
+    const isRegistered = (nameOfWS) => {
+      // Check if the workshop is in the list of registered workshops
+      return registeredWorkshops.some(ws => ws.pk === nameOfWS && (ws.status === 'register' || ws.status === 'taking'));
+    }
+
+  
+
 
   return (
     <>
@@ -147,7 +205,7 @@ const WS_details = () => {
                   
                   {instructorData.map((instructor, i) => (
                     <div className="instructors_card" id="card" key={i}>
-                      <img src={user_two} alt="Instructor" />
+                      <img src={`${DOMAIN}/main/getImage?path=${instructor.phtot}`} alt="Instructor" />
                       <h1 className="instructor_name">{instructor.name}</h1>
                       <Link to={`/userPage/${instructor.username}`}>
                         <button>More</button>
@@ -199,6 +257,17 @@ const WS_details = () => {
 
               </div>
             </div>
+            <div className="Register_WS">
+           {isRegistered(w.pk) ?
+              <Link>                  
+                <button className='btn-op registered' disabled> Registered </button>
+              </Link>
+              :
+              <Link  onClick={() => onClickToRegister(w.pk)}>                  
+                <button className='btn-op'> Register </button>
+              </Link>
+              }
+            </div>
           </div>
 
           <div className="ws_section_tob5">
@@ -207,32 +276,38 @@ const WS_details = () => {
             </div>
 
             <div className="first_3">
-              <div className="img_card">
-                <img src={user_two} alt="User" />
-                <p className="name">Harry Potter</p>
-              </div>
+              {/* {firstThree.map((user, index) => {
 
-              <div className="img_card">
-                <img src={user_one} alt="User" className="img_one" />
-                <p className="name">Luna</p>
+              <div className="img_card" key={index}>
+                {console.log(user.name)}
+                <img src={`${DOMAIN}/main/getImage?path=${user.photo}`} alt="User" />
+                <p className="name">{user.name}</p>
+                <p>user.name</p>
               </div>
+              })} */}
+              {firstThree.map((user, i) => (
+              <div className="img_card" key={i}>
+                <img src={`${DOMAIN}/main/getImage?path=${user.photo}`} alt="User" className="img_one" />
+                <p className="name">{user.name}</p>
+              </div>
+              ))}
 
-              <div className="img_card">
-                <img src={user_two} alt="User" />
-                <p className="name">Harry Potter</p>
-              </div>
             </div>
 
             <div className="last_2">
-              <div className="img_card">
-                <img src={user_two} alt="User" />
-                <p className="name">Harry Potter</p>
+              {/* {lastTwo.map((user, index) => {
+              <div className="img_card" key={index}>
+                <img src={`${DOMAIN}/main/getImage?path=${user.logo}`}  alt="User" />
+                <p className="name">{user.name}</p>
               </div>
+              })} */}
 
+              {lastTwo.map((user,i) => (
               <div className="img_card">
-                <img src={user_one} alt="User" className="img_one" />
-                <p className="name">Luna</p>
+                <img src={`${DOMAIN}/main/getImage?path=${user.logo}`} alt="User" className="img_one" />
+                <p className="name">{user.name}</p>
               </div>
+              ))}
             </div>
           </div>
         </div>

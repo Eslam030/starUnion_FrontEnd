@@ -4,7 +4,7 @@
     justify-content: space-between;
     margin: auto;
     max-width: 100%;
-    background-color: #1A191F;
+    background: radial-gradient(circle at 125% 83%, rgba(104, 60, 229, 1) 1%, rgba(0, 0, 0, 1) 49%, rgba(0, 0, 0, 1) 100%);
 }
 
 .Home_page img{
@@ -66,7 +66,7 @@
 @media (max-width: 900px) {
     .Home_page {
         height: 87vh;
-        background-image: linear-gradient(rgba(29, 29, 29, 0.7), rgba(30, 24, 36, 0.7)) ,url(../../assets/star_logo2.png);
+        background: linear-gradient(117deg, #000 44%, #5D37C6);
         background-repeat: no-repeat;
         background-size: cover;
         background-position: center;

@@ -98,7 +98,7 @@ const Login = () => {
           <img src={LogIllustrator} alt="Login Illustrator" />
         </div>
       </div>
-      <Footer />
+      {/* <Footer /> */}
     </>
   );
 };

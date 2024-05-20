@@ -3,7 +3,7 @@
     height: 100%;
     min-height: 100vh;
     position: relative;
-    background: linear-gradient(120deg, #222128 50%, #5D37C6);
+    background: linear-gradient(120deg, #000 50%, #5D37C6);
 }
 
 .UserPage {
@@ -47,6 +47,24 @@
     align-items: center;
     justify-content: center;
     gap: 50px;
+    /* cursor: pointer; */
+    position: relative;
+}
+
+.userInfo .user_img .icons img {
+    cursor: pointer;
+}
+
+.userInfo .icons .notify_WS {
+    position: absolute;
+    left: 114px;
+    top: -6px;
+    background-color: #da1414;
+    color: #fff;
+    border-radius: 50%;
+    width: 15px;
+    height: 15px;
+    font-size: 11px;
 }
 
 
@@ -102,8 +120,9 @@
     right: 120px;
 }
 
-.userEdit_container {
-    width: 50%;
+.userEdit_container,
+.registerSection_container {
+    /* width: 50%; */
     position: absolute;
     background-color: #fff;
     top: 50%;
@@ -112,20 +131,159 @@
     padding: 10px;
     border-radius: 15px;
 }
-
-.userEdit {
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-    padding: 10px;
+.backG {
+    background-color: hsl(219, 28%, 16%, .7);
+    width: 100%;
+    height: 100%;
 }
 
-.userEdit_container .edit_form form {
+.edit_form {
+    max-width: 650px;
+    width: 570px;
+    border-radius: 10px;
+}
+
+.registerSec_card {
+    display: flex;
+    justify-content: space-between;
+    width: 500px;
+    padding: 20px 10px;
+    align-items: center;
+    
+}
+.UserRegisterData  {
     display: flex;
     align-items: center;
-    justify-content: space-between;
-    width: 100%;
+    justify-content: center;
+    gap: 15px;
 }
+.UserRegisterData img {
+    max-width: 60px;
+    width: 100%;
+    object-fit: contain;
+    border-radius: 5px;
+}
+.UserRegisterData .WS_title {
+    font-size: 13px;
+    max-width: 80%;
+    font-weight: 300;
+}
+
+.UserRegisterData .WS_pk {
+    margin: 5px 0;
+}
+
+.registerSec_card .remove {
+    width: 25px;
+    height: 25px;
+    border-radius: 50%;
+    background-color: #da1414;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    color: #fff;
+    font-size: 15px;
+    outline: none;
+    border: none;
+}
+
+.WS_details .WS_status {
+    font-size: 14px;
+    font-weight: 500;   
+}
+
+.WS_details .WS_status span {
+    color: #565657;
+    margin-left: 5px;
+    font-size: 13px;
+}
+
+.WS_details .WS_status span.accept {
+    color: #0eb17e;
+}
+
+
+.gender_details {
+    margin-left: 5px;
+}
+
+.gender_title {
+    color: rgb(10, 165, 124);
+}
+.gender_box {
+    display: flex;
+    gap: 5px;
+    margin-top: 5px;
+}
+
+.edit_form .edit_title {
+    margin: 20px 0;
+    font-size: 30px;
+    text-align: center;
+}
+
+.update_container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+.update_container .user_input {
+    width: calc(100% / 2 - 20px);
+    margin: 20px 5px 10px 5px;
+}
+
+.close_img {
+    width: 20px;
+}
+
+ .user_input .input_title {
+    font-size: 16px;
+    font-weight: 500;
+    color: rgb(10, 165, 124);
+}
+
+ .user_input input {
+    height: 45px;
+    width: 100%;
+    margin-top: 10px;
+    outline: none;
+    border: none;
+    background-color: #eee;
+    border-radius: 10px;
+    padding-left: 15px;
+}
+
+.save_container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 5px auto;
+}
+
+.save_container .Save_btn {
+    width: 238px;
+    height: 45px;
+    border: 1px solid rgb(10, 165, 124);
+    color: rgb(10, 165, 124);
+    outline: none;
+    border-radius: 30px;
+    font-size: 15px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: .3s;
+    background-color: #fff;
+    margin-top: 17px;
+    margin-left: 226px;
+    margin-bottom: 20px;
+}
+
+.save_container .Save_btn:hover {
+    background-color: rgb(10, 165, 124);
+    color: #fff;
+}
+
 
 @media (max-width: 1200px) {
     .lamp_img {
@@ -159,7 +317,27 @@
     }
 }
 
+@media (max-width: 764px) {
+    .edit_form {
+        width: 345px;
+    }
+    .save_container .Save_btn {
+        margin-left: 55px;
+        width: 188px;
 
+    }
+
+    .registerSec_card {
+        width: 350px;
+    }
+    .UserRegisterData img {
+        max-width: 108px;
+    }
+
+    .registerSec_card .remove {
+        width: 35px;
+    }
+}
 
 .off {
     opacity: 0;
@@ -167,4 +345,87 @@
 
 .on {
     opacity: 1;
+}
+
+.notValidData {
+    margin: 5px auto;
+    color: red;
+    font-size: 14px;
+}
+
+.noDataMessage {
+    padding: 40px;
+    font-size: 22px;
+    color: #5D37C6;
+}
+
+.bk {
+    position: fixed;
+    inset: 0;
+    background-color: hsl(219, 28%, 16%, .4);
+    padding: 10px;
+    display: grid;
+    place-items: center;
+    transition: .4s;
+    z-index: 100;
+    opacity: 1;
+    visibility: hidden;
+}
+
+
+.options_select {
+    display: flex;
+    text-align: center;
+    justify-content: space-around;
+    margin: 40px 0 20px 0;
+    transition: 0.3s;
+
+}
+
+.options_select button {
+    outline: none;
+    border: none;
+    background: transparent;
+    cursor: pointer;
+    font-size: 15px;
+    transition:  0.3s;
+    max-width: 160px;
+    width: 100%;
+}
+
+.options_select button.active {
+    color: #5D37C6;
+    border-bottom: 1px solid #5D37C6;
+    padding: 10px;
+    border-radius: 10px;
+    width: 100%;
+
+}
+
+.options_select button:hover {
+    background-color: #5D37C6;
+    color: #fff;
+    width: 100%;
+    border-radius: 10px;
+}
+
+.Password_Sec .user_input {
+    margin: 20px 0;
+}
+
+.Password_Sec .save_container .Save_btn{
+    width: 100%;
+    margin-left: 0%;
+}
+
+.Password_Sec .forget_Section {
+    text-align: center;
+    font-size: 14px;
+}
+
+.Password_Sec .forget_Section a {
+    color: #5D37C6;
+}
+.temp_form {
+    display: none;
 }

@@ -1,5 +1,5 @@
 .events {
-    background: linear-gradient(-292deg, #1A191F 35%, #5B36C2 87%);
+    background: linear-gradient(-292deg, #000 35%, #5B36C2 87%);
     padding-left: 5%;
     padding-right: 5%;
 }
@@ -50,6 +50,10 @@
 
 @media (max-width: 768px) {
     .events {
-        background: linear-gradient(-241deg, #1F1C2B 49%, #5B36C2 96%);
+        background: linear-gradient(-293deg, #000 46%, #5B36C2 96%);
+    }
+
+    .event .date {
+        display: none;
     }
 }

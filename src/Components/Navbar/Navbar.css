@@ -4,7 +4,7 @@ nav {
     justify-content: space-around;
     padding: 22px;
     width: 100%;
-    background-color: #191919;
+    background-color: #101010;
     position: relative;
 }
 
@@ -75,6 +75,7 @@ nav .login_btn .user_img {
     align-items: center;
     justify-content: center;  
     transition: .3s;
+    cursor: pointer;
 }
 
 .user-page:hover {
@@ -82,7 +83,72 @@ nav .login_btn .user_img {
     background-color: #221645;
 }
 
-@media (max-width: 768px) {
+
+
+svg {
+    cursor: pointer;
+    width: 30px;
+    color: #fff;
+}
+
+.user_info {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 19px;
+    position: relative;
+}
+
+.btns {
+    /* display: flex;
+    flex-direction: column; */
+    text-align: center;
+    background: #191919;
+    left: 28px;
+    top: 80px;
+    position: absolute;
+    width: 150px;
+    border-radius: 5px;
+}
+
+.nameOfUser {
+    color: #fff;
+    border-bottom: 1px solid #6441CD;
+
+}
+
+.btns button {
+    border: none;
+    outline: none;
+    background: none;
+    cursor: pointer;
+    margin: 5px 0;
+    color: #fff;
+    font-size: 15px;
+    transition: .3s;
+    width: 100%;
+    padding: 15px;
+    border-radius: 10px;
+    
+}
+
+.btns button:hover {
+    background-color: #6139D0;
+}
+
+.Active {
+    display: block;
+}
+ .unActive {
+    display: none;
+}
+
+.nav_icon, .sideNav_container    {
+    display: none;
+}
+
+
+@media (max-width: 790px) {
     nav {
         justify-content: space-between;
     }
@@ -96,8 +162,145 @@ nav .login_btn .user_img {
     .navLinks .show_nav li{
         display: block;
     }
-}
+    .btns {
+        left: -14px;
+        top: 78px;
+    }
+    .login_section,.user_info {
+        display: none;
+    }
+    .nav_icon {
+        display: block;
+        cursor: pointer;
+    }
 
-svg {
-    cursor: pointer;
+    .sideNav_container {
+        display: block;
+    }
+   
+
+    .sideNav {
+        background-color: #191919;
+        width: 250px;
+        position: fixed;
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        top: 0;
+        right: -100%;
+        transition: 0.4s;
+        z-index: 1000;
+        
+    }
+    
+
+    .sideNav.active_nav {
+        right: 0;
+        transition: 0.4s;
+        
+    }
+
+    /* .sideNav.active_nav .sideNav_container {
+        opacity: 0;
+    } */
+
+    .sideNav .nav_links  {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        margin: 30px 0;
+        align-items: center;
+        position: relative;
+    }
+
+    .sideNav .main_links {
+        margin: 20px 0;
+    }
+
+    .main_links .closeNavBar {
+        position: absolute;
+        top: -11px;
+        left: -11px;
+        font-size: 30px;
+        cursor: pointer;
+        transition: 0.4s;   
+    }
+
+    .main_links .user_sideNav_info {
+        right: -24px;
+        position: absolute;
+        top: -9px;
+        display: flex;
+        align-items: center;
+        gap: 20px;
+    }
+
+    .main_links .user_sideNav_info p {
+        color: #fff;
+    }
+
+    .sideNav .main_links .nav_menu_items {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        margin-top: 100%;
+    }
+
+    .main_links .nav_menu_items li {
+        margin: 15px 0;
+
+    }
+
+    .main_links .nav_menu_items li a {
+        font-size: 15px;
+       
+        padding: 16px;
+        width: 127px;
+        text-align: center;
+        border-radius: 10px;
+        transition: .3s;
+        display: block;
+    }
+
+    .main_links .nav_menu_items li a:hover {
+        width: 120px;
+    }
+
+    .nav_links .register_section {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 20px;
+    }
+    .nav_links .register_section button {
+        outline: none;
+        border: 1px solid #6139D0;
+        background-color: #191919;
+        color: #fff;
+        padding: 15px;
+        font-size: 14px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 10px;
+        width: 184px;
+        cursor: pointer;
+        transition: .3s;
+    }
+
+    .nav_links .sideNav_acc {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+        transition: 0.3s;
+    }
+
+    .nav_links .sideNav_acc button:hover,
+    .nav_links .register_section button:hover {
+        background-color: #6139D0;
+        color: #fff;
+    }
+
 }

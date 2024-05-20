@@ -1,5 +1,5 @@
 .contact {
-    background: linear-gradient(64deg, #1A191F 28%, #5D37C6 76%);
+    background: linear-gradient(64deg, #000 28%, #5D37C6 76%);
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -84,16 +84,16 @@ textarea {
 
 @media(max-width: 768px) {
     .contact {
-        background: linear-gradient(117deg, #222128 44%, #5D37C6);
+        background: linear-gradient(68deg, #000 44%, #5D37C6);
         flex-direction: column;
         padding-top: 5px;
     }
     .contact_form form {
-        width: 96%;
-        margin: 41px 0 24px 7px;
+        width: 93%;
+        margin: 42px 5px 38px 15px;
         padding: 10px;
     }
     .title p {
-        font-size: 19px;
+        font-size: 17px;
     }
 }   

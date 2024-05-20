@@ -16,7 +16,7 @@ const App = () => {
         <About_us />
         <Sponsors />
         <Event />
-        <Workshop />
+        <Workshop /> 
         <Contact />
         <Footer />
     </div>

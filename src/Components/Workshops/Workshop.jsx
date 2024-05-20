@@ -1,13 +1,21 @@
 import { useState, useEffect } from 'react';  
-import { Link } from 'react-router-dom'
-import { workShopPages } from '../../Api/Endpoints/AppEndPoints'; // api
+import { Link, useNavigate } from 'react-router-dom'
+import { useSelector } from 'react-redux';
+import { ToastContainer, toast } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css';
+import { workShopPages, registerWorkShop, userRegistrations } from '../../Api/Endpoints/AppEndPoints'; // api
 import { DOMAIN } from '../../Api/config';
 // CSS file
 import './Workshop.css'
 
 const Workshop = () => {
+    const token = useSelector((state) => state.auth.token);
+    const username = useSelector((state) => state.auth.username);
+    const navigate = useNavigate();
     const [workShop, setWorkShop] = useState([]);
+    const [registeredWorkshops, setRegisteredWorkshops] = useState([]);
 
+  
     useEffect(() => {
       workShopPages(
         (response) => {
@@ -27,6 +35,59 @@ const Workshop = () => {
         }
       )
       }, []);
+
+      useEffect(() => {
+        if(token) {
+          userRegistrations(username, 
+          (response) => {
+            setRegisteredWorkshops(response.data);
+            
+          },
+          (error) => {
+            console.log(error.message);
+          }
+        )
+        }
+      }, [])
+
+      const notify = () => {
+        toast.success('Registered Successfully!', {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "dark",
+          });
+      }
+
+
+
+      const onClickToRegister = (nameOfWS) => {
+        if(!token) {
+            navigate('/login')
+        } else {
+          registerWorkShop(token, nameOfWS, "register",
+            (response) => {
+              console.log("From register WS: " + response.message);
+              setRegisteredWorkshops(prevState => [...prevState, { pk: nameOfWS, status: "register" }]);
+              notify();
+            },
+            (error) => {
+              console.error('Error fetching events:', error);
+              setWS_Register(false);
+            }
+          )
+        }
+      }
+
+      const isRegistered = (nameOfWS) => {
+        // Check if the workshop is in the list of registered workshops
+        return registeredWorkshops.some(ws => ws.pk === nameOfWS && (ws.status === 'register' || ws.status === 'taking'));
+      }
+  
 
       const getMonthFromDate = (dateString) => {
         const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
@@ -54,17 +115,25 @@ const Workshop = () => {
                         <img src={`${DOMAIN}/main/getImage?path=${w.fields.logo}`} alt="workshop Image" />
                         <div className="content">
                             <h2>{w.pk}</h2>
-                            <Link to="/register">
-                            <button className='btn-op'>Register</button>
+                            {isRegistered(w.pk) ?
+                            <Link>                  
+                            <button className='btn-op registered' disabled> Registered </button>
                             </Link>
+                           :
+                           <Link  onClick={() => onClickToRegister(w.pk)}>                  
+                           <button className='btn-op'> Register </button>
+                           </Link>
+                          }
+                           
                         </div>
                     </Link>
-                  </div>
+                  </div>  
                 ))} 
+                <ToastContainer />
             </div>
             <div className='btn_div'>
                 <Link to="/workshops">
-                <button className='btn-op'>More</button>
+                <button className='btn-op' onClick={notify}>More</button>
                 </Link>
             </div>
         </div>

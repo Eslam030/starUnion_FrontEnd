@@ -9,16 +9,25 @@ import { $ } from 'jquery'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { useState } from "react";
 
+import 'boxicons'
+
+
 let domain = "https://starunion.pythonanywhere.com"
 
 const Navbar = () => {
   const token = useSelector(state => state.auth.token)
   const username = useSelector(state => state.auth.username)
   const dispatch = useDispatch()
+  const [sideBar, setSideBar] = useState(false);  // State to manage the menu visibility
   const [isOpen, setIsOpen] = useState(false);  // State to manage the menu visibility
 
+
 const toggleMenu = () => {
-  setIsOpen(!isOpen);  // Toggle the state between true and false
+  setIsOpen(!isOpen);  
+};
+
+const showSideBar = () => {
+  setSideBar(!sideBar);  
 };
 
   const logout = () => {
@@ -45,10 +54,12 @@ const toggleMenu = () => {
   }
 
   return (
+    <>
     <nav>
-      <a href="">
+      <Link id="HOME">
         <img src={star_logo} alt="Logo" className="logo" />
-      </a>
+      </Link>
+
       <ul className={`navLinks ${isOpen ? 'show_nav' : ''}`}>
         <li>
           <Link to="/" spy={true} smooth={true} offset={50} duration={0}>
@@ -100,35 +111,158 @@ const toggleMenu = () => {
           </LinkRoll>
         </li>
       </ul>
-      {/* <svg xmlns="http://www.w3.org/2000/svg" onClick={toggleMenu} width={20} viewBox="0 0 448 512"><path d="M0 96C0 78.3 14.3 64 32 64H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H32C14.3 128 0 113.7 0 96zM0 256c0-17.7 14.3-32 32-32H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H32c-17.7 0-32-14.3-32-32zM448 416c0 17.7-14.3 32-32 32H32c-17.7 0-32-14.3-32-32s14.3-32 32-32H416c17.7 0 32 14.3 32 32z"/></svg> */}
 
-      {token
+    {token
     ? 
-      <div className="logout_container">
-        <Link onClick={logout}>
-        <button className="login_btn">    
-          Log out
-        </button>
-        </Link>  
-        <Link to={`/userPage/${username}`}>
-          <div className="user-page">
+    <div className="user_info">
+      <div className="nameOfUser">{username}</div>
+      <div className="user_details">
+          <div className="user-page" onClick={toggleMenu}>
             <img src={User_01} alt="User" className="user_img" />
           </div>
-        </Link>
+          <div className={`btns ${isOpen ? 'Active' : 'unActive'}`}>
+            <Link to={`/userPage/${username}`}>
+              <button>Profile</button>
+            </Link>
+            <Link onClick={logout}>
+              <button>Logout</button>
+            </Link>
+          </div>
       </div>
+    </div>
 
     : 
-          <Link to="/login">
+    <div className="login_section">
+      <Link to="/login">
           <button className="login_btn">    
             Log In
-            {/* <img src={User_01} alt="User" className="user_img" /> */}
           </button>
-          </Link>
+      </Link>
+    </div>
     }
+      <div className="nav_icon" onClick={showSideBar}>
+       <box-icon name='menu' color='#6139d0'></box-icon>
+      </div>
 
-      
-      {" "}
     </nav>
+
+    <div className="sideNav_container">
+      <div className={sideBar ? "sideNav active_nav" : "sideNav"}>
+        <div className="nav_links">
+
+        <div className="main_links">
+
+          <div className="closeNavBar" onClick={showSideBar}>
+            <Link to='#'>
+              <box-icon name='x' color='#6139d0'></box-icon>
+            </Link>
+
+          </div>
+
+          {token ? 
+            <div className="user_sideNav_info">
+              <Link to={`/userPage/${username}`}><p className="nameOfUser">{username}</p></Link>
+              <div className="user-page">
+                <img src={User_01} alt="" className="user_img"/>
+              </div>
+            </div>
+          : "" 
+        }
+
+
+
+          <ul className="nav_menu_items"  >
+            <li>
+              <LinkRoll to="HOME" spy={true} smooth={true} offset={50} duration={0} onClick={showSideBar}>
+                Home
+              </LinkRoll>
+            </li>
+
+            <li>
+              <LinkRoll
+                onClick={showSideBar}
+                to="About"
+                spy={true}
+                smooth={true}
+                offset={50}
+                duration={0}
+              >
+                About US
+              </LinkRoll>
+            </li>
+
+            <li>
+              <LinkRoll
+                to="Events"
+                onClick={showSideBar}
+                spy={true}
+                smooth={true}
+                offset={50}
+                duration={0}
+              >
+                Events
+              </LinkRoll>
+            </li>
+
+            <li>
+              <LinkRoll
+                to="workshop"
+                onClick={showSideBar}
+                spy={true}
+                smooth={true}
+                offset={50}
+                duration={0}
+              >
+                Workshop
+              </LinkRoll>
+            </li>
+
+            <li>
+              <LinkRoll
+                to="contact"
+                onClick={showSideBar}
+                spy={true}
+                smooth={true}
+                offset={50}
+                duration={0}
+              >
+                Contact US
+              </LinkRoll>
+            </li>
+
+          </ul>
+
+        </div>
+
+      <div className="register_section ">
+
+        {token 
+          ?
+          <div className="sideNav_acc">
+          <Link to={`/userPage/${username}`}>
+              <button>Profile</button>
+          </Link>
+          <Link onClick={logout}>
+              <button>Logout</button>
+            </Link>
+          </div>
+        
+          :
+        
+        <Link to="/login">
+            <button className="login_btn">    
+              Log In
+            </button>
+        </Link>
+        }
+      </div>
+
+        </div>
+
+      </div>
+    </div>
+
+  </> 
   );
 };
 

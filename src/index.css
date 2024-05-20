@@ -124,3 +124,12 @@ ul li {
 .logoLayout img {
     width: 55px;
 }
+
+.show {
+    opacity: 1;
+    visibility: visible;
+}
+.close {
+    opacity: 0;
+    visibility: hidden;
+}

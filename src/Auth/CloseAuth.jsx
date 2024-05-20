@@ -9,7 +9,7 @@ const CloseAuth = ({ children }) => {
     const isAuthenticated = useSelector(state => state.auth.token); // Check auth state from Redux
   
     if (isAuthenticated) {
-      return <Navigate to={`/`} replace />;
+      return <Navigate to={`/`} state={{ from: location }} replace  />;
     }
   
     return children; // If not authenticated, show the component that was passed in

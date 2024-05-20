@@ -16,6 +16,18 @@ export const UserPageData = (username, onSuccess, onError) => {
 };
 
 // UserPage endpoint to update user information
+export const UserPageUpdate = (token, data ,onSuccess, onError) => {
+    $.ajax({
+        url : DOMAIN + '/main/updateData/',
+        method: 'PUT',
+        headers: {
+            'Authorization': 'JWT ' + token,
+        },
+        data : data ,
+        success: onSuccess,
+        error: onError,
+    })
+}
 
 // UserPage endpoint to check user for updates
 export const checkUserForChange = (token, username , onSuccess, onError) => {
@@ -62,13 +74,14 @@ export const sendOTP = (email, onSuccess, onError) => {
 };
 
 // 2) CHECK OTP
-export const check_OTP = (email, otp, onSuccess, onError) => {
+export const check_OTP = (email, otp, op, onSuccess, onError) => {
     $.ajax({
         url: `${DOMAIN}/main/otpcheck/`,
         method: 'GET',
         data: {
             'email': email,
-            'otpToCheck': otp
+            'otpToCheck': otp,
+            'operation': op,
         },
         success: onSuccess,
         error: onError
@@ -107,6 +120,37 @@ export const workShopPages = (onSuccess, onError) => {
     });
 };
 
+// Workshop endpoint For Registration to workshop
+export const registerWorkShop = (token, WS_name, op,onSuccess, onError) => {
+    $.ajax({
+        url: `${DOMAIN}/workshop/registerwork/`,
+        method : 'POST' ,
+        headers: {
+            'Authorization': 'JWT ' + token,
+        } ,
+        data : {
+            'workshop' : WS_name , 
+            'form' : '"{}"' , 
+            'operation' : op,
+        },
+        success: onSuccess,
+        error: onError
+    });
+};
+
+// Workshop endpoint For all Registration
+export const userRegistrations = (username ,onSuccess, onError) => {
+    $.ajax({
+        url: `${DOMAIN}/workshop/workshops/`,
+        method: 'GET',
+        data: {
+            'username': username
+        },
+        success: onSuccess,
+        error: onError
+    })
+}
+
 
 // Workshop endpoint For workshop details
 export const workShopDetails = (WS_name, onSuccess, onError) => {
@@ -132,12 +176,12 @@ export const instructors = (onSuccess, onError) => {
 };
 
 // Tob 5 endpoint
-export const Tob5 = (test,onSuccess, onError ) => {
+export const Tob5 = (WS_name, onSuccess, onError ) => {
     $.ajax({
-        url: `${DOMAIN}/workshop/tob5/`,
+        url: `${DOMAIN}/workshop/top5/`,
         method: 'GET',
         data: {
-            'workshop' : 'test'
+            'workshop': WS_name,
         },
         success: onSuccess,
         error: onError
@@ -157,3 +201,21 @@ export const changePass = (email, password, onSuccess, onError) => {
         error: onError
     });
 };
+
+// Update pass endpoint
+export const UpdatePassword = (token, curr_pass, new_pass, onSuccess, onError) => {
+    $.ajax({
+        url: `${DOMAIN}/main/changepass/`,
+        method: 'PUT',
+        headers: {
+            'Authorization': 'JWT ' + token,
+        },
+        data: {
+            'current' : curr_pass, 
+            'new' : new_pass,
+        },
+        success: onSuccess,
+        error: onError
+    })
+}
+

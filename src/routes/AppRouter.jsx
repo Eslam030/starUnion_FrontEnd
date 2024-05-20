@@ -22,7 +22,7 @@ const Router = createBrowserRouter([
     },
     {
       path: "/login",
-      element: <Login />,
+      element: <CloseAuth><Login /></CloseAuth>,
     },
     {
       path: "/login/forgetPassword",

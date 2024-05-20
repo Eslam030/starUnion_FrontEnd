@@ -3,7 +3,7 @@
 }
 
 .forget_pass {
-    background: linear-gradient(120deg, #222128 50%, #5D37C6);
+    background: linear-gradient(120deg, #000 50%, #5D37C6);
     width: 100%;
     height: 100vh;
     display: flex;
