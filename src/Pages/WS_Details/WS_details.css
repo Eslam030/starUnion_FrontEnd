@@ -67,6 +67,17 @@
     width: 400px;
     height: 350px;
     margin-top: 30px;
+    position: relative;
+}
+
+.ws_sections .ws_section_tob5 .empty_tob5_data {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);   
+    text-align: center;
+    font-size: 14px;
+    font-family: cursive;
 }
 
 .ws_sections .ws_section_tob5 .tob5_title {

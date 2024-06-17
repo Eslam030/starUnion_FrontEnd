@@ -4,6 +4,7 @@ import { Input } from "@material-tailwind/react";
 import { useForm, Controller } from "react-hook-form"
 import OtpInput from 'react-otp-input';   
 import { sendOTP, check_OTP, changePass } from '../../Api/Endpoints/AppEndPoints'; // api
+import { FaEye, FaEyeSlash } from 'react-icons/fa';
 // Image
 import Logolayout from "../../assets/star_logo.png";
 // CSS file
@@ -22,6 +23,17 @@ const Forget = () => {
   const [otp, setOtp] = useState()
   const [classShow, setClassShow] = useState("");
   const [otpVerified, setOtpVerified] = useState(false);
+
+  const [showPassword, setShowPassword] = useState(false);
+  const [showConfPassword, setShowConfPassword] = useState(false);
+  
+  const togglePasswordVisibility = () => {
+    setShowPassword(prev => !prev);
+  };
+  
+  const togglePasswordVisibilityConf = () => {
+    setShowConfPassword(prev => !prev);
+  };
 
   useEffect(() => {
     let interval;
@@ -132,39 +144,49 @@ const updatePassword = (data) => {
 
           
           {otpVerified && (
-                                <>
-                                    <div className="forget_input">
-                                        <Controller
-                                            name="password"
-                                            control={control}
-                                            rules={{
-                                                required: "New Password is required",
-                                                minLength: {
-                                                    value: 8,
-                                                    message: "Must be at least 8 characters",
-                                                },
-                                            }}
-                                            render={({ field }) => (
-                                                <Input {...field} type="password" placeholder="New Password" className="input_field" error={Boolean(errors?.password?.message)} />
-                                            )}
-                                        />
-                                        {errors?.password?.message && <span className="alert_forget">{errors?.password?.message} *</span>}
-                                    </div>
-                                    <div className="forget_input">
-                                        <Controller
-                                            name="Confirm_password"
-                                            control={control}
-                                            rules={{
-                                                validate: (value) => getValues("password") === value || "Passwords do not match",
-                                            }}
-                                            render={({ field }) => (
-                                                <Input {...field} type="password" placeholder="Confirm Password" className="input_field" error={Boolean(errors?.Confirm_password?.message)} />
-                                            )}
-                                        />
-                                        {errors?.Confirm_password?.message && <span className="alert_forget">{errors?.Confirm_password?.message} *</span>}
-                                    </div>
-                                </>
-                            )}
+          <>
+          <div className="forget_input">
+              <Controller
+                  name="password"
+                  control={control}
+                  rules={{
+                      required: "New Password is required",
+                      minLength: {
+                          value: 8,
+                          message: "Must be at least 8 characters",
+                      },
+                  }}
+                  render={({ field }) => (
+                    <div className="input_container">
+                    <Input {...field} type={showPassword ? 'text' : 'password'}  placeholder="New Password" className="input_field" error={Boolean(errors?.password?.message)} />
+                     <span className='hide_show forget_icon' onClick={togglePasswordVisibility}>
+                         {showPassword ? <FaEyeSlash/> : <FaEye/>}
+                      </span>
+                    </div>
+                  )}
+              />
+              {errors?.password?.message && <span className="alert_forget">{errors?.password?.message} *</span>}
+          </div>
+          <div className="forget_input">
+              <Controller
+                  name="Confirm_password"
+                  control={control}
+                  rules={{
+                      validate: (value) => getValues("password") === value || "Passwords do not match",
+                  }}
+                  render={({ field }) => (
+                    <div className="input_container">
+                        <Input {...field} type={showConfPassword ? 'text' : 'password'} placeholder="Confirm Password" className="input_field" error={Boolean(errors?.Confirm_password?.message)} />
+                      <span className='hide_show forget_icon' onClick={togglePasswordVisibilityConf}>
+                          {showConfPassword ? <FaEyeSlash/> : <FaEye/>}
+                       </span>
+                     </div>
+                  )}
+              />
+              {errors?.Confirm_password?.message && <span className="alert_forget">{errors?.Confirm_password?.message} *</span>}
+                                </div>
+                            </>
+                        )}
 
             <div className="forget_button">
               <button type="submit"> Submit</button>

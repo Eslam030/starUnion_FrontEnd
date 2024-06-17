@@ -6,7 +6,7 @@ import { Input } from "@material-tailwind/react";
 
 import { loginPage } from "../../Api/Endpoints/AppEndPoints"; // api
 import { setAuthToken } from "../../Auth/authSlice"; // For store the token and username
-import Footer from "../../Components/Footer/Footer"; // Footer component
+import { FaEye, FaEyeSlash } from 'react-icons/fa';
 // Images
 import LogIllustrator from "../../assets/login-illustrator.svg";
 import Logolayout from "../../assets/star_logo.png";
@@ -22,6 +22,12 @@ const Login = () => {
   const { control, handleSubmit, formState: { errors } } = useForm({mode:'onTouched'});
   const [message, setMessage] = useState("");  // Store response messages
   const [isError, setIsError] = useState(false); // Track if the message is an error
+
+  const [showPassword, setShowPassword] = useState(false);
+  
+  const togglePasswordVisibility = () => {
+    setShowPassword(prev => !prev);
+  };
 
 
   const onSubmit = data => {
@@ -83,7 +89,15 @@ const Login = () => {
                     },
                   }}
                   control={control}
-                  render={({ field }) => (<Input type="password" error={Boolean(errors?.password?.message)} placeholder="Password" {...field}/>)}
+                  render={({ field }) => (
+                  <div className="input_container">
+                    <Input type={showPassword ? 'text' : 'password'} error={Boolean(errors?.password?.message)} placeholder="Password" {...field}/>
+                    <span className='hide_show login_icon' onClick={togglePasswordVisibility}>
+                      {showPassword ? <FaEyeSlash/> : <FaEye/>}
+                    </span>
+
+                  </div>
+                )}
                 />
                 {errors?.password?.message && <span className="alert-log">{errors?.password?.message} *</span>}
               </div>

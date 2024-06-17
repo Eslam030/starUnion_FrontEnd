@@ -114,6 +114,10 @@
     color: green;
 }
 
+.hide_show.login_icon {
+    top: 18px;
+}
+
 @media (min-width: 1000px) and (max-width: 1300px) {
     .login .log_img img {
         width: 540px;

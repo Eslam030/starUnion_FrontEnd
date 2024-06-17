@@ -2,6 +2,7 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
+    height: 100vh;
     margin: auto;
     max-width: 100%;
     background: radial-gradient(circle at 125% 83%, rgba(104, 60, 229, 1) 1%, rgba(0, 0, 0, 1) 49%, rgba(0, 0, 0, 1) 100%);
@@ -47,11 +48,11 @@
         width: 550px;
     }
     .txt {
-        padding-left: 0;
+        padding-left: 70px;
     }
     .txt h1 {
         font-size: 50px;
-        color: #fff;
+        color: #ffffff54;
     }
     .txt p {
         font-size: 13px;
@@ -77,6 +78,7 @@
     .txt {
         text-align: center;
         margin: 5px auto;
+        padding-left: 7px;
     }
     .btn {
         width: 150px;

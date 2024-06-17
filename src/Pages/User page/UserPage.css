@@ -28,6 +28,8 @@
     width: 300px;
     object-fit: cover;
     border-radius: 25px;
+    
+    filter: drop-shadow(0px 0px 10px #5B36C2);
 }
 
 .change_img {
@@ -55,9 +57,10 @@
     cursor: pointer;
 }
 
-.userInfo .icons .notify_WS {
+.userInfo .icons .notify_WS,
+.userInfo .icons .notify_E{
     position: absolute;
-    left: 114px;
+
     top: -6px;
     background-color: #da1414;
     color: #fff;
@@ -65,6 +68,14 @@
     width: 15px;
     height: 15px;
     font-size: 11px;
+}
+
+.userInfo .icons .notify_WS {
+    left: 114px;
+}
+
+.userInfo .icons .notify_E {
+    left: 190px;
 }
 
 
@@ -125,11 +136,9 @@
     /* width: 50%; */
     position: absolute;
     background-color: #fff;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
     padding: 10px;
     border-radius: 15px;
+    animation: showModel 0.5s ease-in-out forwards;
 }
 .backG {
     background-color: hsl(219, 28%, 16%, .7);
@@ -191,6 +200,7 @@
 .WS_details .WS_status {
     font-size: 14px;
     font-weight: 500;   
+    display: flex;
 }
 
 .WS_details .WS_status span {
@@ -209,7 +219,7 @@
 }
 
 .gender_title {
-    color: rgb(10, 165, 124);
+    color: #5B36C2;
 }
 .gender_box {
     display: flex;
@@ -219,7 +229,7 @@
 
 .edit_form .edit_title {
     margin: 20px 0;
-    font-size: 30px;
+    font-size: 25px;
     text-align: center;
 }
 
@@ -231,18 +241,23 @@
 
 .update_container .user_input {
     width: calc(100% / 2 - 20px);
-    margin: 20px 5px 10px 5px;
+    margin: 30px 10px 10px 10px;
 }
 
 .close_img {
     width: 20px;
 }
 
+.gender_details input[type=radio] {
+    accent-color: #5B36C2;
+    width: 17px;
+}
+
  .user_input .input_title {
     font-size: 16px;
     font-weight: 500;
-    color: rgb(10, 165, 124);
-}
+    color: #5B36C2;
+} 
 
  .user_input input {
     height: 45px;
@@ -253,6 +268,7 @@
     background-color: #eee;
     border-radius: 10px;
     padding-left: 15px;
+    position: relative;
 }
 
 .save_container {
@@ -263,13 +279,13 @@
 }
 
 .save_container .Save_btn {
-    width: 238px;
+    width: 185px;
     height: 45px;
-    border: 1px solid rgb(10, 165, 124);
-    color: rgb(10, 165, 124);
+    border: 1px solid #5B36C2;
+    color: #5B36C2;
     outline: none;
     border-radius: 30px;
-    font-size: 15px;
+    font-size: 17px;
     font-weight: bold;
     cursor: pointer;
     transition: .3s;
@@ -280,7 +296,7 @@
 }
 
 .save_container .Save_btn:hover {
-    background-color: rgb(10, 165, 124);
+    background-color: #5B36C2;
     color: #fff;
 }
 
@@ -318,6 +334,9 @@
 }
 
 @media (max-width: 764px) {
+    .UserPage .userInfo {
+        flex-direction: column;
+    }
     .edit_form {
         width: 345px;
     }
@@ -334,43 +353,20 @@
         max-width: 108px;
     }
 
+    .UserPage .userInfo .user_img .icons {
+        margin-bottom: 20px;
+    }
+
     .registerSec_card .remove {
         width: 35px;
     }
+
+    .UserPage .userInfo .user_details .detail_sec {
+        font-size: 22px;
+    }
 }
 
-.off {
-    opacity: 0;
-}
 
-.on {
-    opacity: 1;
-}
-
-.notValidData {
-    margin: 5px auto;
-    color: red;
-    font-size: 14px;
-}
-
-.noDataMessage {
-    padding: 40px;
-    font-size: 22px;
-    color: #5D37C6;
-}
-
-.bk {
-    position: fixed;
-    inset: 0;
-    background-color: hsl(219, 28%, 16%, .4);
-    padding: 10px;
-    display: grid;
-    place-items: center;
-    transition: .4s;
-    z-index: 100;
-    opacity: 1;
-    visibility: hidden;
-}
 
 
 .options_select {
@@ -428,4 +424,16 @@
 }
 .temp_form {
     display: none;
+}
+
+.status-msg span {
+    margin-left: 15px !important;
+}
+
+
+
+.registerSection_container .model_title {
+    text-align: center;
+    margin: 10px 0;
+    color: #5D37C6;
 }

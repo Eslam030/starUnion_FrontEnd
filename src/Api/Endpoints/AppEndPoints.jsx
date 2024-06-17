@@ -110,6 +110,39 @@ export const eventPages = (onSuccess, onError) => {
     })
 }
 
+// Event endpoint For Registration to event
+export const registerEvent = (token, op,event_name, onSuccess, onError) => {
+    $.ajax({
+        url: `${DOMAIN}/event/registerevent/`,
+        method: 'POST',
+        headers: {
+            'Authorization': 'JWT ' + token,
+        },
+        data: {  
+            'operation': op,
+            'event': event_name,
+            
+        },
+        success: onSuccess,
+        error: onError
+    });
+};
+
+// Event endpoint For Registration
+export const EventRegistration = (username,op,onSuccess, onError) => {
+    $.ajax({
+        url: `${DOMAIN}/event/events/`,
+        method: 'GET',
+        data: {
+            'username': username,
+            'operation': op,
+          },
+        success: onSuccess,
+        error: onError
+    });
+};
+
+
 // Workshop endpoint For all workshops
 export const workShopPages = (onSuccess, onError) => {
     $.ajax({
@@ -138,7 +171,7 @@ export const registerWorkShop = (token, WS_name, op,onSuccess, onError) => {
     });
 };
 
-// Workshop endpoint For all Registration
+// Workshop endpoint For Registration
 export const userRegistrations = (username ,onSuccess, onError) => {
     $.ajax({
         url: `${DOMAIN}/workshop/workshops/`,

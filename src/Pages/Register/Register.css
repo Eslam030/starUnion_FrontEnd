@@ -146,9 +146,7 @@ input[type=radio] {
     border-radius: 10px;
     text-align: center;
     position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);      
+    animation: showModel 0.5s ease-in-out forwards;
 }
 
 .otp_card_inputs {
@@ -264,7 +262,7 @@ input[type=radio] {
         display: none;
     }
     .form_container {
-        margin: 40px auto;
+        margin: 0px auto; 
         max-width: 650px;
         width: 100%;
         background-color: #eaeaea;
@@ -274,14 +272,23 @@ input[type=radio] {
 }
 
 @media (max-width: 579px) {
+    .register-LOGO img {
+        display: none;
+    }
+
     .register {
-        padding-top: 75px;
+        padding: 0px;
+    }
+
+    .form_container .reg_title {
+        text-align: center;
     }
 }
 
 @media (max-width: 510px) {
+    
     .register {
-        padding-top: 120px;
+        /* padding-top: 120px; */
     }
     .form_container form .user_reg {
         flex-direction: column;

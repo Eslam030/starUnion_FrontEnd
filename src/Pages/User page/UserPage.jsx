@@ -6,8 +6,9 @@ import { Input } from "@material-tailwind/react";
 import { useForm, Controller } from "react-hook-form"
 import { ToastContainer, toast } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css';
+import { FaEye, FaEyeSlash } from 'react-icons/fa';
 
-import { UserPageData, checkUserForChange, UserPageUpdate, userRegistrations, registerWorkShop, UpdatePassword } from '../../Api/Endpoints/AppEndPoints'; // api
+import { UserPageData, checkUserForChange, UserPageUpdate, userRegistrations, registerWorkShop, UpdatePassword, EventRegistration } from '../../Api/Endpoints/AppEndPoints'; // api
 import { DOMAIN } from '../../Api/config'; // main domain
 // For Images
 import userIcon from '../../assets/user_icon1.png';
@@ -18,7 +19,7 @@ import Logolayout from '../../assets/star_logo.png';
 import Girl_Img from '../../assets/User_img1.png'
 import Man_Img from '../../assets/userM.png'
 // CSS file
-import './UserPage.css';
+import './UserPage.css'; 
 
 const UserPage = () => {
   const { control, register ,handleSubmit ,formState: { errors }, getValues} = useForm({mode:'onTouched'})
@@ -29,12 +30,31 @@ const UserPage = () => {
 
   const [userData, setUserData] = useState({});
   const [isUser, setIsUser] = useState(false);
-  const [onLight, setOnLight] = useState(true);
+  const [onLight, setOnLight] = useState(false);
   const [editMode, setEditMode] = useState(false); 
   const [showWS, setShowWS] = useState(false); 
+  const [showEvents, setShowEvents] = useState(false); 
   const [isValidData, setIsValidData] = useState(false); 
   const [registeredWorkshopsData, setRegisteredWorkshopsData] = useState([]);
+  const [registeredEventsData, setRegisteredEventsData] = useState([]);
   const [changeOptions, setChangeOptions] = useState(false);
+
+
+  const [showCurrPassword, setShowCurrPassword] = useState(false);
+  const [showNewPassword, setShowNewPassword] = useState(false);
+  const [showConfPassword, setShowConfPassword] = useState(false);
+  
+  const togglePasswordVisibilityCurr = () => {
+    setShowCurrPassword(prev => !prev);
+  };
+
+  const togglePasswordVisibilityNew = () => {
+    setShowNewPassword(prev => !prev);
+  };
+
+  const togglePasswordVisibilityConf = () => {
+    setShowConfPassword(prev => !prev);
+  };
 
 
   const notify_S = (msg) => {
@@ -72,6 +92,10 @@ const UserPage = () => {
   const Show_WorkShops = () => {
     setShowWS(!showWS);
   }
+  
+  const Show_Events = () => {
+    setShowEvents(!showEvents);
+  }
 
   const Change_Options = () => {
     setChangeOptions(!changeOptions);
@@ -80,7 +104,8 @@ const UserPage = () => {
   const Close = () => {
     setOnLight(true)
     setEditMode(false); 
-    setShowWS(false) 
+    setShowWS(false);
+    setShowEvents(false);
   }
   
 
@@ -98,9 +123,22 @@ const UserPage = () => {
     }
   }, [])
 
+  useEffect(() => {
+    if(token) {
+      EventRegistration(username, 'get_user_events',
+      (response) => {
+        setRegisteredEventsData(response.data);
+        console.log(response.data);
+      },
+      (error) => {
+        console.log(error.message);
+      }
+    )
+    }
+  }, [])
+
 
   useEffect(() => {
-    if(username) {
       UserPageData(UserName, 
         (response) => {
         if (response.message === 'Done' && response.user) {
@@ -115,7 +153,7 @@ const UserPage = () => {
         setLoading(false);
       }
     )
-    }
+    
   },[username, UserName])
 
   useEffect(() => {
@@ -129,6 +167,7 @@ const UserPage = () => {
             setIsUser(false)
             setOnLight(false);
           }
+          
       },
       (error) => {
         console.log(error)
@@ -137,7 +176,6 @@ const UserPage = () => {
     )
     }
   }, [token, username])
-
 
   const onSubmit_ProfileSec = (data) => {
       data.gender = userData.gender; 
@@ -163,11 +201,13 @@ const UserPage = () => {
     )
 
   }
+
   const onSubmit_PassSec = (data) => {
     const { current_password, new_password } = data;
     const passwordData = { current_password, new_password };
     UpdatePassword(token, passwordData.current_password,passwordData.new_password,   
       (response) => {
+        console.log(passwordData);
         if(response.message === "Wrong Password") {
           notify_W("Wrong Password");
         } else {
@@ -194,8 +234,8 @@ const UserPage = () => {
     }
   )
   }
-
-
+ 
+console.log(registeredEventsData.length)
 
   return (
     <>
@@ -216,9 +256,10 @@ const UserPage = () => {
 
             <h1 className="user_name">{`${userData.first_name || ''} ${userData.last_name || ''}`}</h1>
             <div className="icons">
-              {registeredWorkshopsData.length != 0 && <div className="notify_WS">{registeredWorkshopsData.length}</div>}
+              {isUser ? registeredWorkshopsData.length != 0 && <div className="notify_WS">{registeredWorkshopsData.length}</div> : ""}
               {isUser ? <img src={userSaveIcon} alt="User Save Icon" onClick={Show_WorkShops} /> : "" }
-              {isUser ? <img src={userIcon} alt="User Icon" /> : "" }
+              {isUser ? registeredEventsData.length != 0 && <div className="notify_E">{registeredEventsData.length}</div> : ""}
+              {isUser ? <img src={userIcon} alt="User Save Icon" onClick={Show_Events} /> : "" }
             </div>
           </div>
 
@@ -477,7 +518,16 @@ const UserPage = () => {
                           },
                         }}
                         control={control}
-                        render={({ field }) => (<Input type='password'  error={Boolean(errors?.current_password?.message)} placeholder="*************" {...field}/>)}
+                        render={({ field }) => (
+                        <div className='input_container'>
+                          <Input type={showCurrPassword ? 'text' : 'password'}   error={Boolean(errors?.current_password?.message)} placeholder="*************" {...field}/>
+                      
+                          <span className='hide_show' onClick={togglePasswordVisibilityCurr}>
+                            {showCurrPassword ? <FaEyeSlash/> : <FaEye/>}
+                          </span>
+                            
+                        </div>
+                      )}
                       />
                       {errors?.current_password?.message && <span className="alert">{errors?.current_password?.message} *</span>}
                 </div>
@@ -488,7 +538,6 @@ const UserPage = () => {
                     <Controller
                         name="new_password"
                         rules={{
-                         
                           minLength:{
                             value: 8,
                             message: "Must be at least 8 characters",
@@ -496,7 +545,16 @@ const UserPage = () => {
                           
                         }}
                         control={control}
-                        render={({ field }) => (<Input type='password'  error={Boolean(errors?.new_password?.message)} placeholder="*************" {...field}/>)}
+                        render={({ field }) => (
+                        <div className='input_container'>
+                          <Input type={showNewPassword ? 'text' : 'password'}    error={Boolean(errors?.new_password?.message)} placeholder="*************" {...field}/>
+                      
+                          <span className='hide_show' onClick={togglePasswordVisibilityNew}>
+                            {showNewPassword ? <FaEyeSlash/> : <FaEye/>}
+                          </span>
+                            
+                        </div>
+                      )}
                       />
                       {errors?.new_password?.message && <span className="alert">{errors?.new_password?.message} *</span>}
                 </div>
@@ -507,13 +565,22 @@ const UserPage = () => {
                 <Controller
                   name="confirm_password"
                   rules={{
-                    
+                    // required: "Confirm password is required",
                     validate: (value) => getValues("new_password") === value || "Passwords do not match",
                   }}
                   control={control}
-                  render={({ field }) => (<Input type="password"  error={Boolean(errors?.Confirm_password?.message)} placeholder="*************" {...field}/>)}
+                  render={({ field }) => (
+                  <div className='input_container'>
+                    <Input type={showConfPassword ? 'text' : 'password'}  error={Boolean(errors?.confirm_password?.message)} placeholder="*************" {...field}/>
+                      
+                    <span className='hide_show' onClick={togglePasswordVisibilityConf}>
+                      {showConfPassword ? <FaEyeSlash/> : <FaEye/>}
+                    </span>
+                            
+                  </div>
+                )}
                 />
-                {errors?.Confirm_password?.message && <span className="alert">{errors?.Confirm_password?.message} *</span>}
+                {errors?.confirm_password?.message && <span className="alert">{errors?.confirm_password?.message} *</span>}
               </div>
 
               <div className="forget_Section">
@@ -541,6 +608,7 @@ const UserPage = () => {
   <div className="bk show">
   <div className="registerSection_container">
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512" className='close_img' onClick={Close} ><path d="M342.6 150.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L192 210.7 86.6 105.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L146.7 256 41.4 361.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0L192 301.3 297.4 406.6c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L237.3 256 342.6 150.6z"/></svg>
+  <h2 className='model_title'>My Workshops</h2>
     {registeredWorkshopsData.map(WS_Data => (
       <div className="registerSec_card" key={WS_Data.id}>
         <div className="UserRegisterData">
@@ -550,14 +618,40 @@ const UserPage = () => {
           <div className="WS_details">
             <p className='WS_status'>Status: 
               <span className={WS_Data.status != 'register' && "accept"}>
-                {WS_Data.status === 'register' ? "Pending for accepting..." : "Accepted"}
+                {WS_Data.status === 'register' ? <div className='status-msg'>Pending for accepting <span className='dot-flashing'></span></div> : "Accepted"}
               </span>
-               </p>
+            </p>
             <p className='WS_pk'>{WS_Data.pk} Workshop </p>
             <p className='WS_title'>{WS_Data.fields.description}</p>
           </div>
         </div>
-        <button className="remove" onClick={() => RemoveWS_Register(WS_Data.pk)}>X</button>
+        {WS_Data.status === 'register' ? <button className="remove" onClick={() => RemoveWS_Register(WS_Data.pk)}>X</button> : ""}
+       
+      </div>
+    ))}
+  </div>
+  </div>
+)}
+
+  {/* Show the WS Registration */}
+  {showEvents && registeredEventsData.length > 0 && (  
+  <div className="bk show">
+  <div className="registerSection_container">
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512" className='close_img' onClick={Close} ><path d="M342.6 150.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L192 210.7 86.6 105.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L146.7 256 41.4 361.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0L192 301.3 297.4 406.6c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L237.3 256 342.6 150.6z"/></svg>
+    <h2 className='model_title'>My Events</h2>
+    {registeredEventsData.map(E_Data => (
+      <div className="registerSec_card" key={E_Data.id}>
+        <div className="UserRegisterData">
+          <div className="WS_img">
+            <img src={`${DOMAIN}/main/getImage?path=${E_Data.fields.logo}`} alt="Image" />
+          </div>
+          <div className="WS_details">
+            <p className='WS_pk'>{E_Data.pk} Event </p>
+            <p className='WS_title'>{E_Data.fields.description}</p>
+          </div>
+        </div>
+        {/* {E_Data.registered === true ? <button className="remove" onClick={() => RemoveWS_Register(E_Data.pk)}>X</button> : ""} */}
+       
       </div>
     ))}
   </div>

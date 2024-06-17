@@ -41,6 +41,7 @@ const Workshop = () => {
           userRegistrations(username, 
           (response) => {
             setRegisteredWorkshops(response.data);
+            console.log(response.data);
             
           },
           (error) => {
@@ -71,12 +72,10 @@ const Workshop = () => {
         } else {
           registerWorkShop(token, nameOfWS, "register",
             (response) => {
-              console.log("From register WS: " + response.message);
               setRegisteredWorkshops(prevState => [...prevState, { pk: nameOfWS, status: "register" }]);
               notify();
             },
             (error) => {
-              console.error('Error fetching events:', error);
               setWS_Register(false);
             }
           )
@@ -112,7 +111,7 @@ const Workshop = () => {
                   <div className="workS_card" key={w.id}>
                     <Link to={`/workshops/details/${w.pk}`}>             
                         <div className="workS_date">{`${getMonthFromDate(w.fields.start_date)} ${getDayFromDate(w.fields.start_date)} `}</div>
-                        <img src={`${DOMAIN}/main/getImage?path=${w.fields.logo}`} alt="workshop Image" />
+                        <img src={`${DOMAIN}/main/getImage?path=${w.fields.logo}`} alt="workshop Image" loading='lazy' />
                         <div className="content">
                             <h2>{w.pk}</h2>
                             {isRegistered(w.pk) ?

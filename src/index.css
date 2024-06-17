@@ -19,10 +19,6 @@ body {
 }
 
 
-
-
-
-
 a {
     text-decoration: none;
     color: inherit;
@@ -61,16 +57,34 @@ ul li {
     color: #000;
     text-align: center;
     border-radius: 10px;
-    padding: 20px;
-    font-size: 22px;
+    padding: 11px 0 14px 0;
+    width: 175px;
+    font-size: 20px;
     font-weight: bold;
     cursor: pointer;
-    width: 250px;
     background-color: #F8F8F8;
     border: none;
     outline: none;
     transition: 0.4s;
 }
+
+.btn-op.event {
+    text-align: center;
+    margin: auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 16px 0;
+    margin-bottom: 15px;
+    background-color: #f0eeee;
+}
+
+.btn-op.registered.ev {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 15px auto;
+} 
 
 .btn-op:hover , .btn:hover {
     color: #FFF;
@@ -104,8 +118,8 @@ ul li {
 }
 
 ::-webkit-scrollbar-thumb {
-    background: linear-gradient(to top, #5F37C9, #7245ef);
-    border-radius: 10px;
+    background: linear-gradient(to top, #5D37C6, #5f37ce);
+    border-radius: 8px;
 }
 
 .logoLayout {
@@ -117,7 +131,7 @@ ul li {
 
 @media (max-width: 768px) {
     .logoLayout {
-        left: 15px;
+        left: 20px;
     }
 }
 
@@ -131,5 +145,114 @@ ul li {
 }
 .close {
     opacity: 0;
+    visibility: hidden;
+}
+
+.input_container {
+    position: relative;
+}
+
+.hide_show {
+    position: absolute;
+    top: 50%;
+    right: 4%;
+    transform: translateY(-25%);
+    cursor: pointer;
+}
+
+.hide_show svg {
+    color: #5F37C9;
+  }
+
+  @keyframes showModel {
+    0% {
+        transform:scale(0);
+    }
+    60%{
+        transform:scale(1.2);
+    }
+    100% {
+        transform:scale(1);
+    }
+  }
+
+  .dot-flashing {
+    position: relative;
+    width: 4px;
+    height: 4px;
+    border-radius: 5px;
+    background-color: #9880ff;
+    color: #9880ff;
+    animation: dot-flashing 0.7s infinite linear alternate;
+    animation-delay: 0.5s;
+    display: inline-block;
+  }
+  .dot-flashing::before, .dot-flashing::after {
+    content: "";
+    display: inline-block;
+    position: absolute;
+    top: 0;
+  }
+  .dot-flashing::before {
+    left: -11px;
+    width: 4px;
+    height: 4px;
+    border-radius: 5px;
+    background-color: #9880ff;
+    color: #9880ff;
+    animation: dot-flashing 0.7s infinite alternate;
+    animation-delay: 0s;
+  }
+  .dot-flashing::after {
+    left: 11px;
+    width: 4px;
+    height: 4px;
+    border-radius: 5px;
+    background-color: #9880ff;
+    color: #9880ff;
+    animation: dot-flashing 0.7s infinite alternate;
+    animation-delay: 1s;
+  }
+  
+  @keyframes dot-flashing {
+    0% {
+      background-color: #9880ff;
+    }
+    50%, 100% {
+      background-color: rgba(152, 128, 255, 0.2);
+    }
+  }
+
+  /*userPage*/
+.off {
+    opacity: 0;
+}
+
+.on {
+    opacity: 1;
+}
+
+.notValidData {
+    margin: 5px auto;
+    color: red;
+    font-size: 14px;
+}
+
+.noDataMessage {
+    padding: 40px;
+    font-size: 22px;
+    color: #5D37C6;
+}
+
+.bk {
+    position: fixed;
+    inset: 0;
+    background-color: hsl(219, 28%, 16%, .4);
+    padding: 10px;
+    display: grid;
+    place-items: center;
+    transition: .4s;
+    z-index: 100;
+    opacity: 1;
     visibility: hidden;
 }

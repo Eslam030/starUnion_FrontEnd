@@ -1,4 +1,3 @@
-import React from "react";
 import "./About.css";
 
 const About_us = () => {
@@ -7,7 +6,8 @@ const About_us = () => {
       <div className="title">
         <h1>About Us</h1>
         <p>Get to know about us and relive our journey</p>
-      </div>
+      </div> 
+      <div className="typewriter">
       <p className="about_txt">
         S.T.A.R Union is a student activity founded on September 9, 2023, with a
         specific focus on helping students in the field of technology,
@@ -16,6 +16,8 @@ const About_us = () => {
         concept of startups among students and will achieve these goals through
         various activities, such as workshops and events.
       </p>
+      </div>
+
     </div>
   );
 };

@@ -6,6 +6,7 @@ import { useForm, Controller } from "react-hook-form"
 import { DOMAIN } from "../../Api/config";
 import $ from 'jquery'; 
 import { sendOTP, check_OTP, registerPage } from "../../Api/Endpoints/AppEndPoints"; // api
+import { FaEye, FaEyeSlash } from 'react-icons/fa';
 // Images
 import Logolayout from "../../assets/star_logo.png";
 import registerImg from "../../assets/register_img.png";
@@ -26,6 +27,19 @@ const Register = () => {
   const [timer, setTimer] = useState(0);
   const [registrationData, setRegistrationData] = useState({});
   const [gender, setGender] = useState(false);
+
+  const [showPassword, setShowPassword] = useState(false);
+  const [showConfPassword, setShowConfPassword] = useState(false);
+  
+  const togglePasswordVisibility = () => {
+    setShowPassword(prev => !prev);
+  };
+
+  const togglePasswordVisibilityConf = () => {
+    setShowConfPassword(prev => !prev);
+  };
+
+
 
   useEffect(() => {
     let interval;
@@ -142,7 +156,7 @@ const Register = () => {
   return (
     <>
     <div className="body">
-      <div className="logoLayout">
+      <div className="logoLayout register-LOGO">
         <Link to="/">
           <img src={Logolayout} alt="Logo" />
         </Link>
@@ -269,11 +283,17 @@ const Register = () => {
                     minLength:{
                         value: 8,
                         message: "Must be at least 8 characters",
-                      },
-                      
+                      },                      
                   }}
                   control={control}
-                  render={({ field }) => (<Input type="password" error={Boolean(errors?.password?.message)} placeholder="*************" {...field}/>)}
+                  render={({ field }) => (
+                  <div className="input_container">
+                    <Input type={showPassword ? 'text' : 'password'}  error={Boolean(errors?.password?.message)} placeholder="*************" {...field}/>
+                    <span className='hide_show' onClick={togglePasswordVisibility}>
+                      {showPassword ? <FaEyeSlash/> : <FaEye/>}
+                    </span> 
+                  </div>
+                )}
                 />
                 {errors?.password?.message && <span className="alert">{errors?.password?.message} *</span>}
               </div>
@@ -287,7 +307,14 @@ const Register = () => {
                     validate: (value) => getValues("password") === value || "Passwords do not match",
                   }}
                   control={control}
-                  render={({ field }) => (<Input type="password"  error={Boolean(errors?.Confirm_password?.message)} placeholder="*************" {...field}/>)}
+                  render={({ field }) => (
+                  <div className="input_container">
+                    <Input type={showConfPassword ? 'text' : 'password'}  error={Boolean(errors?.Confirm_password?.message)} placeholder="*************" {...field}/>
+                    <span className='hide_show' onClick={togglePasswordVisibilityConf}>
+                      {showConfPassword ? <FaEyeSlash/> : <FaEye/>}
+                    </span> 
+                  </div>
+                )}
                 />
                 {errors?.Confirm_password?.message && <span className="alert">{errors?.Confirm_password?.message} *</span>}
               </div>

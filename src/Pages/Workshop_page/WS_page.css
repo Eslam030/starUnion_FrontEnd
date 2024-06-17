@@ -36,13 +36,17 @@
 
 .workshop_container .section_title .section_btn .sec_btn_for_types{
     width: 170px;
-    padding: 10px;
     border: none;
-    border-radius: 30px;
+    border-radius: 10px;
     background: #fff;
     color: #1D275F;
     font-size: 15px;
     cursor: pointer;
+}
+
+.section_btn .sec_btn_for_types .type {
+    padding: 12px;
+    margin-bottom: 2px;
 }
 .workshop_container .section_title .section_btn div img {
     padding-left: 25px;
@@ -54,7 +58,7 @@
 .options button {
     outline: none;
     border: none;
-    border-radius: 5px;
+    border-radius: 4px;
     background-color: transparent;
     width: fit-content;
     padding: 10px 0;
@@ -116,11 +120,12 @@
 
 .workshop_container  .workshop_card {   
     background: #fff;
-    border-radius: 20px 20px 15px 15px ;
+    border-radius: 15px 15px 10px 10px;
     /* padding: 10px; */
     width: 400px;
     overflow: hidden;
     position: relative;
+
 }
 
 .workshop_container .workshop_card .workshop_card_img img {
@@ -130,7 +135,7 @@
     background-position: center;
     border-radius: 10px 10px 0 0;
     max-width: 100%;
-    max-height: 225px;
+    max-height: 265px;
 }
 
 .workshop_container .workshop_card .workshop_card_content {

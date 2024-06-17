@@ -30,7 +30,7 @@ const Router = createBrowserRouter([
     },
     {
       path: "/userPage/:UserName",
-      element:  <RequireAuth><UserPage /></RequireAuth>,
+      element:  <UserPage />,
     },
     {
       path: "/register",

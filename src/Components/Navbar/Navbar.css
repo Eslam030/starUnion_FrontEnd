@@ -147,6 +147,12 @@ svg {
     display: none;
 }
 
+@media (max-width: 840px) {
+    ul li {
+        margin: 0 10px;
+    }
+}
+
 
 @media (max-width: 790px) {
     nav {

@@ -3,7 +3,7 @@
     transition: .3s;
 }
 
-
+ 
 .About .about_txt {
     font-size: 20px;
     color: #FFFFFF;
@@ -19,3 +19,4 @@
         background: linear-gradient(66deg, #000 44%, #5D37C6);
     }
 }
+

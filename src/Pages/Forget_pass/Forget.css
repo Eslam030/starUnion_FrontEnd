@@ -93,6 +93,10 @@
     display: none;
 }
 
+.hide_show.forget_icon {
+    top: 30px;
+}
+
 @media (max-width: 768px) {
     .forget_pass .form_card {
         width: 372px    ;

@@ -4,13 +4,12 @@ import { useSelector } from 'react-redux';
 import PreLoader from '../../Components/Loading/PreLoader';
 import { DOMAIN } from "../../Api/config";
 import { workShopDetails, instructors, Tob5, registerWorkShop, userRegistrations } from "../../Api/Endpoints/AppEndPoints"; // api
+import { ToastContainer, toast } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css';
 // Images
 import Logolayout from "../../assets/star_logo.png";
 import img1 from "../../assets/Image1.png"
-import img2 from "../../assets/Image2.png";
 import img3 from "../../assets/Image.png";
-import user_one from "../../assets/User_img1.png";
-import user_two from "../../assets/User_img2.png";
 import dot from "../../assets/Ellipse.png";
 import vector_down from "../../assets/Polygon.png";
 // CSS file
@@ -38,6 +37,20 @@ const WS_details = () => {
     setBtnState2((btnState2) => !btnState2);
   }
 
+  const notify = () => {
+    toast.success('Registered Successfully!', {
+      position: "top-right",
+      autoClose: 5000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "dark",
+      });
+  }
+
+
   let toggleClassCheck1 = btnState1 ? "active" : null;
   let toggleClassCheck2 = btnState2 ? "active" : null;
 
@@ -47,7 +60,6 @@ const WS_details = () => {
         (response) => {
           if (response.data) {
             const updatedWorkshops = response.data.map(workshop => {
-              console.log(response.data)
               // Attempt to fix and parse the content JSON string
               const contentString = workshop.fields.content.replace(/'/g, '"');
               try {
@@ -70,6 +82,7 @@ const WS_details = () => {
     //*instructors
     instructors(
       (response) => {
+        console.log(response)
           const filteredInstructors = response.data.filter(instructor => instructor.workshop === name);
           setInstructorData(filteredInstructors || []);
       },
@@ -83,7 +96,6 @@ const WS_details = () => {
       if(token) {
         userRegistrations(username, 
         (response) => {
-          // console.log(response.data);
           setRegisteredWorkshops(response.data);
         },
         (error) => {
@@ -95,17 +107,7 @@ const WS_details = () => {
       //* Tob 5
       Tob5(name, 
         (response) => {
-          // console.log("From Tob 5" + response['data'])
-          // console.log(name);
-          // console.log(response.data)
-          // console.log(response['data'])
-
           setTob5Data(response['data']);
-        //   for (let i = 0 ; i < response['data'].length ; i ++) {
-        //     // getting logo
-        //     console.log(response['data'][i])
-
-        // }
         },
         (error) => {
           console.error('Error fetching events:', error);
@@ -115,7 +117,6 @@ const WS_details = () => {
     }, [name])
 
     const firstThree = Tob5Data.slice(0, 3);
-    console.log(firstThree)
     const lastTwo = Tob5Data.slice(3, 5);
 
 
@@ -123,11 +124,10 @@ const WS_details = () => {
       if(!token) {
           navigate('/login')
       } else {
-        registerWorkShop(token, nameOfWS, 
+        registerWorkShop(token, nameOfWS, "register",
           (response) => {
-            console.log("From register WS: " + response.message);
             setRegisteredWorkshops(prevState => [...prevState, { pk: nameOfWS, status: "register" }]);
-            // setIsLogin(true);
+            notify();
           },
           (error) => {
             console.error('Error fetching events:', error);
@@ -275,16 +275,12 @@ const WS_details = () => {
               <h1>TOB 5</h1>
             </div>
 
+            {Tob5Data.length === 0 ? 
+            (<p className="empty_tob5_data">Strive to be one of the top 5<br/>who reach for the Star✨</p>)
+            :
+              (
+                <>
             <div className="first_3">
-              {/* {firstThree.map((user, index) => {
-
-              <div className="img_card" key={index}>
-                {console.log(user.name)}
-                <img src={`${DOMAIN}/main/getImage?path=${user.photo}`} alt="User" />
-                <p className="name">{user.name}</p>
-                <p>user.name</p>
-              </div>
-              })} */}
               {firstThree.map((user, i) => (
               <div className="img_card" key={i}>
                 <img src={`${DOMAIN}/main/getImage?path=${user.photo}`} alt="User" className="img_one" />
@@ -295,25 +291,23 @@ const WS_details = () => {
             </div>
 
             <div className="last_2">
-              {/* {lastTwo.map((user, index) => {
-              <div className="img_card" key={index}>
-                <img src={`${DOMAIN}/main/getImage?path=${user.logo}`}  alt="User" />
-                <p className="name">{user.name}</p>
-              </div>
-              })} */}
-
               {lastTwo.map((user,i) => (
               <div className="img_card">
-                <img src={`${DOMAIN}/main/getImage?path=${user.logo}`} alt="User" className="img_one" />
+                <img src={`${DOMAIN}/main/getImage?path=${user.photo}`} alt="User" className="img_one" />
                 <p className="name">{user.name}</p>
               </div>
               ))}
             </div>
+                </>
+              )
+            }
+
+
           </div>
         </div>
 
         ))}
-
+<ToastContainer />
         
       </div>
       </div>
