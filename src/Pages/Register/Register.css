@@ -271,7 +271,7 @@ input[type=radio] {
         width: 100%;
         background-color: #eaeaea;
         padding: 25px 30px;
-        border-radius: 10px;
+        border-radius: 0px;
     }
 }
 

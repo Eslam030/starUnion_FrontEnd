@@ -275,6 +275,27 @@ const Register = () => {
               </div>
 
               <div className="input_box">
+                <span className="reg_detail">University</span>
+                <Controller
+                  name="university"
+                  rules={{
+                    required: "University is required",
+                    minLength:{
+                        value: 3,
+                        message: "Must be at least 3 characters",
+                      },
+                      pattern: {
+                        value: /^[a-zA-Z_ ]+$/,
+                        message: "Not a valid name",
+                      }
+                  }}
+                  control={control}
+                  render={({ field }) => (<Input  error={Boolean(errors?.university?.message)} placeholder="Cairo University" {...field}/>)}
+                />
+                {errors?.university?.message && <span className="alert">{errors?.university?.message} *</span>}
+              </div>
+
+              <div className="input_box">
                 <span className="reg_detail">Password</span>
                 <Controller
                   name="password"
@@ -317,27 +338,6 @@ const Register = () => {
                 )}
                 />
                 {errors?.Confirm_password?.message && <span className="alert">{errors?.Confirm_password?.message} *</span>}
-              </div>
-
-              <div className="input_box">
-                <span className="reg_detail">University</span>
-                <Controller
-                  name="university"
-                  rules={{
-                    required: "University is required",
-                    minLength:{
-                        value: 3,
-                        message: "Must be at least 3 characters",
-                      },
-                      pattern: {
-                        value: /^[a-zA-Z_ ]+$/,
-                        message: "Not a valid name",
-                      }
-                  }}
-                  control={control}
-                  render={({ field }) => (<Input  error={Boolean(errors?.university?.message)} placeholder="Cairo University" {...field}/>)}
-                />
-                {errors?.university?.message && <span className="alert">{errors?.university?.message} *</span>}
               </div>
 
               <div className="input_box">
