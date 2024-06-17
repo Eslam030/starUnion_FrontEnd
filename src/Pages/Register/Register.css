@@ -26,6 +26,10 @@
     margin: 10px 0;
 }
 
+.register .register_img img {
+    animation: moveUpDown 3s linear infinite;
+}
+
 .form_container form .user_reg {
     display: flex;
     flex-wrap: wrap;

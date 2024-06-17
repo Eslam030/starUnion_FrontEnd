@@ -20,4 +20,12 @@
     .Sponsors {
         background: linear-gradient(129deg, #000 45%, #5D37C6 97%);
     }
+
+    .Sponsors h1 {
+        font-size: 33px;
+    }
+    
+    .Sponsors img {
+        width: 50px;
+    }
 }

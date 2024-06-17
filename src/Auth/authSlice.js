@@ -1,6 +1,5 @@
+// Store The token and username to use it in anther components
 import { createSlice } from '@reduxjs/toolkit';
-
-
 
 export const authSlice = createSlice({
     name: 'auth',

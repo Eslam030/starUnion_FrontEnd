@@ -1,3 +1,20 @@
+/* Global Variables */
+
+/* 
+==============
+Table Content
+==============
+1. Reset CSS styles
+2. Class of buttons
+3. Class of titles
+4. Scroll Bar Style
+5. Response styling of logo 
+6. Show/Close Classes 
+7. Keyframes and animations of box models
+8. on/off classes for light img
+*/
+
+
 @import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&display=swap');
 * {
     margin: 0;
@@ -7,17 +24,16 @@
 
 html {
     scroll-behavior: smooth;
-    min-height: 100%; /* Ensures at least viewport height */
+    min-height: 100%; 
     height: 100%;  
 }
 
 body {
     font-family: "DM Sans", sans-serif;
     position: relative;
-    min-height: 100vh; /* Ensures at least viewport height */
+    min-height: 100vh; 
     height: 100%;  
 }
-
 
 a {
     text-decoration: none;
@@ -133,6 +149,9 @@ ul li {
     .logoLayout {
         left: 20px;
     }
+    .title h1 {
+        font-size: 33px;
+    }
 }
 
 .logoLayout img {
@@ -164,6 +183,19 @@ ul li {
     color: #5F37C9;
   }
 
+
+  @keyframes moveUpDown {
+    0% {
+        transform: translateY(0px);
+    }
+    50% {
+        transform: translateY(-30px);
+    }
+  }
+
+
+  /* Uses in userPage */
+
   @keyframes showModel {
     0% {
         transform:scale(0);
@@ -193,24 +225,22 @@ ul li {
     position: absolute;
     top: 0;
   }
-  .dot-flashing::before {
-    left: -11px;
+  .dot-flashing::before, .dot-flashing::after {
     width: 4px;
     height: 4px;
     border-radius: 5px;
     background-color: #9880ff;
     color: #9880ff;
     animation: dot-flashing 0.7s infinite alternate;
+   
+  }
+
+  .dot-flashing::before {
+    left: -11px;
     animation-delay: 0s;
   }
   .dot-flashing::after {
     left: 11px;
-    width: 4px;
-    height: 4px;
-    border-radius: 5px;
-    background-color: #9880ff;
-    color: #9880ff;
-    animation: dot-flashing 0.7s infinite alternate;
     animation-delay: 1s;
   }
   
@@ -223,7 +253,7 @@ ul li {
     }
   }
 
-  /*userPage*/
+
 .off {
     opacity: 0;
 }

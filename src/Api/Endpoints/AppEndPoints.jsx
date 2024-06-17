@@ -1,4 +1,4 @@
-//? Here All the endpoints
+// Here All the endpoints
 import $ from 'jquery';
 import { DOMAIN } from '../config'
 
