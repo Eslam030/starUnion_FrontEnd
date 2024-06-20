@@ -30,7 +30,7 @@
     align-items: center;
     justify-content: center;
     flex-direction  : column;
-    width: 100%;
+    width: 380px;
 }
 
 .forget_pass form input {
@@ -99,6 +99,6 @@
 
 @media (max-width: 768px) {
     .forget_pass .form_card {
-        width: 372px    ;
+        width: 350px    ;
     }
 }

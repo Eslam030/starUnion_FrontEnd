@@ -1,2 +1,7 @@
 /* Same Style in workshop page */
 
+@media (max-width: 760px) {
+    .Event_container {
+        justify-content: center;
+    }
+}

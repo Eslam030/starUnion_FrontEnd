@@ -108,7 +108,7 @@ const UserPage = () => {
     setShowEvents(false);
   }
   
-
+  // workshop registration
   useEffect(() => {
     if(token) {
       userRegistrations(username, 
@@ -123,12 +123,13 @@ const UserPage = () => {
     }
   }, [])
 
+  // Event Registration 
   useEffect(() => {
     if(token) {
       EventRegistration(username, 'get_user_events',
       (response) => {
-        setRegisteredEventsData(response.data);
-        console.log(response.data);
+        const registeredEvents = response.data.filter(event => event.registered === true);
+        setRegisteredEventsData(registeredEvents);
       },
       (error) => {
         console.log(error.message);
@@ -207,14 +208,12 @@ const UserPage = () => {
     const passwordData = { current_password, new_password };
     UpdatePassword(token, passwordData.current_password,passwordData.new_password,   
       (response) => {
-        console.log(passwordData);
         if(response.message === "Wrong Password") {
           notify_W("Wrong Password");
         } else {
           notify_S("Password Updated Successfully");  
           setEditMode(false);
         }
-        console.log(response)
       },
       (error) => {
         console.log("ErrorMessage")
@@ -235,8 +234,6 @@ const UserPage = () => {
   )
   }
  
-console.log(registeredEventsData.length)
-
   return (
     <>
     <PreLoader />
@@ -251,8 +248,7 @@ console.log(registeredEventsData.length)
         <div className="userInfo">
           <div className="user_img">
             {/* Adjust according to your API response and ensure you handle image path correctly */}
-
-            <img src={(userData.gender === 'M' ? Man_Img : Girl_Img) || `${DOMAIN}/main/getImage?path=${userData.photo}`} alt="User Image" />
+              <img src={(userData.gender === 'M' ? Man_Img : Girl_Img) || `${DOMAIN}/main/getImage?path=${userData.photo}`} alt="User Image" />
 
             <h1 className="user_name">{`${userData.first_name || ''} ${userData.last_name || ''}`}</h1>
             <div className="icons">
@@ -317,7 +313,7 @@ console.log(registeredEventsData.length)
 
               <div className="options_select">
                 <button  className={!changeOptions ? "active" : ""} onClick={Change_Options}>Profile</button>
-                <button className={changeOptions ? "active" : ""} onClick={Change_Options}>Password and Auth</button>
+                <button className={changeOptions ? "active" : ""} onClick={Change_Options}>Password</button>
               </div>
 
               <div className="Profile_Sec_Form">

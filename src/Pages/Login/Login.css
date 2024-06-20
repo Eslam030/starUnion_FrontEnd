@@ -135,6 +135,9 @@
 }
 
 @media (max-width: 800px) {
+    .login {
+        padding: 40px 10% 10% 10%;
+    }
     .login .log_img {
         display: none;
     }
@@ -148,4 +151,6 @@
     .login .login_card form {
         width: 85%;
     }
+
 }
+

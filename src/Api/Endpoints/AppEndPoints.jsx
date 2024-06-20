@@ -70,7 +70,7 @@ export const sendOTP = (email, onSuccess, onError) => {
         },
         success: onSuccess,
         error: onError,
-    });
+    }); 
 };
 
 // 2) CHECK OTP
@@ -222,10 +222,13 @@ export const Tob5 = (WS_name, onSuccess, onError ) => {
 };
 
 // ChangePass endpoint
-export const changePass = (email, password, onSuccess, onError) => {
+export const changePass = (token,email, password, onSuccess, onError) => {
     $.ajax({
         url: `${DOMAIN}/main/changepass/`,
         method: 'PUT',
+        headers: {
+            'Authorization': 'JWT ' + token,
+        },
         data: {
             'email' : email, 
             'new' : password,

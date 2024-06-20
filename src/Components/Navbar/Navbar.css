@@ -20,7 +20,7 @@ ul li {
 ul li a {
     color: #fff;
     transition: .3s;
-    padding: 5px 7px;
+    padding: 10px;
     border-radius: 10px;
 }
 
@@ -61,13 +61,18 @@ nav .login_btn .user_img {
     gap: 25px;
 }
 
+.login_section {
+    display: flex;
+    gap: 20px;
+}
+
 .logout {
     padding: 15px !important;
 }
 
 .user-page {
-    width: 50px;
-    height: 50px;
+    width: 35px;
+    height: 35px;
     border-radius: 50%;
     border: 1px solid #6139D0;
     text-align: center;  
@@ -95,7 +100,7 @@ svg {
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 19px;
+    gap: 10px;
     position: relative;
 }
 
@@ -103,9 +108,9 @@ svg {
     /* display: flex;
     flex-direction: column; */
     text-align: center;
-    background: #191919;
-    left: 28px;
-    top: 80px;
+    background: #101010b0;
+    left: -25px;
+    top: 70px;
     position: absolute;
     width: 150px;
     border-radius: 5px;
@@ -154,9 +159,13 @@ svg {
 }
 
 
-@media (max-width: 790px) {
+@media (max-width: 1005px) {
     nav {
         justify-content: space-between;
+        height: 75px;
+    }
+    nav .logo {
+        width: 50px;
     }
     .navLinks {
         display: none;
@@ -189,7 +198,7 @@ svg {
         background-color: #191919;
         width: 250px;
         position: fixed;
-        height: 100vh;
+        height: 100%;
         display: flex;
         justify-content: center;
         top: 0;
@@ -206,15 +215,11 @@ svg {
         
     }
 
-    /* .sideNav.active_nav .sideNav_container {
-        opacity: 0;
-    } */
-
     .sideNav .nav_links  {
         display: flex;
         flex-direction: column;
         justify-content: space-between;
-        margin: 30px 0;
+        margin: 30px 0 50px 0;
         align-items: center;
         position: relative;
     }
@@ -238,11 +243,12 @@ svg {
         top: -9px;
         display: flex;
         align-items: center;
-        gap: 20px;
+        gap: 10px;
     }
 
     .main_links .user_sideNav_info p {
         color: #fff;
+        font-size: 14px;
     }
 
     .sideNav .main_links .nav_menu_items {

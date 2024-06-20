@@ -53,13 +53,13 @@ ul li {
     width: 100%;
 }
 
- .btn {
-    width: 250px;
+.btn {
+    width: 195px;
     background-color: #F8F8F8;
     color: #5F37C9;
     border-radius: 10px;
-    padding: 20px;
-    font-size: 22px;
+    padding: 12px;
+    font-size: 24px;
     font-weight: bold;
     cursor: pointer;
     border: none;
@@ -68,9 +68,17 @@ ul li {
 }
 
 
+.btn:hover {
+    background-color: #5F37C9;
+    color: #F8F8F8;
+    border: none;
+    outline: none;
+    transition: .4s;
+}
+
 
 .btn-op {
-    color: #000;
+    color: #fff;    
     text-align: center;
     border-radius: 10px;
     padding: 11px 0 14px 0;
@@ -78,10 +86,21 @@ ul li {
     font-size: 20px;
     font-weight: bold;
     cursor: pointer;
-    background-color: #F8F8F8;
-    border: none;
+    background-color: #5D37C6;
+    border: 1px solid #5D37C6;
     outline: none;
     transition: 0.4s;
+}
+
+.btn-op.more {
+    background-color: #fff ;
+    color: #5D37C6;
+}
+
+.btn-op.more:hover {
+    background-color: #5D37C6;
+    color: #fff;
+    border: none !important;
 }
 
 .btn-op.event {
@@ -102,9 +121,9 @@ ul li {
     margin: 15px auto;
 } 
 
-.btn-op:hover , .btn:hover {
-    color: #FFF;
-    background-color: #5F37C9;
+.btn-op:hover {
+    color: #5D37C6;
+    background-color: #fff;
 }
 
 .title {
@@ -114,7 +133,7 @@ ul li {
 }
 .title p {
     text-align: center;
-    color: #ffffff49;
+    color: #ffffffc4;
     line-height: 1.5;
 }
 

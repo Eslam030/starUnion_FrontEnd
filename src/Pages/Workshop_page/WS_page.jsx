@@ -94,7 +94,7 @@ const WS_page = () => {
               <Link to={`/workshops/details/${event.pk}`}>
 
               <div className="workshop_card_img">
-                <img src={`${DOMAIN}/main/getImage?path=${event.fields.logo}`} alt="WorkShop Image" height={100} />
+                <img src={`${DOMAIN}/main/getImage?path=${event.fields.logo}`} alt="WorkShop Image" height={100} loading='lazy' />
               </div>
               <div className="workshop_card_content">
                 <div className="workshop_date">

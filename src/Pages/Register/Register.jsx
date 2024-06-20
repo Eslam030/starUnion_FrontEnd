@@ -84,7 +84,6 @@ const Register = () => {
   const send_the_otp = (email) => {
     sendOTP(email, 
       (response) => {
-          console.log(response['message']);
           setMessage("OTP sent successfully. Check your email.");
           setIsMessageError(false);
           setTimer(50);
@@ -105,7 +104,6 @@ const Register = () => {
     if (!isUnique) return;
     setIsMessageError(false);
     if(!isMessageError) {
-      console.log("Proceeding with unique username and email:", cleanData);
       setRegistrationData(cleanData);
       setUserEmail(cleanData.email);
       send_the_otp(cleanData.email);
@@ -117,7 +115,6 @@ const Register = () => {
   const checkOTP = () => {
     check_OTP(userEmail, otp, "register", 
       (response) => {
-          console.log(response.message);
           if (response.message == "Done") {
             setMessage("OTP verified successfully!");
             setIsMessageError(false);
@@ -140,7 +137,6 @@ const Register = () => {
   const sendRegistrationData = (data) => {
     registerPage(data , 
       (response) => {
-          console.log("Registration successful:", response);
           navigate('/login');
     },
       (error) => {
@@ -222,7 +218,7 @@ const Register = () => {
                         message: "Must be at least 3 characters",
                       },
                       pattern: {
-                        value: /^[a-zA-Z0-9_ ]+$/,
+                        value: /^[a-zA-Z0-9]+$/,
                         message: "Not a valid name",
                       }
                   }}

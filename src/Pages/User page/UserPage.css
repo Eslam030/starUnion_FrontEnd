@@ -81,7 +81,6 @@
 
 .UserPage .userInfo .user_details {
     display: flex;
-    align-items: center;
     justify-content: center;
     flex-direction: column;
     gap: 35px;
@@ -128,7 +127,7 @@
 .UserPage .edit_sec button {
     position: absolute;
     bottom: 50px;
-    right: 120px;
+    right: 155px;
 }
 
 .userEdit_container,
@@ -231,6 +230,7 @@
     margin: 20px 0;
     font-size: 25px;
     text-align: center;
+    color: #5D37C6;
 }
 
 .update_container {
@@ -240,8 +240,8 @@
 }
 
 .update_container .user_input {
-    width: calc(100% / 2 - 20px);
-    margin: 30px 10px 10px 10px;
+    width: calc(100% / 2 - 10px);
+    margin: 30px 4px 10px 4px;
 }
 
 .close_img {
@@ -282,22 +282,22 @@
     width: 185px;
     height: 45px;
     border: 1px solid #5B36C2;
-    color: #5B36C2;
+    color: #fff;
+    background-color: #5B36C2;
     outline: none;
     border-radius: 30px;
     font-size: 17px;
     font-weight: bold;
     cursor: pointer;
     transition: .3s;
-    background-color: #fff;
     margin-top: 17px;
     margin-left: 226px;
     margin-bottom: 20px;
 }
 
 .save_container .Save_btn:hover {
-    background-color: #5B36C2;
-    color: #fff;
+    background-color: #fff;
+    color: #5B36C2;
 }
 
 
@@ -307,7 +307,56 @@
     }
 }
 
-@media (max-width: 400px) {
+
+@media (max-width: 764px) {
+    .UserPage .userInfo {
+        flex-direction: column;
+    }
+    .edit_form {
+        width: 323px;
+    }
+    .save_container .Save_btn {
+        margin-left: 55px;
+        width: 160px;
+
+    }
+
+    .UserPage .userInfo .user_img > img {
+        width: 280px;
+    }
+
+    .registerSec_card {
+        width: 350px;
+    }
+    .UserRegisterData img {
+        max-width: 90px;
+    }
+    .registerSection_container {
+        width: 335px;
+    }
+    .UserPage .userInfo .user_img .icons {
+        margin-bottom: 20px;
+    }
+
+    .registerSec_card .remove {
+        width: 35px;
+    }
+
+    .UserPage .userInfo .user_details .detail_sec {
+        font-size: 22px;
+    }
+
+    .userInfo .icons .notify_WS {
+        left: 105px;
+    }
+
+    .userInfo .icons .notify_E {
+        left: 183px;
+    }
+
+    .options_select button {
+        max-width: 133px !important;
+    }
     .lamp_img {
         display: none !important;
     }
@@ -324,45 +373,17 @@
     .UserPage .edit_sec button {
         bottom: 24px;
         left: 94px;
-        width: 200px;
-        padding: 17px;
+        width: 175px;
+        padding: 10px;
     }
     .UserPage .userInfo .user_details {
         align-items: normal !important;
         gap: 15px;
     }
-}
 
-@media (max-width: 764px) {
-    .UserPage .userInfo {
-        flex-direction: column;
-    }
-    .edit_form {
-        width: 345px;
-    }
-    .save_container .Save_btn {
-        margin-left: 55px;
-        width: 188px;
-
-    }
-
-    .registerSec_card {
-        width: 350px;
-    }
-    .UserRegisterData img {
-        max-width: 108px;
-    }
-
-    .UserPage .userInfo .user_img .icons {
-        margin-bottom: 20px;
-    }
-
-    .registerSec_card .remove {
-        width: 35px;
-    }
-
-    .UserPage .userInfo .user_details .detail_sec {
-        font-size: 22px;
+    .update_container .user_input {
+        width: 100%;
+        margin: 7px 0;
     }
 }
 

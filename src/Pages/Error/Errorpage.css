@@ -22,3 +22,10 @@
     padding-top: 20px;
     padding-bottom: 40px;
 }
+
+
+@media (max-width: 768px) {
+    .error h1 {
+        font-size: 122px;
+    }
+}

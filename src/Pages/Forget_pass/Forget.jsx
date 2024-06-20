@@ -12,7 +12,7 @@ import './Forget.css'
 
 
 const Forget = () => {
-  // const token = useSelector((state) => state.auth.token)
+  
   const { control, handleSubmit, formState: { errors }, getValues } = useForm({mode:'onTouched'});
   const navigate = useNavigate();
   const [message, setMessage] = useState("");  // Store response messages
@@ -23,6 +23,7 @@ const Forget = () => {
   const [otp, setOtp] = useState()
   const [classShow, setClassShow] = useState("");
   const [otpVerified, setOtpVerified] = useState(false);
+  const [access, setAccess] = useState("")
 
   const [showPassword, setShowPassword] = useState(false);
   const [showConfPassword, setShowConfPassword] = useState(false);
@@ -50,7 +51,6 @@ const Forget = () => {
   const send_the_otp = (email) => {
     sendOTP(email, 
       (response) => {
-          console.log(response['message']);
           setMessage("OTP sent successfully. Check your email.");
           setIsMessageError(false);
           setTimer(50);
@@ -76,8 +76,7 @@ const Forget = () => {
 
 
 const updatePassword = (data) => {
-  const { password, email } = data;
-  changePass(email, password ,
+  changePass(access, data.email, data.password,
     (response) => {
       navigate('/login');
     },
@@ -85,7 +84,7 @@ const updatePassword = (data) => {
       setMessage("Failed to update password. Please try again.");
       setIsMessageError(true);
     }
-  )  
+  );
 };
 
 
@@ -94,6 +93,7 @@ const updatePassword = (data) => {
       (response) => {
         if (response.message == "Done") {
           setMessage("OTP verified successfully!");
+          setAccess(response.access)
           setClassShow("close");
           setIsMessageError(false);
           setOtpVerified(true);

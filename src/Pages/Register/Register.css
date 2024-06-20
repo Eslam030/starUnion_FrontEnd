@@ -275,7 +275,7 @@ input[type=radio] {
     }
 }
 
-@media (max-width: 579px) {
+@media (max-width: 765px) {
     .register-LOGO img {
         display: none;
     }
@@ -287,13 +287,7 @@ input[type=radio] {
     .form_container .reg_title {
         text-align: center;
     }
-}
 
-@media (max-width: 510px) {
-    
-    .register {
-        /* padding-top: 120px; */
-    }
     .form_container form .user_reg {
         flex-direction: column;
         align-items: center;
@@ -303,6 +297,10 @@ input[type=radio] {
     }
     .otp_card  {
         padding: 1rem;
-        width: 374px;
+        width: 362px;
+    }
+    .otp_card_inputs input {
+        width: 36px !important;
+        height: 53px;
     }
 }

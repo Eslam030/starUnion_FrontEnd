@@ -41,7 +41,6 @@ const Workshop = () => {
           userRegistrations(username, 
           (response) => {
             setRegisteredWorkshops(response.data);
-            console.log(response.data);
             
           },
           (error) => {
@@ -132,7 +131,7 @@ const Workshop = () => {
             </div>
             <div className='btn_div'>
                 <Link to="/workshops">
-                <button className='btn-op' onClick={notify}>More</button>
+                <button className='btn-op more' onClick={notify}>More</button>
                 </Link>
             </div>
         </div>

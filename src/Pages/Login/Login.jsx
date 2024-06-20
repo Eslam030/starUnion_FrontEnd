@@ -35,8 +35,8 @@ const Login = () => {
     (response) => {
         if(response.message == "done") {
           setMessage("Login successful! Redirecting...");
-          // dispatch(setAuthToken(response.access));
-          dispatch(setAuthToken({ token: response.access, username: data.username }));
+          
+          dispatch(setAuthToken({ token: response.access, username: response.user }));
           setIsError(false);
           navigate(`/userPage/${data.username}`)
         } else {

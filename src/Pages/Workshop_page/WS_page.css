@@ -54,11 +54,18 @@
 
 .options {
     padding-top: 10px;
+    position: absolute;
+    z-index: 100;
+    background: #fff;
+    width: 170px;
+    top: 133px;
+    border-radius: 10px;
+    transition: .3s;
 }
+
 .options button {
     outline: none;
     border: none;
-    border-radius: 4px;
     background-color: transparent;
     width: fit-content;
     padding: 10px 0;
@@ -109,12 +116,39 @@
     }
 }
 
-@media (max-width: 650px) {
+@media (max-width: 764px) {
     .workshop_card {
-        width: 355px !important;
+        width: 325px !important;
     }
     .workshop_container .section_title .section_name h1 {
-        font-size: 30px;
+        font-size: 23px;
+        margin-right: 37px;
+    }
+    .section_btn .sec_btn_for_types .type {
+        padding: 9px;
+        font-size: 14px;
+    }
+    .workshop_container .section_title .section_btn div img {
+        padding-left: 20px;
+    }
+    .workshop_container .section_title .section_btn .sec_btn_for_types {
+       width: 160px; 
+    }
+    .options {
+        padding-top: 16px;
+        width: 160px;
+        top: 130px;
+        border-bottom-left-radius: 10px;
+        border-bottom-right-radius: 10px;
+        border-top-left-radius: 0;
+        border-top-right-radius: 0;
+    }
+}
+
+/* For small phones */
+@media (max-width: 450px) {
+    .options {
+        top: 140px ;
     }
 }
 

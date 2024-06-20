@@ -82,7 +82,6 @@ const WS_details = () => {
     //*instructors
     instructors(
       (response) => {
-        console.log(response)
           const filteredInstructors = response.data.filter(instructor => instructor.workshop === name);
           setInstructorData(filteredInstructors || []);
       },
@@ -187,7 +186,7 @@ const WS_details = () => {
               {/* <img src={vector_down} alt="Vector" /> */}
               <div className="instructors">
                 <div className="instructors_title">
-                  <img src={dot} alt="image" /> <h1>Instructors</h1>
+                  <img src={dot} alt="image" width={6} /> <h1>Instructors</h1>
                   <button className="btn_click">
                     {" "}
                     <img
@@ -196,6 +195,7 @@ const WS_details = () => {
                       className="vec_down"
                       onClick={addActive1}
                       id="im"
+                      width={16}
                     />
                   </button>
                 </div>
@@ -219,7 +219,7 @@ const WS_details = () => {
 
               <div className="instructors">
                 <div className="instructors_title">
-                  <img src={dot} alt="image" /> <h1>Contents</h1>
+                  <img src={dot} alt="image" width={6} /> <h1>Contents</h1>
                   <button className="btn_click">
                     {" "}
                     <img
@@ -228,6 +228,7 @@ const WS_details = () => {
                       className="vec_down"
                       onClick={addActive2}
                       id="im"
+                      width={16}
                     />
                   </button>
                 </div>
@@ -272,7 +273,7 @@ const WS_details = () => {
 
           <div className="ws_section_tob5">
             <div className="tob5_title">
-              <h1>TOB 5</h1>
+              <h1>TOP 5</h1>
             </div>
 
             {Tob5Data.length === 0 ? 

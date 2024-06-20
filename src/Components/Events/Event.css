@@ -22,22 +22,38 @@
     border-radius: 10px;
     margin: 5px;
     padding: 15px;
+    position: relative;
 }
 .event .date {
     position: absolute;
-    top: -32px;
+    top: -35px;
+    left: 0;
     color: #000;
     background-color: #c9c9c9;
     padding: 5px;
     border-radius: 10px;
+    /* width: 52%;
+    text-align: center; */
 }
+
+/* .event .date::before {
+    content: "";
+    position: absolute;
+    width: 100%;
+    height: 0;
+    border: 1px solid #c9c9c9;
+    right: -150%;
+    top: 50%;
+    transform: translate(-50%,-50%);
+} */
+
 
 .event .card .handel {
     padding-bottom: 15px;
 }
 
 .event .card p {
-    color: #00000066;
+    color: #000;
     font-size: 18px;
     padding-bottom: 10px;
 }
@@ -56,4 +72,9 @@
     .event .date {
         display: none;
     }
+}
+
+.border {
+    border: 3px solid red;
+    
 }

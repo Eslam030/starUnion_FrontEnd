@@ -68,7 +68,6 @@ const Event_page = () => {
     if (token) {
       EventRegistration(username, 'get_user_events',
         (response) => {
-          console.log('Registered events:', response.data);
           setRegisteredEvents(response.data);
         },
         (error) => {
@@ -124,7 +123,7 @@ const Event_page = () => {
             <img src={Logolayout} alt="Logo" />
           </Link>
         </div>
-        <div className="workshop_container">
+        <div className="workshop_container Event_container">
           <div className="section_title">
             <div className="section_name">
               <h1>All Events</h1>

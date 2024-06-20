@@ -42,10 +42,6 @@ const showSideBar = () => {
           if (response['access'] != null) {
             dispatch(clearAuthToken())
           }
-          // if (response['modified'] != null) {
-          //     console.log('token is modified')
-          // }
-          console.log(response['message'])
       } , 
       error : function (error) {
           console.log(error)
@@ -133,6 +129,12 @@ const showSideBar = () => {
 
     : 
     <div className="login_section">
+      <Link to="/register" style={{gap: '10px'}}>
+          <button className="login_btn">    
+            Sign in
+          </button>
+      </Link>
+
       <Link to="/login">
           <button className="login_btn">    
             Log In
@@ -146,116 +148,125 @@ const showSideBar = () => {
 
     </nav>
 
+    {/* Nav Section For mobile version */}
     <div className="sideNav_container">
       <div className={sideBar ? "sideNav active_nav" : "sideNav"}>
         <div className="nav_links">
 
-        <div className="main_links">
+          <div className="main_links">
 
-          <div className="closeNavBar" onClick={showSideBar}>
-            <Link to='#'>
-              <box-icon name='x' color='#6139d0'></box-icon>
-            </Link>
+            <div className="closeNavBar" onClick={showSideBar}>
+              <Link to='#'>
+                <box-icon name='x' color='#6139d0'></box-icon>
+              </Link>
 
-          </div>
-
-          {token ? 
-            <div className="user_sideNav_info">
-              <Link to={`/userPage/${username}`}><p className="nameOfUser">{username}</p></Link>
-              <div className="user-page">
-                <img src={User_01} alt="" className="user_img"/>
-              </div>
             </div>
-          : "" 
-        }
+
+            {token ? 
+              <div className="user_sideNav_info">
+                <Link to={`/userPage/${username}`}><p className="nameOfUser">{username}</p></Link>
+                <div className="user-page">
+                  <img src={User_01} alt="" className="user_img"/>
+                </div>
+              </div>
+            : "" 
+          }
 
 
 
-          <ul className="nav_menu_items"  >
-            <li>
-              <LinkRoll to="HOME" spy={true} smooth={true} offset={50} duration={0} onClick={showSideBar}>
-                Home
-              </LinkRoll>
-            </li>
+            <ul className="nav_menu_items"  >
+              <li>
+                <LinkRoll to="HOME" spy={true} smooth={true} offset={50} duration={0} onClick={showSideBar}>
+                  Home
+                </LinkRoll>
+              </li>
 
-            <li>
-              <LinkRoll
-                onClick={showSideBar}
-                to="About"
-                spy={true}
-                smooth={true}
-                offset={50}
-                duration={0}
-              >
-                About US
-              </LinkRoll>
-            </li>
+              <li>
+                <LinkRoll
+                  onClick={showSideBar}
+                  to="About"
+                  spy={true}
+                  smooth={true}
+                  offset={50}
+                  duration={0}
+                >
+                  About US
+                </LinkRoll>
+              </li>
 
-            <li>
-              <LinkRoll
-                to="Events"
-                onClick={showSideBar}
-                spy={true}
-                smooth={true}
-                offset={50}
-                duration={0}
-              >
-                Events
-              </LinkRoll>
-            </li>
+              <li>
+                <LinkRoll
+                  to="Events"
+                  onClick={showSideBar}
+                  spy={true}
+                  smooth={true}
+                  offset={50}
+                  duration={0}
+                >
+                  Events
+                </LinkRoll>
+              </li>
 
-            <li>
-              <LinkRoll
-                to="workshop"
-                onClick={showSideBar}
-                spy={true}
-                smooth={true}
-                offset={50}
-                duration={0}
-              >
-                Workshop
-              </LinkRoll>
-            </li>
+              <li>
+                <LinkRoll
+                  to="workshop"
+                  onClick={showSideBar}
+                  spy={true}
+                  smooth={true}
+                  offset={50}
+                  duration={0}
+                >
+                  Workshop
+                </LinkRoll>
+              </li>
 
-            <li>
-              <LinkRoll
-                to="contact"
-                onClick={showSideBar}
-                spy={true}
-                smooth={true}
-                offset={50}
-                duration={0}
-              >
-                Contact US
-              </LinkRoll>
-            </li>
+              <li>
+                <LinkRoll
+                  to="contact"
+                  onClick={showSideBar}
+                  spy={true}
+                  smooth={true}
+                  offset={50}
+                  duration={0}
+                >
+                  Contact US
+                </LinkRoll>
+              </li>
 
-          </ul>
+            </ul>
 
-        </div>
-
-      <div className="register_section ">
-
-        {token 
-          ?
-          <div className="sideNav_acc">
-          <Link to={`/userPage/${username}`}>
-              <button>Profile</button>
-          </Link>
-          <Link onClick={logout}>
-              <button>Logout</button>
-            </Link>
           </div>
-        
-          :
-        
-        <Link to="/login">
-            <button className="login_btn">    
-              Log In
-            </button>
-        </Link>
-        }
-      </div>
+
+          <div className="register_section ">
+
+            {token 
+              ?
+              <div className="sideNav_acc">
+              <Link to={`/userPage/${username}`}>
+                  <button>Profile</button>
+              </Link>
+              <Link onClick={logout}>
+                  <button>Logout</button>
+                </Link>
+              </div>
+            
+              :
+            <>
+            <Link to="/register">
+                <button className="login_btn">    
+                  Sign in
+                </button>
+            </Link>
+
+            <Link to="/login">
+                <button className="login_btn">    
+                  Log In
+                </button>
+            </Link>
+            </>
+
+            }
+          </div>
 
         </div>
 
