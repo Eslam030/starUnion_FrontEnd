@@ -1,10 +1,9 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { Link , useNavigate} from "react-router-dom";
 import { Input } from "@material-tailwind/react";
 import OtpInput from 'react-otp-input';
 import { useForm, Controller } from "react-hook-form"
 import { DOMAIN } from "../../Api/config";
-import $ from 'jquery'; 
 import { sendOTP, check_OTP, registerPage } from "../../Api/Endpoints/AppEndPoints"; // api
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
 // Images
@@ -26,18 +25,17 @@ const Register = () => {
   const [isMessageError, setIsMessageError] = useState(false); 
   const [timer, setTimer] = useState(0);
   const [registrationData, setRegistrationData] = useState({});
-  const [gender, setGender] = useState(false);
 
   const [showPassword, setShowPassword] = useState(false);
   const [showConfPassword, setShowConfPassword] = useState(false);
   
-  const togglePasswordVisibility = () => {
+  const togglePasswordVisibility = useCallback(() => {
     setShowPassword(prev => !prev);
-  };
+  }, []);
 
-  const togglePasswordVisibilityConf = () => {
+  const togglePasswordVisibilityConf = useCallback(() => {
     setShowConfPassword(prev => !prev);
-  };
+  }, []);
 
 
 
@@ -54,19 +52,18 @@ const Register = () => {
   }, [timer]);
 
 
-  const checkUsernameOrEmailUnique = async (username, email) => {
+  const checkUsernameOrEmailUnique = useCallback(async (username, email) => {
     try {
-      const response = await $.ajax({
-        url: `${DOMAIN}/main/checkuser/`,
+      const response = await fetch(`${DOMAIN}/main/checkuser/?username=${username}&email=${email}`, {
         method: 'GET',
-        data: { username, email }
       });
+      const data = await response.json();
 
-      if (response.message === "Username Exists") {
+      if (data.message === "Username Exists") {
         setMessage("Username already exists");
         setIsMessageError(true);
         return false;
-      } else if (response.message === "Email Exists") {
+      } else if (data.message === "Email Exists") {
         setMessage("Email already exists");
         setIsMessageError(true);
         return false;
@@ -79,22 +76,22 @@ const Register = () => {
       setIsMessageError(true);
       return false;
     }
-  };
+  }, []);
 
-  const send_the_otp = (email) => {
-    sendOTP(email, 
+  const send_the_otp = useCallback((email) => {
+    sendOTP(email,
       (response) => {
-          setMessage("OTP sent successfully. Check your email.");
-          setIsMessageError(false);
-          setTimer(50);
-    },
+        setMessage("OTP sent successfully. Check your email.");
+        setIsMessageError(false);
+        setTimer(50);
+      },
       (error) => {
-          console.log(error);
-          setMessage("Failed to send OTP. Please try again.");
-          setIsMessageError(true);
-    }
-  )
-  }
+        console.log(error);
+        setMessage("Failed to send OTP. Please try again.");
+        setIsMessageError(true);
+      }
+    );
+  }, []);
 
   const onSubmit = async (data) => {
     const { Confirm_password, ...cleanData } = data;
@@ -112,40 +109,38 @@ const Register = () => {
     }
   };
 
-  const checkOTP = () => {
-    check_OTP(userEmail, otp, "register", 
+  const checkOTP = useCallback(() => {
+    check_OTP(userEmail, otp, "register",
       (response) => {
-          if (response.message == "Done") {
-            setMessage("OTP verified successfully!");
-            setIsMessageError(false);
-            sendRegistrationData(registrationData);
-          } else {
-            setMessage("Invalid OTP. Please try again.");
-            setIsMessageError(true);
-          }
+        if (response.message === "Done") {
+          setMessage("OTP verified successfully!");
+          setIsMessageError(false);
+          sendRegistrationData(registrationData);
+        } else {
+          setMessage("Invalid OTP. Please try again.");
+          setIsMessageError(true);
+        }
       },
       (error) => {
-          console.error(error);
-          setMessage("Error verifying OTP. Please try again.");
-          setIsMessageError(true);
+        console.error(error);
+        setMessage("Error verifying OTP. Please try again.");
+        setIsMessageError(true);
       }
-  
-    )
+    );
+  }, [userEmail, otp, registrationData]);
 
-  };  
-
-  const sendRegistrationData = (data) => {
-    registerPage(data , 
+  const sendRegistrationData = useCallback((data) => {
+    registerPage(data,
       (response) => {
-          navigate('/login');
-    },
+        navigate('/login');
+      },
       (error) => {
-          console.error("Registration failed:", error);
-          setMessage("Registration failed. Please try again.");
-          setIsMessageError(true);
-    }
-  )
-};
+        console.error("Registration failed:", error);
+        setMessage("Registration failed. Please try again.");
+        setIsMessageError(true);
+      }
+    );
+  }, [navigate]);
 
 
   
@@ -300,7 +295,11 @@ const Register = () => {
                     minLength:{
                         value: 8,
                         message: "Must be at least 8 characters",
-                      },                      
+                      },    
+                      pattern: {
+                        value: /^[a-zA-Z1-9]+$/,
+                        message: "Not a valid password",
+                      }                  
                   }}
                   control={control}
                   render={({ field }) => (

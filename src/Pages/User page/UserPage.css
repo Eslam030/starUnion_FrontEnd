@@ -241,7 +241,7 @@
 
 .update_container .user_input {
     width: calc(100% / 2 - 10px);
-    margin: 30px 4px 10px 4px;
+    margin: 30px 0px 10px 0px;
 }
 
 .close_img {
@@ -313,7 +313,7 @@
         flex-direction: column;
     }
     .edit_form {
-        width: 323px;
+        width: 300px;
     }
     .save_container .Save_btn {
         margin-left: 55px;
@@ -381,10 +381,10 @@
         gap: 15px;
     }
 
-    .update_container .user_input {
+    /* .update_container .user_input {
         width: 100%;
         margin: 7px 0;
-    }
+    } */
 }
 
 

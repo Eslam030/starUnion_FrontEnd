@@ -30,7 +30,7 @@
     align-items: center;
     justify-content: center;
     flex-direction  : column;
-    width: 380px;
+    width: 340px;
 }
 
 .forget_pass form input {
@@ -48,10 +48,11 @@
 
 .forget_title {
     padding-bottom: 30px;
+    color: #5D37C6;
 }
 
 .forget_input {
-    width: 68%;
+    width: 80%;
 }
 
 .forget_button {
@@ -99,6 +100,13 @@
 
 @media (max-width: 768px) {
     .forget_pass .form_card {
-        width: 350px    ;
+        width: 300px    ;
+    }
+
+    .forget_title h1 {
+        font-size: 25px;
+    }
+    .forget_input {
+        width: 68%;
     }
 }

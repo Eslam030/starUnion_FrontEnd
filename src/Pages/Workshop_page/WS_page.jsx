@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo, useCallback } from 'react';
 import { Link } from "react-router-dom";
 import PreLoader from '../../Components/Loading/PreLoader';
 import { workShopPages } from '../../Api/Endpoints/AppEndPoints'; // api
@@ -15,7 +15,7 @@ const WS_page = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [WSFilter, setWS] = useState('all');
   const [WSName, setWSName] = useState("All");
-
+  const [visibleWorkshops, setVisibleWorkshops] = useState(6); 
 
   useEffect(() => {
     workShopPages(
@@ -32,21 +32,25 @@ const WS_page = () => {
 
   const today = new Date();
 
-  const filteredWorkShop = workShop.filter(w => {
-    const WSStartDate = new Date(w.fields.start_date);
-    const WSEndDate = new Date(w.fields.end_date);
-    switch (WSFilter) {
-      case 'PA':
-        return WSEndDate < today;
-      case 'CW':
-        return WSStartDate <= today && WSEndDate >= today;
-      case 'CM':
-        return WSStartDate > today;
-      case 'all':
-      default:
-        return true; 
-    }
-  });
+  const filteredWorkShop = useMemo(() => {
+    return workShop.filter(w => {
+      const WSStartDate = new Date(w.fields.start_date);
+      const WSEndDate = new Date(w.fields.end_date);
+      switch (WSFilter) {
+        case 'PA':
+          return WSEndDate < today;
+        case 'CW':
+          return WSStartDate <= today && WSEndDate >= today;
+        case 'CM':
+          return WSStartDate > today;
+        case 'all':
+        default:
+          return true; 
+      }
+    });
+  }, [workShop, WSFilter, today]);
+  
+ 
 
   const getMonthFromDate = (dateString) => {
     const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
@@ -58,6 +62,10 @@ const WS_page = () => {
     const date = new Date(dateString);
     return date.getDate(); 
   };
+
+  const loadMore = useCallback(() => {
+    setVisibleWorkshops(prevVisibleWorkshops => prevVisibleWorkshops + 6);
+  }, []);
 
   return (
     <>
@@ -89,7 +97,7 @@ const WS_page = () => {
           </div>
         </div>
         <div className="workshop_cards">
-          {filteredWorkShop.length > 0 ? filteredWorkShop.map(event => (
+          {filteredWorkShop.length > 0 ? filteredWorkShop.slice(0, visibleWorkshops).map(event => (
             <div className="workshop_card" key={event.id}>
               <Link to={`/workshops/details/${event.pk}`}>
 
@@ -113,9 +121,11 @@ const WS_page = () => {
           )) : <p className="no_data">No Workshop Found!</p>}
         </div>
         
-            {/* <div className="sec_btn_For_More">
-              <button>Load More</button>
-            </div> */}
+        {visibleWorkshops < filteredWorkShop.length && (
+          <div className="sec_btn_For_More">
+            <button onClick={loadMore}>Load More</button>
+          </div>
+        )}
       </div>
       </div>
     </>
@@ -123,3 +133,4 @@ const WS_page = () => {
 };
 
 export default WS_page;
+

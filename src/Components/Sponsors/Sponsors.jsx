@@ -1,17 +1,30 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import './Sponsors.css'
 import dotpy_sub from '../../assets/dotpyi 1.png'
+import { Get_Sponsors } from '../../Api/Endpoints/AppEndPoints'; 
+import { DOMAIN } from '../../Api/config'; 
 
 const Sponsors = () => {
+    const [sponsorsData, setSponsorsData] = useState([]);
+
+    useEffect(() => {
+        Get_Sponsors(
+            (response) => {
+                setSponsorsData(response.data);
+                console.log(response)
+            },
+            (error) => {
+                console.log(error)
+            }
+        )
+    },[])
+
     return (
         <div className='Sponsors'>
             <h1>Sponsors & Partners</h1>
-            <img src={dotpy_sub} alt="Sponsors Image" />
-            <img src={dotpy_sub} alt="Sponsors Image" />
-            <img src={dotpy_sub} alt="Sponsors Image" />
-            <img src={dotpy_sub} alt="Sponsors Image" />
-            <img src={dotpy_sub} alt="Sponsors Image" />
-            <img src={dotpy_sub} alt="Sponsors Image" />
+            {sponsorsData.map((item) => (
+                <img src={`${DOMAIN}/main/getImage?path=${item.fields.logo}`} alt="Sponsors Image" />
+            ))}
         </div>
     )
 }

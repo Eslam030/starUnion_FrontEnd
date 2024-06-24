@@ -101,9 +101,9 @@
 
 @media (max-width: 550px) {
     .txt h1 {
-        font-size: 45px;
+        font-size: 41px;
     }
     .txt p {
-        font-size: 11px;
+        font-size: 10px;
     }
 }

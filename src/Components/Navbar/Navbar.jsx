@@ -131,7 +131,7 @@ const showSideBar = () => {
     <div className="login_section">
       <Link to="/register" style={{gap: '10px'}}>
           <button className="login_btn">    
-            Sign in
+            Sign In
           </button>
       </Link>
 
@@ -254,7 +254,7 @@ const showSideBar = () => {
             <>
             <Link to="/register">
                 <button className="login_btn">    
-                  Sign in
+                  Sign In
                 </button>
             </Link>
 

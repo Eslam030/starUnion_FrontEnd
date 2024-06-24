@@ -12,7 +12,7 @@
 }
  
 .form_container {
-    max-width: 650px;
+    max-width: 590px;
     width: 100%;
     background-color: #eaeaea;
     padding: 25px 30px;
@@ -146,7 +146,7 @@ input[type=radio] {
 .otp_card{
     box-shadow: 0 10px 40px -20px black;
     background-color: #fffdfd;
-    padding: 3rem;
+    padding: 2rem;
     border-radius: 10px;
     text-align: center;
     position: fixed;
@@ -234,6 +234,12 @@ input[type=radio] {
     transition: .3s;
 }
 
+.otp_card h1 {
+    color: #5B36C2;
+}
+
+
+
 .otp_card .close_btn .close_after::after {
     content: " ";
     display: block;
@@ -297,10 +303,25 @@ input[type=radio] {
     }
     .otp_card  {
         padding: 1rem;
-        width: 362px;
+        width: 328px;
     }
+
+    .otp_card p {
+        font-size: 14px;
+    }
+
     .otp_card_inputs input {
-        width: 36px !important;
-        height: 53px;
+        width: 29px !important;
+        height: 42px;
+        font-size: 20px;
+    }
+    .success_message {
+        font-size: 14px;
+    }
+
+    .otp_card .verify_btn {
+        border-radius: 10px;
+        padding: 10px 50px;
+        font-size: 15px;
     }
 }

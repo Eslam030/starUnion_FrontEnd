@@ -255,3 +255,13 @@ export const UpdatePassword = (token, curr_pass, new_pass, onSuccess, onError) =
     })
 }
 
+// Sponsors endpoint
+export const Get_Sponsors = (onSuccess,onError) => {
+    $.ajax({
+        url: `${DOMAIN}/event/sponsors/`,
+        method: 'GET',
+        success: onSuccess,
+        error: onError
+    });
+}
+

@@ -1,8 +1,5 @@
 footer {
     background-color: #101010;
-    /* display: flex;
-    align-items: center;
-    justify-content: space-around; */
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(100px, auto));
     gap: 1rem;
@@ -23,18 +20,35 @@ footer h1 span {
 
 .footer_content h4 {
     color: #6139D0;
-    padding-bottom: 15px;
+    padding-bottom: 10px;
+}
+
+.footer_content ul {
+    display: flex;
+    flex-direction: column;
 }
 
 .footer_content li {
     list-style: none;
     color: #fff;
-    margin-bottom: 13px;
+    margin-bottom: 10px;
     transition: 0.3s;
 }
 
-.footer_content li:hover {
+.footer_content ul li {
+    margin: 5px 0;
+}
+
+.footer_content  li:hover {
     transform: translate(3px,-2px);
+}
+
+footer .footer_content ul li a {
+    padding: 0;
+}
+
+footer .footer_content ul li a:hover {
+    background-color: transparent ;
 }
 
 .copyRight {
