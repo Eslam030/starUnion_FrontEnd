@@ -7,7 +7,6 @@ import PreLoader from '../../Components/Loading/PreLoader';
 import { eventPages, registerEvent, EventRegistration } from '../../Api/Endpoints/AppEndPoints';
 import { DOMAIN } from '../../Api/config';
 import Logolayout from "../../assets/star_logo.png";
-import vector_down from "../../assets/Vector-down.png";
 import "./Event_page.css";
 
 const Event_page = () => {

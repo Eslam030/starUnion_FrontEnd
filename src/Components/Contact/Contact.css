@@ -32,7 +32,11 @@
 .contact_form .name_form {
     display: flex;
     align-items: center;
+<<<<<<< HEAD
     gap: 17px;
+=======
+    gap: 20px;
+>>>>>>> f1d8c39cc3837b815031c4e40ff7c52a73d5aa00
 }
 
 .contact_form .name_form .row {

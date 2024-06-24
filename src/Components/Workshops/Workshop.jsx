@@ -40,7 +40,9 @@ const Workshop = () => {
         if(token) {
           userRegistrations(username, 
           (response) => {
-            setRegisteredWorkshops(response.data); 
+            setRegisteredWorkshops(response.data);
+            console.log(response.data);
+            
           },
           (error) => {
             console.log(error.message);

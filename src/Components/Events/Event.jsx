@@ -53,7 +53,7 @@ const Event = () => {
         {events.map((e) =>(
 
         <div className="event" key={e.id}>
-                <p className='date'>{`${getMonthFromDate(e.fields.date)} ${getDayFromDate(e.fields.date)}, ${getYearFromDate(e.fields.date)}`}</p>
+                <p className='date '>{`${getMonthFromDate(e.fields.date)} ${getDayFromDate(e.fields.date)}, ${getYearFromDate(e.fields.date)}`}</p>
                 <div className="card">
                     <h1>{e.pk} </h1>
                     <h1 className='handel'>Event</h1>

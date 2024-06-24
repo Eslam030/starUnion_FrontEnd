@@ -25,7 +25,6 @@ const Register = () => {
   const [isMessageError, setIsMessageError] = useState(false); 
   const [timer, setTimer] = useState(0);
   const [registrationData, setRegistrationData] = useState({});
-  const [gender, setGender] = useState(false);
 
   const [showPassword, setShowPassword] = useState(false);
   const [showConfPassword, setShowConfPassword] = useState(false);

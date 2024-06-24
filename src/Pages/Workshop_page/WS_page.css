@@ -105,6 +105,56 @@
     gap: 30px;
 }
 
+<<<<<<< HEAD
+=======
+@media (max-width: 1250px) {
+    .workshop_container .workshop_cards {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+@media (max-width: 880px) {
+    .workshop_container .workshop_cards {
+        grid-template-columns: repeat(1, 1fr);
+    }
+}
+
+@media (max-width: 764px) {
+    .workshop_card {
+        width: 325px !important;
+    }
+    .workshop_container .section_title .section_name h1 {
+        font-size: 23px;
+        margin-right: 37px;
+    }
+    .section_btn .sec_btn_for_types .type {
+        padding: 9px;
+        font-size: 14px;
+    }
+    .workshop_container .section_title .section_btn div img {
+        padding-left: 20px;
+    }
+    .workshop_container .section_title .section_btn .sec_btn_for_types {
+       width: 160px; 
+    }
+    .options {
+        padding-top: 16px;
+        width: 160px;
+        top: 130px;
+        border-bottom-left-radius: 10px;
+        border-bottom-right-radius: 10px;
+        border-top-left-radius: 0;
+        border-top-right-radius: 0;
+    }
+}
+
+/* For small phones */
+@media (max-width: 450px) {
+    .options {
+        top: 140px ;
+    }
+}
+
+>>>>>>> f1d8c39cc3837b815031c4e40ff7c52a73d5aa00
 .workshop_container  .workshop_card {   
     background: #fff;
     border-radius: 15px 15px 10px 10px;

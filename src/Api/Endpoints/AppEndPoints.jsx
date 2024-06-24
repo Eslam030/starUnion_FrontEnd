@@ -70,7 +70,7 @@ export const sendOTP = (email, onSuccess, onError) => {
         },
         success: onSuccess,
         error: onError,
-    });
+    }); 
 };
 
 // 2) CHECK OTP

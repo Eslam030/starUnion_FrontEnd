@@ -42,10 +42,6 @@ const showSideBar = () => {
           if (response['access'] != null) {
             dispatch(clearAuthToken())
           }
-          // if (response['modified'] != null) {
-          //     console.log('token is modified')
-          // }
-          console.log(response['message'])
       } , 
       error : function (error) {
           console.log(error)

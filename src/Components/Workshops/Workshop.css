@@ -73,13 +73,6 @@
     padding-top: 60px;
     padding-bottom: 40px;
 }
-@media(max-width: 768px) {
-    .workshop {
-        background: linear-gradient(98deg, #000 44%, #5D37C6 87%);
-    }
-
-    
-}
 
 /* Registered btn  */
 .registered {
@@ -88,3 +81,13 @@
     opacity: 0.6;
     cursor: default !important;
 }
+
+
+@media(max-width: 768px) {
+    .workshop {
+        background: linear-gradient(98deg, #000 44%, #5D37C6 87%);
+    }
+
+    
+}
+
