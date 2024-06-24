@@ -1,6 +1,6 @@
 .Sponsors {
     width: 100%;
-    background: linear-gradient(131deg, #000 35%, #5D37C6 87%);
+    background: linear-gradient(131deg, #000 35%, #5D37C6 82%);
     text-align: center;
 }
 
@@ -18,11 +18,11 @@
 
 @media(max-width: 768px) {
     .Sponsors {
-        background: linear-gradient(129deg, #000 45%, #5D37C6 97%);
+        background: linear-gradient(143deg, #000 51%, #5D37C6 97%);
     }
 
     .Sponsors h1 {
-        font-size: 33px;
+        font-size: 30px;
     }
     
     .Sponsors img {

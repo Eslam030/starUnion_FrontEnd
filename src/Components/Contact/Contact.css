@@ -1,5 +1,5 @@
 .contact {
-    background: linear-gradient(64deg, #000 28%, #5D37C6 76%);
+    background: linear-gradient(64deg, #000 27%, #5D37C6 68%);
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -31,8 +31,8 @@
 
 .contact_form .name_form {
     display: flex;
-    justify-content: space-around;
     align-items: center;
+    gap: 17px;
 }
 
 .contact_form .name_form .row {
@@ -70,12 +70,14 @@ textarea {
     color: #f1f0f0;
     background-color: #6139D0;
     outline: none;
-    border: none;
+    border: 1px solid #5D37C6;
     cursor: pointer;
     transition: .3s;
 }
 .contact_form .sub_form button:hover {
-    opacity: 0.8;
+    color: #5D37C6;
+    border: 1px solid #5D37C6;
+    background-color: #fff;
 }
 
 .progress {
@@ -84,7 +86,7 @@ textarea {
 
 @media(max-width: 768px) {
     .contact {
-        background: linear-gradient(68deg, #000 44%, #5D37C6);
+        background: linear-gradient(76deg, #000 42%, #5D37C6);
         flex-direction: column;
         padding-top: 5px;
     }
@@ -94,6 +96,7 @@ textarea {
         padding: 10px;
     }
     .title p {
-        font-size: 17px;
+        font-size: 14px;
+        margin: 0px 27px;
     }
 }   

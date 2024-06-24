@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useCallback, useMemo } from 'react';
 import { useSelector } from 'react-redux';
-import { Link, useParams, useNavigate } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import PreLoader from '../../Components/Loading/PreLoader'; // Loader file
 import { Input } from "@material-tailwind/react";
 import { useForm, Controller } from "react-hook-form"
@@ -8,7 +8,13 @@ import { ToastContainer, toast } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css';
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
 
-import { UserPageData, checkUserForChange, UserPageUpdate, userRegistrations, registerWorkShop, UpdatePassword, EventRegistration } from '../../Api/Endpoints/AppEndPoints'; // api
+import { UserPageData,
+        checkUserForChange,
+        UserPageUpdate,
+        userRegistrations,
+        registerWorkShop,
+        UpdatePassword, 
+        EventRegistration } from '../../Api/Endpoints/AppEndPoints'; // api
 import { DOMAIN } from '../../Api/config'; // main domain
 // For Images
 import userIcon from '../../assets/user_icon1.png';
@@ -26,8 +32,7 @@ const UserPage = () => {
   const { UserName } = useParams();
   const username = useSelector((state) => state.auth.username);
   const token = useSelector((state) => state.auth.token);
-  const navigate = useNavigate();
-
+  
   const [userData, setUserData] = useState({});
   const [isUser, setIsUser] = useState(false);
   const [onLight, setOnLight] = useState(false);
@@ -44,21 +49,21 @@ const UserPage = () => {
   const [showNewPassword, setShowNewPassword] = useState(false);
   const [showConfPassword, setShowConfPassword] = useState(false);
   
-  const togglePasswordVisibilityCurr = () => {
+  const togglePasswordVisibilityCurr = useCallback(() => {
     setShowCurrPassword(prev => !prev);
-  };
+  }, []);
 
-  const togglePasswordVisibilityNew = () => {
+  const togglePasswordVisibilityNew = useCallback(() => {
     setShowNewPassword(prev => !prev);
-  };
+  }, []);
 
-  const togglePasswordVisibilityConf = () => {
+  const togglePasswordVisibilityConf = useCallback(() => {
     setShowConfPassword(prev => !prev);
-  };
+  }, []);
 
 
-  const notify_S = (msg) => {
-    toast.success(msg, {
+  const notify = useCallback((msg, type = 'success') => {
+    toast[type](msg, {
       position: "top-right",
       autoClose: 5000,
       hideProgressBar: false,
@@ -67,48 +72,35 @@ const UserPage = () => {
       draggable: true,
       progress: undefined,
       theme: "dark",
-      });
-  }
-
-  const notify_W = (msg) => {
-    toast.error(msg, {
-      position: "top-right",
-      autoClose: 5000,
-      hideProgressBar: false,
-      closeOnClick: true,
-      pauseOnHover: true,
-      draggable: true,
-      progress: undefined,
-      theme: "dark",
-      });
-  }
+    });
+  }, []);
 
 
-  const toggleEditMode = () => {
-    setOnLight(false)
-    setEditMode(!editMode);  // Toggle edit mode
-  }
+  const toggleEditMode = useCallback(() => {
+    setOnLight(false);
+    setEditMode(prev => !prev);
+  }, []);
+
+  const Show_WorkShops = useCallback(() => {
+    setShowWS(prev => !prev);
+  }, []);
   
-  const Show_WorkShops = () => {
-    setShowWS(!showWS);
-  }
-  
-  const Show_Events = () => {
-    setShowEvents(!showEvents);
-  }
+  const Show_Events = useCallback(() => {
+    setShowEvents(prev => !prev);
+  }, []);
 
-  const Change_Options = () => {
-    setChangeOptions(!changeOptions);
-  }
+  const Change_Options = useCallback(() => {
+    setChangeOptions(prev => !prev);
+  }, []);
 
-  const Close = () => {
+  const Close = useCallback(() => {
     setOnLight(true)
     setEditMode(false); 
     setShowWS(false);
     setShowEvents(false);
-  }
+  }, []);
   
-
+  // workshop registration api
   useEffect(() => {
     if(token) {
       userRegistrations(username, 
@@ -121,30 +113,30 @@ const UserPage = () => {
       }
     )
     }
-  }, [])
+  }, [token, username])
 
+  // Event Registration api
   useEffect(() => {
     if(token) {
       EventRegistration(username, 'get_user_events',
       (response) => {
-        setRegisteredEventsData(response.data);
-        console.log(response.data);
+        const registeredEvents = response.data.filter(event => event.registered === true);
+        setRegisteredEventsData(registeredEvents);
       },
       (error) => {
         console.log(error.message);
       }
     )
     }
-  }, [])
+  }, [token, username])
 
-
+  // User Data api
   useEffect(() => {
       UserPageData(UserName, 
         (response) => {
         if (response.message === 'Done' && response.user) {
             setUserData(response.user); // Assuming the user data is contained in response.user 
         } else {
-            console.log('Failed to fetch user data:', response.message);
             setLoading(false);
           }
       },
@@ -154,7 +146,7 @@ const UserPage = () => {
       }
     )
     
-  },[username, UserName])
+  },[UserName])
 
   useEffect(() => {
     if(token) {
@@ -177,66 +169,61 @@ const UserPage = () => {
     }
   }, [token, username])
 
-  const onSubmit_ProfileSec = (data) => {
-      data.gender = userData.gender; 
-      UserPageUpdate(token, data,   
-        (response) => {
-          console.log(response )
-          if(response.message === "Done") {
-            // navigate(`/`);  
-            // setUserData(data);
-            setUserData(prevUserData => ({ ...prevUserData, ...data }));
-            setEditMode(false);
-            setIsValidData(false);
-            setOnLight(true)
-            notify_S("Data updated!");
-          } else if (response.message === "Not valid data") {
-            notify_W("Not valid data")
-            setIsValidData(true);
-          }
-      },
-        (error) => {
-          console.log("ErrorMessage")
-        }
-    )
-
-  }
-
-  const onSubmit_PassSec = (data) => {
-    const { current_password, new_password } = data;
-    const passwordData = { current_password, new_password };
-    UpdatePassword(token, passwordData.current_password,passwordData.new_password,   
+  const onSubmit_ProfileSec = useCallback((data) => {
+    data.gender = userData.gender;
+    UserPageUpdate(token, data,
       (response) => {
-        console.log(passwordData);
-        if(response.message === "Wrong Password") {
-          notify_W("Wrong Password");
-        } else {
-          notify_S("Password Updated Successfully");  
+        if (response.message === "Done") {
+          setUserData(prevUserData => ({ ...prevUserData, ...data }));
           setEditMode(false);
+          setIsValidData(false);
+          setOnLight(true);
+          notify("Data updated!");
+        } else if (response.message === "Not valid data") {
+          notify("Not valid data", 'error');
+          setIsValidData(true);
         }
-        console.log(response)
       },
       (error) => {
-        console.log("ErrorMessage")
+        console.error("ErrorMessage");
       }
-    )
+    );
+  }, [token, userData, notify]);
 
-  }
+  const onSubmit_PassSec = useCallback((data) => {
+    const { current_password, new_password } = data;
+    UpdatePassword(token, current_password, new_password,
+      (response) => {
+        if (response.message === "Wrong Password") {
+          notify("Wrong Password", 'error');
+        } else {
+          notify("Password Updated Successfully");
+          setEditMode(false);
+        }
+      },
+      (error) => {
+        console.error("ErrorMessage");
+      }
+    );
+  }, [token, notify]);
 
-  const RemoveWS_Register = (WS_Name) => {
+
+  const RemoveWS_Register = useCallback((WS_Name) => {
     registerWorkShop(token, WS_Name, "unregister" , 
     (response) => {
       setRegisteredWorkshopsData(prevData => prevData.filter(item => item.pk !== WS_Name));
-      notify_S("Workshop Unregistered");
+      notify("Workshop Unregistered");
     },
     (error) => {
       console.log(error)
     }
   )
-  }
- 
-console.log(registeredEventsData.length)
+  }, [token, notify])
 
+  const userImage = useMemo(() => {
+    return (userData.gender === 'M' ? Man_Img : Girl_Img) || `${DOMAIN}/main/getImage?path=${userData.photo}`;
+  }, [userData]);
+ 
   return (
     <>
     <PreLoader />
@@ -251,8 +238,7 @@ console.log(registeredEventsData.length)
         <div className="userInfo">
           <div className="user_img">
             {/* Adjust according to your API response and ensure you handle image path correctly */}
-
-            <img src={(userData.gender === 'M' ? Man_Img : Girl_Img) || `${DOMAIN}/main/getImage?path=${userData.photo}`} alt="User Image" />
+              <img src={userImage} alt="User Image" />
 
             <h1 className="user_name">{`${userData.first_name || ''} ${userData.last_name || ''}`}</h1>
             <div className="icons">
@@ -317,7 +303,7 @@ console.log(registeredEventsData.length)
 
               <div className="options_select">
                 <button  className={!changeOptions ? "active" : ""} onClick={Change_Options}>Profile</button>
-                <button className={changeOptions ? "active" : ""} onClick={Change_Options}>Password and Auth</button>
+                <button className={changeOptions ? "active" : ""} onClick={Change_Options}>Password</button>
               </div>
 
               <div className="Profile_Sec_Form">

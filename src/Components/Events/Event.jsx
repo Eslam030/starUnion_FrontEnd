@@ -66,7 +66,7 @@ const Event = () => {
 
         <div className='btn_div'>
             <Link to="events">  
-            <button className='btn-op'>More</button>
+            <button className='btn-op more'>More</button>
             </Link>
         </div>
         </div>

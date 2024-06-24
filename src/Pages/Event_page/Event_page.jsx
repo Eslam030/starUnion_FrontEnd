@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { ToastContainer, toast } from 'react-toastify';
@@ -16,8 +16,7 @@ const Event_page = () => {
   const navigate = useNavigate();
   const [events, setEvents] = useState([]);
   const [registeredEvents, setRegisteredEvents] = useState([]);
-
-  
+  const [pastEvent, setPastEvent] = useState(false); // State to track if event is past
 
   const notify = () => {
     toast.success('Registered Successfully!', {
@@ -50,6 +49,8 @@ const Event_page = () => {
       (response) => {
         if (response.data) {
           setEvents(response.data);
+          const isPastEvent = response.data.some(ev => ev.status === "PA"); // Check if any event is past
+          setPastEvent(isPastEvent); // Set state based on the result
           if (response.access) {
             console.log(response.access);
           }
@@ -68,7 +69,6 @@ const Event_page = () => {
     if (token) {
       EventRegistration(username, 'get_user_events',
         (response) => {
-          console.log('Registered events:', response.data);
           setRegisteredEvents(response.data);
         },
         (error) => {
@@ -78,13 +78,13 @@ const Event_page = () => {
     }
   }, [token, username]);
 
-  const onClickToRegister = (nameOfE) => {
+  const onClickToRegister = useCallback((nameOfE) => {
     if (!token) {
       navigate('/login');
     } else {
       registerEvent(token, 'register', nameOfE,
         (response) => {
-          if(response.message === 'Event is already passed') {
+          if (response.message === 'Event is already passed') {
             notifyError();
           } else {
             setRegisteredEvents(prevState => [...prevState, { pk: nameOfE, registered: true }]);
@@ -97,12 +97,11 @@ const Event_page = () => {
         }
       );
     }
-  };
+  }, [token, navigate, notify, notifyError]);
 
-  const isRegistered = (nameOfE) => {
-    // Check if the event is in the list of registered events
-    return registeredEvents.some(e => e.pk === nameOfE && e.registered === true);
-  };
+  const isRegistered = useCallback((nameOfE) => {
+    return registeredEvents.some(e => e.pk === nameOfE && e.registered);
+  }, [registeredEvents]);
 
   const getMonthFromDate = (dateString) => {
     const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
@@ -124,7 +123,7 @@ const Event_page = () => {
             <img src={Logolayout} alt="Logo" />
           </Link>
         </div>
-        <div className="workshop_container">
+        <div className="workshop_container Event_container">
           <div className="section_title">
             <div className="section_name">
               <h1>All Events</h1>
@@ -164,3 +163,4 @@ const Event_page = () => {
 };
 
 export default Event_page;
+

@@ -222,10 +222,13 @@ export const Tob5 = (WS_name, onSuccess, onError ) => {
 };
 
 // ChangePass endpoint
-export const changePass = (email, password, onSuccess, onError) => {
+export const changePass = (token,email, password, onSuccess, onError) => {
     $.ajax({
         url: `${DOMAIN}/main/changepass/`,
         method: 'PUT',
+        headers: {
+            'Authorization': 'JWT ' + token,
+        },
         data: {
             'email' : email, 
             'new' : password,
@@ -250,5 +253,15 @@ export const UpdatePassword = (token, curr_pass, new_pass, onSuccess, onError) =
         success: onSuccess,
         error: onError
     })
+}
+
+// Sponsors endpoint
+export const Get_Sponsors = (onSuccess,onError) => {
+    $.ajax({
+        url: `${DOMAIN}/event/sponsors/`,
+        method: 'GET',
+        success: onSuccess,
+        error: onError
+    });
 }
 

@@ -1,5 +1,5 @@
 .workshop {
-    background: linear-gradient(120deg, #000 30%, #5D37C6 77%);
+    background: linear-gradient(120deg, #000 30%, #5D37C6 70%);
 }
 
 .cards_container {
@@ -32,11 +32,11 @@
     position: absolute;
     background-color: #fff;
     color: #000;
-    padding: 7px;
+    padding: 13px;
     border-radius: 7px;
     top: 6px;
     left: 10px;
-    font-size: 10px;
+    font-size: 11px;
     font-weight: bold;
 }
 
@@ -75,7 +75,7 @@
 }
 @media(max-width: 768px) {
     .workshop {
-        background: linear-gradient(102deg, #000 48%, #5D37C6 98%);
+        background: linear-gradient(98deg, #000 44%, #5D37C6 87%);
     }
 
     

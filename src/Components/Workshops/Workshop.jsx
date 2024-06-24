@@ -40,9 +40,7 @@ const Workshop = () => {
         if(token) {
           userRegistrations(username, 
           (response) => {
-            setRegisteredWorkshops(response.data);
-            console.log(response.data);
-            
+            setRegisteredWorkshops(response.data); 
           },
           (error) => {
             console.log(error.message);
@@ -132,7 +130,7 @@ const Workshop = () => {
             </div>
             <div className='btn_div'>
                 <Link to="/workshops">
-                <button className='btn-op' onClick={notify}>More</button>
+                <button className='btn-op more' onClick={notify}>More</button>
                 </Link>
             </div>
         </div>
