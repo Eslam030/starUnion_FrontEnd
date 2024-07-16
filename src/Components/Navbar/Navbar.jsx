@@ -129,17 +129,19 @@ const showSideBar = () => {
 
     : 
     <div className="login_section">
-      <Link to="/register" style={{gap: '10px'}}>
-          <button className="login_btn">    
-            Sign In
-          </button>
-      </Link>
-
       <Link to="/login">
           <button className="login_btn">    
             Log In
           </button>
       </Link>
+
+      <Link to="/register" style={{gap: '10px'}}>
+          <button className="login_btn">    
+            Sign Up
+          </button>
+      </Link>
+
+
     </div>
     }
       <div className="nav_icon" onClick={showSideBar}>
@@ -252,15 +254,15 @@ const showSideBar = () => {
             
               :
             <>
-            <Link to="/register">
-                <button className="login_btn">    
-                  Sign In
-                </button>
-            </Link>
-
             <Link to="/login">
                 <button className="login_btn">    
                   Log In
+                </button>
+            </Link>
+
+            <Link to="/register">
+                <button className="login_btn">    
+                  Sign Up
                 </button>
             </Link>
             </>

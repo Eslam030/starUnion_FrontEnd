@@ -9,7 +9,7 @@ import WS_page from "../Pages/Workshop_page/WS_page.jsx";
 import Event_page from "../Pages/Event_page/Event_page.jsx";
 import WS_details from "../Pages/WS_Details/WS_details.jsx";
 import Forget from "../Pages/Forget_pass/Forget.jsx";
-import RequireAuth from "../Auth/RequireAuth.jsx";
+import EventForm from "../Pages/SpacialEvent/EventForm.jsx";
 import CloseAuth from "../Auth/CloseAuth.jsx";
 
 
@@ -43,6 +43,11 @@ const Router = createBrowserRouter([
     {
       path: "/events",
       element: <Event_page />,
+    },
+    {
+      path: "/events/:company/:eventName",
+      element: <EventForm />
+
     },
     {
       path: "/workshops/details/:name",

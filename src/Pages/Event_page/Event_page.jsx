@@ -1,11 +1,15 @@
-import React, { useState, useEffect, useCallback } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
-import { useSelector } from 'react-redux';
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
-import PreLoader from '../../Components/Loading/PreLoader';
-import { eventPages, registerEvent, EventRegistration } from '../../Api/Endpoints/AppEndPoints';
-import { DOMAIN } from '../../Api/config';
+import React, { useState, useEffect, useCallback } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import PreLoader from "../../Components/Loading/PreLoader";
+import {
+  eventPages,
+  registerEvent,
+  EventRegistration,
+} from "../../Api/Endpoints/AppEndPoints";
+import { DOMAIN } from "../../Api/config";
 import Logolayout from "../../assets/star_logo.png";
 import "./Event_page.css";
 
@@ -16,9 +20,12 @@ const Event_page = () => {
   const [events, setEvents] = useState([]);
   const [registeredEvents, setRegisteredEvents] = useState([]);
   const [pastEvent, setPastEvent] = useState(false); // State to track if event is past
+  const [SpecialEventName, setSpecialEventName] = useState("");
+  const [isSpecialEvent, setIsSpecialEvent] = useState(false);
+
 
   const notify = () => {
-    toast.success('Registered Successfully!', {
+    toast.success("Registered Successfully!", {
       position: "top-right",
       autoClose: 5000,
       hideProgressBar: false,
@@ -31,7 +38,7 @@ const Event_page = () => {
   };
 
   const notifyError = () => {
-    toast.error('Event is already passed!', {
+    toast.error("Event is already passed!", {
       position: "top-right",
       autoClose: 5000,
       hideProgressBar: false,
@@ -48,25 +55,31 @@ const Event_page = () => {
       (response) => {
         if (response.data) {
           setEvents(response.data);
-          const isPastEvent = response.data.some(ev => ev.status === "PA"); // Check if any event is past
-          setPastEvent(isPastEvent); // Set state based on the result
+          const isPastEvent = response.data.some((ev) => ev.status === "PA");
+          const specialEvent = response.data.filter(ev => ev.special === true); 
+          const spacialEvent = specialEvent.map((ev) => ev.pk);
+          setPastEvent(isPastEvent);
+          setSpecialEventName(spacialEvent)
+          setIsSpecialEvent(specialEvent.length  > 0);
           if (response.access) {
             console.log(response.access);
           }
           if (response.modified) {
-            console.log('Token is modified');
+            console.log("Token is modified");
           }
         }
       },
       (error) => {
-        console.error('Error fetching events:', error);
+        console.error("Error fetching events:", error);
       }
     );
   }, []);
 
   useEffect(() => {
     if (token) {
-      EventRegistration(username, 'get_user_events',
+      EventRegistration(
+        username,
+        "get_user_events",
         (response) => {
           setRegisteredEvents(response.data);
         },
@@ -77,33 +90,61 @@ const Event_page = () => {
     }
   }, [token, username]);
 
-  const onClickToRegister = useCallback((nameOfE) => {
-    if (!token) {
-      navigate('/login');
-    } else {
-      registerEvent(token, 'register', nameOfE,
-        (response) => {
-          if (response.message === 'Event is already passed') {
-            notifyError();
-          } else {
-            setRegisteredEvents(prevState => [...prevState, { pk: nameOfE, registered: true }]);
-            console.log(response);
-            notify();
+  const onClickToRegister = useCallback(
+    (nameOfE, companyName) => {
+      const isSpecial = SpecialEventName.includes(nameOfE);
+      console.log(isSpecial)
+      if (isSpecial) {
+        navigate(`/events/${companyName}/${nameOfE}`);
+      } else if (!token) {
+        navigate("/login");
+      } else {
+        registerEvent(
+          token,
+          "register",
+          nameOfE,
+          (response) => {
+            if (response.message === "Event is already passed") {
+              notifyError();
+            } else {
+              setRegisteredEvents((prevState) => [
+                ...prevState,
+                { pk: nameOfE, registered: true },
+              ]);
+              notify();
+            }
+          },
+          (error) => {
+            console.error("Error registering event:", error);
           }
-        },
-        (error) => {
-          console.error('Error registering event:', error);
-        }
-      );
-    }
-  }, [token, navigate, notify, notifyError]);
+        );
+      }
+    },
+    [token, navigate, notify, notifyError]
+  );
 
-  const isRegistered = useCallback((nameOfE) => {
-    return registeredEvents.some(e => e.pk === nameOfE && e.registered);
-  }, [registeredEvents]);
+  const isRegistered = useCallback(
+    (nameOfE) => {
+      return registeredEvents.some((e) => e.pk === nameOfE && e.registered);
+    },
+    [registeredEvents]
+  );
 
   const getMonthFromDate = (dateString) => {
-    const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+    const months = [
+      "Jan",
+      "Feb",
+      "Mar",
+      "Apr",
+      "May",
+      "Jun",
+      "Jul",
+      "Aug",
+      "Sep",
+      "Oct",
+      "Nov",
+      "Dec",
+    ];
     const date = new Date(dateString);
     return months[date.getMonth()];
   };
@@ -129,14 +170,21 @@ const Event_page = () => {
             </div>
           </div>
           <div className="workshop_cards">
-            {events.map(e => (
+            {events.map((e) => (
               <div className="workshop_card" key={e.id}>
                 <div className="workshop_card_img">
-                  <img src={`${DOMAIN}/main/getImage?path=${e.fields.logo}`} alt={e.fields.logo} height={100} loading='lazy' />
+                  <img
+                    src={`${DOMAIN}/main/getImage?path=${e.fields.logo}`}
+                    alt={e.fields.logo}
+                    height={100}
+                    loading="lazy"
+                  />
                 </div>
                 <div className="workshop_card_content">
                   <div className="workshop_date">
-                    <span className="month">{getMonthFromDate(e.fields.date)}</span>
+                    <span className="month">
+                      {getMonthFromDate(e.fields.date)}
+                    </span>
                     <p className="day">{getDayFromDate(e.fields.date)}</p>
                   </div>
                   <div className="workshop_card_title">
@@ -147,9 +195,16 @@ const Event_page = () => {
                   </div>
                 </div>
                 {isRegistered(e.pk) ? (
-                  <button className='btn-op registered ev' disabled>Registered</button>
+                  <button className="btn-op registered ev" disabled>
+                    Registered
+                  </button>
                 ) : (
-                  <button className='btn-op event' onClick={() => onClickToRegister(e.pk)}>Register</button>
+                  <button
+                    className="btn-op event"
+                    onClick={() => onClickToRegister(e.pk, e.company)}
+                  >
+                    Register
+                  </button>
                 )}
               </div>
             ))}
@@ -162,4 +217,3 @@ const Event_page = () => {
 };
 
 export default Event_page;
-

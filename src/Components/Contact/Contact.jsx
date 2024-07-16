@@ -39,7 +39,7 @@ const Contact = () => {
           <div className="name_form">
             <div className="row">
               <label>Name</label>
-              <input type="text" name="Name" placeholder="John" required />
+              <input type="text" name="First Name" placeholder="John" required />
             </div>
             <div className="row">
               <label>Last Name</label>

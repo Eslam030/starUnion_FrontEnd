@@ -54,6 +54,7 @@ const Forget = () => {
           setMessage("OTP sent successfully. Check your email.");
           setIsMessageError(false);
           setTimer(50);
+          console.log(response)
     },
       (error) => {
           console.log(error);
@@ -64,15 +65,6 @@ const Forget = () => {
   }
 
 
-  const onSubmit = (data) => {
-    if (!otpVerified) {
-        setUserEmail(data.email);
-        setClassShow("show");
-        send_the_otp(data.email);
-    } else { 
-        updatePassword(data);
-    }
-};
 
 
 const updatePassword = (data) => {
@@ -85,6 +77,17 @@ const updatePassword = (data) => {
       setIsMessageError(true);
     }
   );
+};
+
+const onSubmit = (data) => {
+  if (!otpVerified) {
+      setUserEmail(data.email);
+      setClassShow("show");
+      send_the_otp(data.email);
+    } else { 
+      updatePassword(data);
+      console.log(data)
+  }
 };
 
 
@@ -111,6 +114,8 @@ const updatePassword = (data) => {
     
     )
   };
+
+
   
   return (
     <>
@@ -221,3 +226,4 @@ const updatePassword = (data) => {
 }
 
 export default Forget
+

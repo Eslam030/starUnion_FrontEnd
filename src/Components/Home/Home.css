@@ -9,7 +9,8 @@
 }
 
 .Home_page img{
-    width: 696px;
+    width: 40%;
+    height: auto;
 }
 
 .txt {
@@ -29,9 +30,6 @@
 }
 
 @media (max-width: 1145px) {
-    .Home_page img {
-        width: 600px;
-    }
     .txt h1 {
         font-size: 65px;
     }
@@ -44,9 +42,6 @@
     }
 }
 @media (max-width: 1000px) {
-    .Home_page img {
-        width: 550px;
-    }
     .txt {
         padding-left: 70px;
     }

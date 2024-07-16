@@ -16,14 +16,9 @@
     display: none;
 }
 .workshop_details .Img_section .col-1 img {
-    width: 755px;
-    height: 433px;
+    width: 100%;
+    height: auto;
     border-radius: 20px;
-}
-
-.workshop_details .Img_section .col-2 img {
-    width: 489px;
-    border-radius: 30px;
 }
 
 .workshop_details .ws_sections {
@@ -277,10 +272,6 @@
         width: 310px !important;
         height: 310px !important;
     }
-    .workshop_details .Img_section .col-1 img {
-        width: 595px;
-        margin: auto;
-    }
     .ws_sections .ws_section_details .ws_section_title h1 {
         font-size: 35px;
     }
@@ -298,10 +289,6 @@
 }
 
 @media (max-width: 450px) {
-    .workshop_details .Img_section .col-1 img {
-        width: 334px;
-        margin: auto;
-    }
     .Register_WS {
         margin-top: 52px;
         display: flex;
