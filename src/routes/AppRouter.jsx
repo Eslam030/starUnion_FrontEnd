@@ -22,7 +22,7 @@ const Router = createBrowserRouter([
     },
     {
       path: "/login",
-      element: <CloseAuth><Login /></CloseAuth>,
+      element: <Login />,
     },
     {
       path: "/login/forgetPassword",
@@ -35,7 +35,7 @@ const Router = createBrowserRouter([
     {
       path: "/register",
       element: <Register />,
-    },
+    }, 
     {
       path: "/workshops",
       element: <WS_page />,

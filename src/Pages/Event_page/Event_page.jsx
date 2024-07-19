@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useCallback } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useLocation } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -16,7 +16,10 @@ import "./Event_page.css";
 const Event_page = () => {
   const token = useSelector((state) => state.auth.token);
   const username = useSelector((state) => state.auth.username);
+  
   const navigate = useNavigate();
+  const location = useLocation();
+
   const [events, setEvents] = useState([]);
   const [registeredEvents, setRegisteredEvents] = useState([]);
   const [pastEvent, setPastEvent] = useState(false); // State to track if event is past
@@ -93,11 +96,14 @@ const Event_page = () => {
   const onClickToRegister = useCallback(
     (nameOfE, companyName) => {
       const isSpecial = SpecialEventName.includes(nameOfE);
-      console.log(isSpecial)
       if (isSpecial) {
         navigate(`/events/${companyName}/${nameOfE}`);
       } else if (!token) {
-        navigate("/login");
+        navigate("/login", {
+          state: {
+            previousUrl: location.pathname + location.search
+          }
+        });
       } else {
         registerEvent(
           token,
