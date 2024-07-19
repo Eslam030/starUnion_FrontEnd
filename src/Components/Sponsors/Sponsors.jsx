@@ -11,7 +11,6 @@ const Sponsors = () => {
         Get_Sponsors(
             (response) => {
                 setSponsorsData(response.data);
-                console.log(response)
             },
             (error) => {
                 console.log(error)

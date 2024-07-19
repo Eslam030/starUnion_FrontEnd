@@ -311,12 +311,12 @@ const Register = () => {
                     rules={{
                       required: "Phone is required",
                       maxLength: {
-                        value: 11 || 13,
-                        message: "Must be 11 numbers",
+                        value: 13,
+                        message: "Must be up to 13 characters",
                       },
                       pattern: {
-                        value: /^[0-9]+$/,
-                        message: "Not a valid phone",
+                        value: /^(01\d{9}|(\+201\d{9}))$/,
+                        message: "Not a valid phone number",
                       },
                     }}
                     control={control}

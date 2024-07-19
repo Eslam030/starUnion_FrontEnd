@@ -1,7 +1,7 @@
 import { useState, useCallback } from "react";
 import { useForm, Controller } from "react-hook-form";
 import { useDispatch } from "react-redux";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useLocation } from "react-router-dom";
 import { Input } from "@material-tailwind/react";
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
 
@@ -14,10 +14,12 @@ import "./Login.css";
 const Login = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const location = useLocation();
   const { control, handleSubmit, formState: { errors } } = useForm({ mode: 'onTouched' });
   const [message, setMessage] = useState("");  // Store response messages
   const [isError, setIsError] = useState(false); // Track if the message is an error
   const [showPassword, setShowPassword] = useState(false);
+
 
   const togglePasswordVisibility = useCallback(() => {
     setShowPassword(prev => !prev);
@@ -30,7 +32,7 @@ const Login = () => {
           setMessage("Login successful! Redirecting...");
           dispatch(setAuthToken({ token: response.access, username: response.user }));
           setIsError(false);
-          navigate(`/userPage/${data.username}`);
+          navigate(location.state?.previousUrl || '/');
         } else {
           setMessage("Login failed: " + response.message);
           setIsError(true);

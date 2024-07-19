@@ -1,4 +1,4 @@
-import { Link, useParams, useNavigate } from "react-router-dom";
+import { Link, useParams, useNavigate, useLocation } from "react-router-dom";
 import { useState, useEffect, useMemo, useCallback } from "react";
 import { useSelector } from 'react-redux';
 import PreLoader from '../../Components/Loading/PreLoader';
@@ -19,6 +19,7 @@ const WS_details = () => {
   const token = useSelector((state) => state.auth.token);
   const username = useSelector((state) => state.auth.username);
   const { name } = useParams();
+  const location = useLocation();
   const navigate = useNavigate();
   const [state, setState] = useState({
     btnState1: false,
@@ -28,7 +29,7 @@ const WS_details = () => {
     registeredWorkshops: [],
     Tob5Data: [],
   });
-
+  
   const { btnState1, btnState2, workShop, instructorData, registeredWorkshops, Tob5Data } = state;
 
   const addActive1 = useCallback(() => {
@@ -114,9 +115,13 @@ const WS_details = () => {
   const firstThree = useMemo(() => Tob5Data.slice(0, 3), [Tob5Data]);
   const lastTwo = useMemo(() => Tob5Data.slice(3, 5), [Tob5Data]);
 
-  const onClickToRegister = useCallback((nameOfWS) => {
+  const onClickToRegisterWs = useCallback((nameOfWS) => {
     if (!token) {
-      navigate('/login');
+      navigate("/login", {
+        state: {
+          previousUrl: location.pathname + location.search
+        }
+      });
     } else {
       registerWorkShop(token, nameOfWS, "register",
         (response) => {
@@ -242,7 +247,7 @@ const WS_details = () => {
                       <button className='btn-op registered' disabled> Registered </button>
                     </Link>
                     :
-                    <Link onClick={() => onClickToRegister(w.pk)}>
+                    <Link onClick={() => onClickToRegisterWs(w.pk)}>
                       <button className='btn-op'> Register </button>
                     </Link>
                   }
