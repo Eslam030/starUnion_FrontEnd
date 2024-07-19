@@ -20,6 +20,7 @@
     "@react-email/components": "0.0.16",
     "@reduxjs/toolkit": "^2.2.3",
     "boxicons": "^2.1.4",
+    "express": "^4.19.2",
     "gsap": "^3.12.5",
     "jquery": "^3.7.1",
     "react": "^18.2.0",
