@@ -9,7 +9,7 @@ import {
   registerEvent,
   EventRegistration,
 } from "../../Api/Endpoints/AppEndPoints";
-import { DOMAIN } from "../../Api/config";
+import ImageEncode from "../../Components/ImageComponents/ImageEncode";
 import Logolayout from "../../assets/star_logo.png";
 import "./Event_page.css";
 
@@ -179,12 +179,7 @@ const Event_page = () => {
             {events.map((e) => (
               <div className="workshop_card" key={e.id}>
                 <div className="workshop_card_img">
-                  <img
-                    src={`${DOMAIN}/main/getImage?path=${e.fields.logo}`}
-                    alt={e.fields.logo}
-                    height={100}
-                    loading="lazy"
-                  />
+                  <ImageEncode imageUrl={e.fields.logo}/>
                 </div>
                 <div className="workshop_card_content">
                   <div className="workshop_date">

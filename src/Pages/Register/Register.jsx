@@ -375,7 +375,7 @@ const Register = () => {
                         message: "Must be at least 8 characters",
                       },
                       pattern: {
-                        value: /^[a-zA-Z1-9@#$%&-]+$/,
+                        value: /^[a-zA-Z0-9@#$%&-]+$/,
                         message: "Not a valid password",
                       },
                     }}
@@ -467,22 +467,6 @@ const Register = () => {
                   )}
                 </div>
 
-                <Controller
-                  name="photo"
-                  defaultValue={5}
-                  control={control}
-                  render={({ field }) => (
-                    <Input
-                      type="hidden"
-                      value="5"
-                      error={Boolean(errors?.collage?.message)}
-                      placeholder="Computers and Artificial intelligence"
-                      {...field}
-                    />
-                  )}
-                />
-
-                {/* ================================= */}
                 <div className="input_box">
                   <span className="reg_detail">Level</span>
                   <Controller
@@ -522,7 +506,6 @@ const Register = () => {
                   )}
                 </div>
 
-                {/* ================================= */}
               </div>
               <div className="gender_details">
                 <span className="gender_title">Gender</span>

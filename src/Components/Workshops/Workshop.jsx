@@ -8,7 +8,7 @@ import {
   registerWorkShop,
   userRegistrations,
 } from "../../Api/Endpoints/AppEndPoints"; // api
-import { DOMAIN } from "../../Api/config";
+import ImageEncode from "../ImageComponents/ImageEncode";
 // CSS file
 import "./Workshop.css";
 
@@ -139,11 +139,7 @@ const Workshop = () => {
               <div className="workS_date">{`${getMonthFromDate(
                 w.fields.start_date
               )} ${getDayFromDate(w.fields.start_date)} `}</div>
-              <img
-                src={`${DOMAIN}/main/getImage?path=${w.fields.logo}`}
-                alt="workshop Image"
-                loading="lazy"
-              />
+              < ImageEncode imageUrl={w.fields.logo}/>
               <div className="content">
                 <h2>{w.pk}</h2>
                 {isRegistered(w.pk) ? (

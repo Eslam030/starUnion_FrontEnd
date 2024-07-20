@@ -2,14 +2,12 @@ import { Link, useParams, useNavigate, useLocation } from "react-router-dom";
 import { useState, useEffect, useMemo, useCallback } from "react";
 import { useSelector } from 'react-redux';
 import PreLoader from '../../Components/Loading/PreLoader';
-import { DOMAIN } from "../../Api/config";
+import ImageEncode from "../../Components/ImageComponents/ImageEncode";
 import { workShopDetails, instructors, Tob5, registerWorkShop, userRegistrations } from "../../Api/Endpoints/AppEndPoints"; // api
 import { ToastContainer, toast } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css';
 // Images
 import Logolayout from "../../assets/star_logo.png";
-import img1 from "../../assets/Image1.png"
-import img3 from "../../assets/Image.png";
 import dot from "../../assets/Ellipse.png";
 import vector_down from "../../assets/Polygon.png";
 // CSS file
@@ -152,12 +150,12 @@ const WS_details = () => {
           {workShop.map(w => (
             <div className="Img_section" key={w.id}>
               <div className="col-1">
-                <img src={`${DOMAIN}/main/getImage?path=${w.fields.logo}`} alt="Workshop Image" loading="lazy" />
+                <ImageEncode imageUrl={w.fields.logo} />
               </div>
-              <div className="col-2">
+              {/* <div className="col-2">
                 <img src={img1} alt="Image" loading="lazy" />
                 <img src={img3} alt="Image" loading="lazy" />
-              </div>
+              </div> */}
             </div>
           ))}
 
@@ -172,7 +170,7 @@ const WS_details = () => {
                   <p>Start day: <span>{w.fields.start_date}</span></p>
                   <p>End day: <span>{w.fields.end_date}</span></p>
                   <p>Price: <span>{`${w.fields.price === 0 ? "Free" : w.fields.price + ' EG'}`}</span></p>
-                  <p>Location: <span>{w.fields.location}</span></p>
+                  <p>Location: <a href={w.fields.location} target="_blank" ><span>{w.fields.location}</span></a></p>
                 </div>
                 <div className="ws_details_section">
                   <span>Details</span>
@@ -194,7 +192,7 @@ const WS_details = () => {
                       <div className={`instructors_cards ${toggleClassCheck1}`} id="Cards">
                         {instructorData.map((instructor, i) => (
                           <div className="instructors_card" id="card" key={i}>
-                             <img src={`${DOMAIN}/main/getImage?path=${instructor.phtot}`} alt="Instructor" />
+                             < ImageEncode imageUrl={instructor.phtot}/>
                             <h1 className="instructor_name">{instructor.name}</h1>
                             <Link to={`/userPage/${instructor.username}`}>
                               <button>More</button>
@@ -264,7 +262,7 @@ const WS_details = () => {
                     <div className="first_3">
                       {firstThree.map((user, i) => (
                         <div className="img_card" key={i}>
-                          <img src={`${DOMAIN}/main/getImage?path=${user.photo}`} alt="User" className="img_one" loading="lazy" />
+                          < ImageEncode imageUrl={user.photo} className="img_one" />
                           <p className="name">{user.name}</p>
                         </div>
                       ))}
@@ -272,7 +270,7 @@ const WS_details = () => {
                     <div className="last_2">
                       {lastTwo.map((user, i) => (
                         <div className="img_card" key={i}>
-                          <img src={`${DOMAIN}/main/getImage?path=${user.photo}`} alt="User" className="img_one" loading="lazy" />
+                          < ImageEncode imageUrl={user.photo} className="img_one" />
                           <p className="name">{user.name}</p>
                         </div>
                       ))}

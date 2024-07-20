@@ -18,6 +18,7 @@ import {
   EventRegistration,
 } from "../../Api/Endpoints/AppEndPoints"; // api
 import { DOMAIN } from "../../Api/config"; // main domain
+import ImageEncode from "../../Components/ImageComponents/ImageEncode";
 // For Images
 import userIcon from "../../assets/user_icon1.png";
 import userSaveIcon from "../../assets/userSave_icon2.png";
@@ -144,7 +145,7 @@ const UserPage = () => {
     UserPageData(
       UserName,
       (response) => {
-        if (response.message === "Done" && response.user) {
+        if (response.message === "Done" && response.user) { 
           setUserData(response.user); // Assuming the user data is contained in response.user
         } else {
           setLoading(false);
@@ -181,13 +182,13 @@ const UserPage = () => {
 
   const onSubmit_ProfileSec = useCallback(
     (data) => {
-      data.gender = userData.gender;
+      data.gender = userData.gender;  
       UserPageUpdate(
         token,
         data,
         (response) => {
           if (response.message === "Done") {
-            setUserData((prevUserData) => ({ ...prevUserData, ...data }));
+            setUserData(response.user);
             setEditMode(false);
             setIsValidData(false);
             setOnLight(true);
@@ -248,12 +249,16 @@ const UserPage = () => {
     [token, notify]
   );
 
-  const userImage = useMemo(() => {
-    return (
-      (userData.gender === "M" ? Man_Img : Girl_Img) ||
-      `${DOMAIN}/main/getImage?path=${userData.photo}`
-    );
-  }, [userData]);
+  // const userImage = useMemo(() => {
+  //   return (
+  //     <>
+  //     `${DOMAIN}/main/getImage?path=${userData.photo}` 
+  //     < ImageEncode imageUrl={userData.photo}/>
+  //      (userData.gender === "M" ? Man_Img : Girl_Img)
+  //     </>
+  //   );
+  // }, [userData]);
+
 
   return (
     <>
@@ -268,7 +273,8 @@ const UserPage = () => {
           <div className="userInfo">
             <div className="user_img">
               {/* Adjust according to your API response and ensure you handle image path correctly */}
-              <img src={userImage} alt="User Image" />
+              {/* <img src={userImage} alt="User Image" /> */}
+              < ImageEncode imageUrl={userData.photo}/>
 
               <h1 className="user_name">{`${userData.first_name || ""} ${
                 userData.last_name || ""
@@ -321,7 +327,7 @@ const UserPage = () => {
                   {(userData.gender === "M" ? "Male" : "Female") || "N/A"}
                 </h2>
                 <h3 className="info_sec">Position</h3>
-                <h2 className="user_data">{userData.position || "N/A"}</h2>
+                <h2 className="user_data">{userData.position || "Participant"}</h2>
                 <h3 className="info_sec">University</h3>
                 <h2 className="user_data">{userData.university || "N/A"}</h2>
                 <h3 className="info_sec">College</h3>
@@ -374,7 +380,7 @@ const UserPage = () => {
                   className="close_img"
                   onClick={Close}
                 >
-                  <path d="M342.6 150.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L192 210.7 86.6 105.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L146.7 256 41.4 361.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0L192 301.3 297.4 406.6c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L237.3 256 342.6 150.6z" />
+                <path d="M342.6 150.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L192 210.7 86.6 105.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L146.7 256 41.4 361.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0L192 301.3 297.4 406.6c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L237.3 256 342.6 150.6z" />
                 </svg>
                 <div className="edit_title">Update my information</div>
 
@@ -498,17 +504,17 @@ const UserPage = () => {
 
                       <Controller
                         name="photo"
-                        defaultValue={"1"}
+                        defaultValue={userData.gender === 'M' ? "Male.png" : "Female.png"}
                         control={control}
                         render={({ field }) => (
                           <Input
                             type="hidden"
-                            value="1"
-                            error={Boolean(errors?.photo?.message)}
+                            value={userData.gender === 'M' ? "Male.png" : "Female.png"}
                             {...field}
                           />
                         )}
                       />
+                      
 
                       <div className="user_input">
                         <p className="input_title">Collage</p>
@@ -588,12 +594,12 @@ const UserPage = () => {
                           defaultValue={userData.phone}
                           rules={{
                             maxLength: {
-                              value: 11,
-                              message: "Must be 11 numbers",
+                              value: 13,
+                              message: "Must be up to 13 characters",
                             },
                             pattern: {
-                              value: /^[0-9]+$/,
-                              message: "Not a valid phone",
+                              value: /^(01\d{9}|(\+201\d{9}))$/,
+                              message: "Not a valid phone number",
                             },
                           }}
                           control={control}

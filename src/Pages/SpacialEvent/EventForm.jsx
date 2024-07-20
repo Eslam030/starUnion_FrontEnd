@@ -4,10 +4,11 @@ import { Input } from "@material-tailwind/react";
 import { useForm, Controller } from "react-hook-form";
 import { DOMAIN } from "../../Api/config";
 import { ToastContainer, toast } from "react-toastify";
-import { registerSpacialEvent } from "../../Api/Endpoints/AppEndPoints"; // api
+import { registerSpacialEvent, eventPages } from "../../Api/Endpoints/AppEndPoints"; // api
 // Images
 import Logolayout from "../../assets/star_logo.png";
 import Event_Img from "../../assets/AI_Event.png";
+import { event } from "jquery";
 
 
 const Register = () => {
@@ -31,6 +32,7 @@ const Register = () => {
     });
   }, []);
 
+  const [events, setEvents] = useState([]);
   const [userEmail, setUserEmail] = useState();
   const [message, setMessage] = useState(""); // State to store message
 
@@ -51,6 +53,23 @@ const Register = () => {
     );
   };
 
+  useEffect(()=> {
+    eventPages(
+      (response) => {
+        const specialEvent = response.data.filter(ev => ev.special === true); 
+        const spacialEvent = specialEvent.map((ev) => ({
+          pk: ev.pk,
+          logo: ev.fields.logo,
+        }));
+        setEvents(spacialEvent)
+      },
+      (error) => {
+        console.error("Error fetching events:", error);
+      }
+    )
+  }, [])
+
+
   return (
     <>
       <div className="body">
@@ -62,7 +81,7 @@ const Register = () => {
 
         <div className="register">
           <div className="form_container">
-            <div className="reg_title">AI Catalyst</div>
+            <div className="reg_title">{events.map((e) => e.pk)}</div>
 
             <form onSubmit={handleSubmit(onSubmit)}>
               <div className="user_reg">
@@ -160,24 +179,20 @@ const Register = () => {
                       : ""}
                   </span>
                 </div>
-
+                
                 <div className="input_box">
                   <span className="reg_detail">Phone</span>
                   <Controller
                     name="phone"
                     rules={{
                       required: "Phone is required",
-                      validate: (value) => {
-                        const isValid = /^[0-9]{11}$|^[+]?[0-9]{13}$/.test(
-                          value
-                        );
-                        return (
-                          isValid || "Phone number must be 11 or 14 digits long"
-                        );
+                      maxLength: {
+                        value: 13,
+                        message: "Must be up to 13 characters",
                       },
                       pattern: {
-                        value: /^[+0-9]+$/,
-                        message: "Not a valid phone",
+                        value: /^(01\d{9}|(\+201\d{9}))$/,
+                        message: "Not a valid phone number",
                       },
                     }}
                     control={control}
@@ -186,7 +201,6 @@ const Register = () => {
                         error={Boolean(errors?.phone?.message)}
                         placeholder="+20 123 456 7891"
                         {...field}
-                        maxLength={13}
                       />
                     )}
                   />
@@ -337,7 +351,7 @@ const Register = () => {
           </div>
         <ToastContainer />
           <div className="register_img">
-            <img src={Event_Img} alt="Register Image" />
+            <img src={`${DOMAIN}/main/getImage?path=${events.map(e => e.logo)}`} alt="Register Image" />
           </div>
         </div>
       </div>

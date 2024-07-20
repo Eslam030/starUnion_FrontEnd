@@ -29,6 +29,7 @@
 }
 
 .main_details {
+    width: 80%;
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 26px;
@@ -111,6 +112,7 @@
 
 .ws_sections .ws_section_details .ws_section_title {
     margin-bottom: 40px;
+    width: 90%;
 }
 
 .ws_sections .ws_section_details .ws_section_title h1 {

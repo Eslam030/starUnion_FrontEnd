@@ -2,7 +2,7 @@ import React, { useState, useEffect, useMemo, useCallback } from "react";
 import { Link } from "react-router-dom";
 import PreLoader from "../../Components/Loading/PreLoader";
 import { workShopPages } from "../../Api/Endpoints/AppEndPoints"; // api
-import { DOMAIN } from "../../Api/config";
+import ImageEncode from "../../Components/ImageComponents/ImageEncode";
 // Images
 import Logolayout from "../../assets/star_logo.png";
 import vector_down from "../../assets/Vector-down.png";
@@ -144,12 +144,7 @@ const WS_page = () => {
                 <div className="workshop_card" key={event.id}>
                   <Link to={`/workshops/details/${event.pk}`}>
                     <div className="workshop_card_img">
-                      <img
-                        src={`${DOMAIN}/main/getImage?path=${event.fields.logo}`}
-                        alt="WorkShop Image"
-                        height={100}
-                        loading="lazy"
-                      />
+                      <ImageEncode imageUrl={event.fields.logo} />
                     </div>
                     <div className="workshop_card_content">
                       <div className="workshop_date">

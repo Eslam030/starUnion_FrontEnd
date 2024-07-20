@@ -75,7 +75,7 @@
 }
 
 .userInfo .icons .notify_E {
-    left: 190px;
+    left: 193px;
 }
 
 
@@ -154,7 +154,7 @@
 .registerSec_card {
     display: flex;
     justify-content: space-between;
-    width: 500px;
+    width: 580px;
     padding: 20px 10px;
     align-items: center;
     
@@ -166,7 +166,7 @@
     gap: 15px;
 }
 .UserRegisterData img {
-    max-width: 60px;
+    max-width: 70px;
     width: 100%;
     object-fit: contain;
     border-radius: 5px;
@@ -326,10 +326,19 @@
     }
 
     .registerSec_card {
-        width: 350px;
+        width: 330px;
     }
     .UserRegisterData img {
         max-width: 90px;
+    }
+
+    .UserRegisterData .WS_title {
+        display: none;
+    }
+
+    .UserRegisterData .WS_pk {
+        font-size: 13px;
+        padding-right: 5px;
     }
     .registerSection_container {
         width: 335px;
@@ -339,7 +348,7 @@
     }
 
     .registerSec_card .remove {
-        width: 35px;
+        width: 36px;
     }
 
     .UserPage .userInfo .user_details .detail_sec {
