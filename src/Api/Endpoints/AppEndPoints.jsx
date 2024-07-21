@@ -127,20 +127,36 @@ export const registerEvent = (token, op, event_name, onSuccess, onError) => {
   });
 };
 
-export const registerSpacialEvent = (data, onSuccess, onError) => {
+// Event endpoint For Registration  Special Event
+export const registerSpacialEvent = (data, event_name ,onSuccess, onError) => {
   console.log(data);
   $.ajax({
     url: `${DOMAIN}/event/registerevent/`,
     method: "POST",
     data: {
       data: JSON.stringify(data),
-      event: "AI Catalyst",
+      event: event_name,
       special: "true",
     },
     success: onSuccess,
     error: onError,
   });
 };
+
+// Check routes for spacial events
+export const checkSpacialEventsRouts = (companyName, eventName, onSuccess, onError) => {
+  $.ajax({
+    url: `${DOMAIN}/event/checkroute/`,
+    method: 'GET',
+    data : {
+        'company' : companyName ,
+        'event' : eventName,
+    } , 
+    success: onSuccess,
+    error: onError,
+  });
+}
+
 
 // Event endpoint For Registration
 export const EventRegistration = (username, op, onSuccess, onError) => {
@@ -282,3 +298,5 @@ export const Get_Sponsors = (onSuccess, onError) => {
     error: onError,
   });
 };
+
+

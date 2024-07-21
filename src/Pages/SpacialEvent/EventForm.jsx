@@ -1,18 +1,26 @@
 import { useState, useEffect, useCallback } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useLocation } from "react-router-dom";
 import { Input } from "@material-tailwind/react";
 import { useForm, Controller } from "react-hook-form";
 import { DOMAIN } from "../../Api/config";
 import { ToastContainer, toast } from "react-toastify";
-import { registerSpacialEvent, eventPages } from "../../Api/Endpoints/AppEndPoints"; // api
+import { registerSpacialEvent, eventPages, checkSpacialEventsRouts } from "../../Api/Endpoints/AppEndPoints"; // api
 // Images
 import Logolayout from "../../assets/star_logo.png";
-import Event_Img from "../../assets/AI_Event.png";
-import { event } from "jquery";
+
+import './EventForm.css'
 
 
-const Register = () => {
+
+const EventForm = () => {
   const navigate = useNavigate();
+  const location = useLocation();
+  //Set this variables in global to use it in two different functions
+  const pathname = location.pathname
+  const eventName = decodeURIComponent(pathname.split('/').pop()) 
+  const companyName = decodeURIComponent(pathname.split('/').slice(2,3))
+
+
   const {
     control,
     handleSubmit,
@@ -36,9 +44,22 @@ const Register = () => {
   const [userEmail, setUserEmail] = useState();
   const [message, setMessage] = useState(""); // State to store message
 
+  useEffect(() => {
+    checkSpacialEventsRouts(companyName, eventName, 
+      (response) => {
+        if (response.message !== 'Done') {
+          navigate('/Errorpage')
+        }
+      }, 
+      (error) => {
+        console.error(error)
+      }
+    )
+  }, [checkSpacialEventsRouts])
+
   const onSubmit = (data) => {
     registerSpacialEvent(
-      data,
+      data,eventName,
       (response) => {
         notify('Registered Successfully')
         setTimeout(() => {
@@ -57,11 +78,13 @@ const Register = () => {
     eventPages(
       (response) => {
         const specialEvent = response.data.filter(ev => ev.special === true); 
-        const spacialEvent = specialEvent.map((ev) => ({
-          pk: ev.pk,
-          logo: ev.fields.logo,
-        }));
-        setEvents(spacialEvent)
+        const filteredEvents = specialEvent
+          .filter(ev => ev.pk === eventName) 
+          .map(ev => ({
+            pk: ev.pk,
+            logo: ev.form_logo,
+          }));
+        setEvents(filteredEvents)
       },
       (error) => {
         console.error("Error fetching events:", error);
@@ -240,7 +263,7 @@ const Register = () => {
                   )}
                 </div>
 
-                <div className="input_box" style={{ marginLeft: "40px" }}>
+                <div className="input_box" >
                   <span className="reg_detail">Collage</span>
                   <Controller
                     name="collage"
@@ -359,4 +382,4 @@ const Register = () => {
   );
 };
 
-export default Register;
+export default EventForm;
