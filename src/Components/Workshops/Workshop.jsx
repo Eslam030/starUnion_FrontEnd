@@ -18,6 +18,7 @@ const Workshop = () => {
   const navigate = useNavigate();
   const [workShop, setWorkShop] = useState([]);
   const [registeredWorkshops, setRegisteredWorkshops] = useState([]);
+  const today = new Date();
 
   useEffect(() => {
     workShopPages(
@@ -38,6 +39,9 @@ const Workshop = () => {
       }
     );
   }, []);
+
+
+
 
   useEffect(() => {
     if (token) {
@@ -75,6 +79,7 @@ const Workshop = () => {
         nameOfWS,
         "register",
         (response) => {
+          
           setRegisteredWorkshops((prevState) => [
             ...prevState,
             { pk: nameOfWS, status: "register" },
@@ -150,9 +155,13 @@ const Workshop = () => {
                     </button>
                   </Link>
                 ) : (
-                  <Link onClick={() => onClickToRegister(w.pk)}>
+                  (new Date(w.fields.start_date) > today || w.fields.availability ? 
+                    <Link onClick={() => onClickToRegister(w.pk)}>
                     <button className="btn-op"> Register </button>
-                  </Link>
+                  </Link> 
+                  : 
+                  null
+                  )
                 )}
               </div>
             </Link>

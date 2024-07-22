@@ -7,7 +7,7 @@ import { ToastContainer, toast } from "react-toastify";
 import { registerSpacialEvent, eventPages, checkSpacialEventsRouts } from "../../Api/Endpoints/AppEndPoints"; // api
 // Images
 import Logolayout from "../../assets/star_logo.png";
-
+import DotpyImg from '../../assets/dotpyi 1.png'
 import './EventForm.css'
 
 
@@ -102,9 +102,10 @@ const EventForm = () => {
           </Link>
         </div>
 
-        <div className="register">
+        <div className="register event_form">
           <div className="form_container">
-            <div className="reg_title">{events.map((e) => e.pk)}</div>
+            <div className="reg_title">{events.map((e) => e.pk)}
+            </div>
 
             <form onSubmit={handleSubmit(onSubmit)}>
               <div className="user_reg">
@@ -233,67 +234,6 @@ const EventForm = () => {
                 </div>
 
                 <div className="input_box">
-                  <span className="reg_detail">University</span>
-                  <Controller
-                    name="university"
-                    rules={{
-                      required: "University is required",
-                      minLength: {
-                        value: 3,
-                        message: "Must be at least 3 characters",
-                      },
-                      pattern: {
-                        value: /^[a-zA-Z_ ]+$/,
-                        message: "Not a valid name",
-                      },
-                    }}
-                    control={control}
-                    render={({ field }) => (
-                      <Input
-                        error={Boolean(errors?.university?.message)}
-                        placeholder="Cairo University"
-                        {...field}
-                      />
-                    )}
-                  />
-                  {errors?.university?.message && (
-                    <span className="alert">
-                      {errors?.university?.message} *
-                    </span>
-                  )}
-                </div>
-
-                <div className="input_box" >
-                  <span className="reg_detail">Collage</span>
-                  <Controller
-                    name="collage"
-                    rules={{
-                      required: "Collage is required",
-                      minLength: {
-                        value: 3,
-                        message: "Must be at least 3 characters",
-                      },
-                      pattern: {
-                        value: /^[a-zA-Z_ ]+$/,
-                        message: "Not a valid name",
-                      },
-                    }}
-                    control={control}
-                    render={({ field }) => (
-                      <Input
-                        error={Boolean(errors?.collage?.message)}
-                        placeholder="Computers and Artificial intelligence"
-                        {...field}
-                      />
-                    )}
-                  />
-                  {errors?.collage?.message && (
-                    <span className="alert">{errors?.collage?.message} *</span>
-                  )}
-                </div>
-
-
-                <div className="input_box">
                   <span className="reg_detail">Level</span>
                   <Controller
                     name="level"
@@ -373,7 +313,8 @@ const EventForm = () => {
             </form>
           </div>
         <ToastContainer />
-          <div className="register_img">
+          <div className="register_img spacialEventsImg">
+            <img src={DotpyImg} alt="" className="dotpy_img" style={{width: '180px'}}/>
             <img src={`${DOMAIN}/main/getImage?path=${events.map(e => e.logo)}`} alt="Register Image" />
           </div>
         </div>

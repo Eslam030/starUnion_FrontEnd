@@ -19,6 +19,7 @@ const WS_details = () => {
   const { name } = useParams();
   const location = useLocation();
   const navigate = useNavigate();
+  const today = new Date();
   const [state, setState] = useState({
     btnState1: false,
     btnState2: false,
@@ -169,7 +170,7 @@ const WS_details = () => {
                 <div className="main_details">
                   <p>Start day: <span>{w.fields.start_date}</span></p>
                   <p>End day: <span>{w.fields.end_date}</span></p>
-                  <p>Price: <span>{`${w.fields.price === 0 ? "Free" : w.fields.price + ' EG'}`}</span></p>
+                  <p>Price: <span>{`${(new Date(w.fields.start_date) > today || w.fields.availability  ? w.fields.price === 0 ? "Free" : w.fields.price + ' EG' : "--")}`}</span></p>
                   <p>Location: <a href={w.fields.location} target="_blank" ><span>Click here</span></a></p>
                 </div>
                 <div className="ws_details_section">
@@ -245,9 +246,13 @@ const WS_details = () => {
                       <button className='btn-op registered' disabled> Registered </button>
                     </Link>
                     :
+                    (new Date(w.fields.start_date) > today || w.fields.availability  ? 
                     <Link onClick={() => onClickToRegisterWs(w.pk)}>
-                      <button className='btn-op'> Register </button>
-                    </Link>
+                    <button className="btn-op"> Register </button>
+                  </Link> 
+                  : 
+                  null
+                  )
                   }
                 </div>
               </div>

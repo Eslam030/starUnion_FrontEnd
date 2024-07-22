@@ -1,5 +1,16 @@
+.event_form {
+    padding: 195px 3% 10% 10%;
+}
+.spacialEventsImg {
+    display: flex;
+    align-items: center;
+}
+
 @media (max-width: 765px) {
     .form_container form .user_reg {
         align-items: normal ;
+    }
+    .event_form {
+        padding: 90px 3% 10% 3%;
     }
 }

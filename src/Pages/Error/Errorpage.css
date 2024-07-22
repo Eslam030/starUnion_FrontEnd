@@ -28,4 +28,7 @@
     .error h1 {
         font-size: 122px;
     }
+    .btn {
+        width: 66% !important;
+    }
 }
