@@ -234,45 +234,6 @@ const EventForm = () => {
                 </div>
 
                 <div className="input_box">
-                  <span className="reg_detail">Level</span>
-                  <Controller
-                    name="level"
-                    rules={{
-                      required: "Level is required",
-                      pattern: {
-                        value: /^[1-7]$/, // This regex matches only numeric inputs
-                        message: "Level must be an integer between 1 and 7", // Custom error message
-                      },
-                    }}
-                    control={control}
-                    render={({ field, fieldState }) => (
-                      <Input
-                        {...field}
-                        error={fieldState.error}
-                        list="Levels"
-                        placeholder="Select a Level"
-                        type="number"
-                        min="1"
-                        max="7"
-                      />
-                    )}
-                  />
-                  <datalist id="Levels">
-                    <option value="1">Level 1</option>
-                    <option value="2">Level 2</option>
-                    <option value="3">Level 3</option>
-                    <option value="4">Level 4</option>
-                    <option value="5">Level 5</option>
-                    <option value="6">Level 6</option>
-                    <option value="7">Level 7</option>
-                    {/* <option value="other" /> */}
-                  </datalist>
-                  {errors.level && (
-                    <span className="alert">{errors.level.message}</span>
-                  )}
-                </div>
-
-                <div className="input_box">
                   <span className="reg_detail">Gender</span>
                   <Controller
                     name="gender"
