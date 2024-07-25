@@ -46,7 +46,8 @@
     font-weight: 500;
 }
 
-.form_container form .user_reg .input_box input {
+.form_container form .user_reg .input_box input,
+.form_container form .user_reg .input_box select {
     height: 45px;
     width: 100%;
     margin-top: 10px;

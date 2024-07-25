@@ -129,7 +129,6 @@ export const registerEvent = (token, op, event_name, onSuccess, onError) => {
 
 // Event endpoint For Registration  Special Event
 export const registerSpacialEvent = (data, event_name ,onSuccess, onError) => {
-  console.log(data);
   $.ajax({
     url: `${DOMAIN}/event/registerevent/`,
     method: "POST",

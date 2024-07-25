@@ -24,7 +24,12 @@ const Register = () => {
     handleSubmit,
     formState: { errors },
     getValues,
-  } = useForm({ mode: "onTouched" });
+  } = useForm({ mode: "onTouched",
+    defaultValues: {
+      level: "1",
+      gender: "Male", // Set default value for level
+    },
+   });
 
   const [userEmail, setUserEmail] = useState();
   const [otp, setOtp] = useState();
@@ -473,34 +478,27 @@ const Register = () => {
                     name="level"
                     rules={{
                       required: "Level is required",
-                      pattern: {
-                        value: /^[1-7]$/, // This regex matches only numeric inputs
-                        message: "Level must be an integer between 1 and 7", // Custom error message
-                      },
                     }}
                     control={control}
                     render={({ field, fieldState }) => (
-                      <Input
+                      <select
                         {...field}
                         error={fieldState.error}
-                        list="Levels"
                         placeholder="Select a Level"
-                        type="number"
-                        min="1"
-                        max="7"
-                      />
+                        id="levelSelect"
+                      >
+                        <option value="" disabled>Select a Level</option>
+                        <option value="1">Level 1</option>
+                        <option value="2">Level 2</option>
+                        <option value="3">Level 3</option>
+                        <option value="4">Level 4</option>
+                        <option value="5">Level 5</option>
+                        <option value="6">Level 6</option>
+                        <option value="7">Level 7</option>
+                        <option value="Graduate">Graduate</option>
+                      </select>
                     )}
                   />
-                  <datalist id="Levels">
-                    <option value="1">Level 1</option>
-                    <option value="2">Level 2</option>
-                    <option value="3">Level 3</option>
-                    <option value="4">Level 4</option>
-                    <option value="5">Level 5</option>
-                    <option value="6">Level 6</option>
-                    <option value="7">Level 7</option>
-                    {/* <option value="other" /> */}
-                  </datalist>
                   {errors.level && (
                     <span className="alert">{errors.level.message}</span>
                   )}

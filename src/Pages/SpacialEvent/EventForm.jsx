@@ -25,7 +25,12 @@ const EventForm = () => {
     control,
     handleSubmit,
     formState: { errors },
-  } = useForm({ mode: "onTouched" });
+  } = useForm({ mode: "onTouched",
+    defaultValues: {
+      level: "1",
+      gender: "Male", // Set default value for level
+    },
+   });
 
   const notify = useCallback((msg, type = "success") => {
     toast[type](msg, {
@@ -61,10 +66,14 @@ const EventForm = () => {
     registerSpacialEvent(
       data,eventName,
       (response) => {
-        notify('Registered Successfully')
-        setTimeout(() => {
-          navigate("/events");
-        }, 2000)
+        if (response.message === 'Done') {
+            notify('Registered Successfully')
+            setTimeout(() => {
+              navigate("/events");
+            }, 2000)
+        } else {
+          notify('You are already registered', 'error')
+        }
       },
       (error) => {
         console.error("Registration failed:", error);
@@ -233,78 +242,65 @@ const EventForm = () => {
                   )}
                 </div>
 
+
                 <div className="input_box">
-                <span className="reg_detail">Level</span>
-                <Controller
-                  name="level"
-                  rules={{
-                    required: "Level is required",
-                    pattern: {
-                      // make the pattern match the value you expect
-                      // number between 1 and 7 or graduate
-                      value: /^[1-7]$||graduate/, // This regex matches only numeric inputs
-                      message: "Level must be an integer between 1 and 7 or graduate", // Custom error message
-                    },
-                  }}
-                  control={control}
-                  render={({ field, fieldState }) => (
-                    <Input
-                      {...field}
-                      error={fieldState.error}
-                      list="Levels"
-                      placeholder="Select a Level"
-                      type="string"
-                      id="levelInput"
-                      min="1"
-                      max="7"
-                      step="1"
-                    />
+                  <span className="reg_detail">Level</span>
+                  <Controller
+                    name="level"
+                    rules={{
+                      required: "Level is required",
+                    }}
+                    control={control}
+                    render={({ field, fieldState }) => (
+                      <select
+                        {...field}
+                        error={fieldState.error}
+                        placeholder="Select a Level"
+                        id="Levels"
+                      >
+                        <option value="" disabled>Select a Level</option>
+                        <option value="1" defaultChecked>Level 1</option>
+                        <option value="2">Level 2</option>
+                        <option value="3">Level 3</option>
+                        <option value="4">Level 4</option>
+                        <option value="5">Level 5</option>
+                        <option value="6">Level 6</option>
+                        <option value="7">Level 7</option>
+                        <option value="8">Graduate</option>
+                      </select>
+                    )}
+                  />
+                  {errors.level && (
+                    <span className="alert">{errors.level.message}</span>
                   )}
-                />
-                <datalist id="Levels">
-                  <option value="1">Level 1</option>
-                  <option value="2">Level 2</option>
-                  <option value="3">Level 3</option>
-                  <option value="4">Level 4</option>
-                  <option value="5">Level 5</option>
-                  <option value="6">Level 6</option>
-                  <option value="7">Level 7</option>
-                  <option value="Graduate"></option>
-                </datalist>
-                {errors.level && (
-                  <span className="alert">{errors.level.message}</span>
-                )}
-              </div>
+                </div>
 
-              <div className="input_box">
-                <span className="reg_detail">Gender</span>
-                <Controller
-                  name="gender"
-                  rules={{
-                    required: "Gender is required",
-                  }}
-                  control={control}
-                  render={({ field, fieldState }) => (
-                    <Input
-                      {...field}
-                      error={fieldState.error}
-                      list="Gender"
-                      placeholder="Select a Gender"
-                      type="string"
-                    
-
-                    />
+                <div className="input_box">
+                  <span className="reg_detail">Gender</span>
+                  <Controller
+                    name="gender"
+                    rules={{
+                      required: "Gender is required",
+                    }}
+                    control={control}
+                    render={({ field, fieldState }) => (
+                      <select
+                        {...field}
+                        error={fieldState.error}
+                        placeholder="Select a Gender"
+                        id="Gender"
+                      >
+                        <option value="" disabled>Select a Gender</option>
+                        <option value="Male" >Male</option>
+                        <option value="Female">Female</option>
+                      </select>
+                    )}
+                  />
+                  {errors.gender && (
+                    <span className="alert">{errors.gender.message}</span>
                   )}
-                />
-                  <datalist id="Gender">
-                    <option value="Male"></option>
-                    <option value="Female"></option>
-                    {/* <option value="other" /> */}
-                  </datalist>
-                {errors.level && (
-                  <span className="alert">{errors.level.message}</span>
-                )}
-              </div>
+                </div>
+
               </div>
 
               <div className="btn_container">
