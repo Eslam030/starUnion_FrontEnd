@@ -253,7 +253,7 @@ const EventForm = () => {
                       error={fieldState.error}
                       list="Levels"
                       placeholder="Select a Level"
-                      type="number"
+                      type="string"
                       id="levelInput"
                       min="1"
                       max="7"
@@ -290,7 +290,7 @@ const EventForm = () => {
                       error={fieldState.error}
                       list="Gender"
                       placeholder="Select a Gender"
-                      type="number"
+                      type="string"
                     
 
                     />
