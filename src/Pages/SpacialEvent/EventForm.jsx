@@ -234,74 +234,77 @@ const EventForm = () => {
                 </div>
 
                 <div className="input_box">
-                  <span className="reg_detail">Level</span>
-                  <Controller
-                    name="level"
-                    rules={{
-                      required: "Level is required",
-                      pattern: {
-                        // make the pattern match the value you expect
-                        // number between 1 and 7 or graduate
-                        value: /^[1-7]$||graduate/, // This regex matches only numeric inputs
-                        message: "Level must be an integer between 1 and 7 or graduate", // Custom error message
-                      },
-                    }}
-                    control={control}
-                    render={({ field, fieldState }) => (
-                      <Input
-                        {...field}
-                        error={fieldState.error}
-                        list="Levels"
-                        placeholder="Select a Level"
-                        type="string"
-                        min="1"
-                        max="7"
-                      />
-                    )}
-                  />
-                  <datalist id="Levels">
-                    <option value="1">Level 1</option>
-                    <option value="2">Level 2</option>
-                    <option value="3">Level 3</option>
-                    <option value="4">Level 4</option>
-                    <option value="5">Level 5</option>
-                    <option value="6">Level 6</option>
-                    <option value="7">Level 7</option>
-                    <option value="Graduate"></option>
-                    {/* <option value="other" /> */}
-                  </datalist>
-                  {errors.level && (
-                    <span className="alert">{errors.level.message}</span>
+                <span className="reg_detail">Level</span>
+                <Controller
+                  name="level"
+                  rules={{
+                    required: "Level is required",
+                    pattern: {
+                      // make the pattern match the value you expect
+                      // number between 1 and 7 or graduate
+                      value: /^[1-7]$||graduate/, // This regex matches only numeric inputs
+                      message: "Level must be an integer between 1 and 7 or graduate", // Custom error message
+                    },
+                  }}
+                  control={control}
+                  render={({ field, fieldState }) => (
+                    <Input
+                      {...field}
+                      error={fieldState.error}
+                      list="Levels"
+                      placeholder="Select a Level"
+                      type="number"
+                      id="levelInput"
+                      min="1"
+                      max="7"
+                      step="1"
+                    />
                   )}
-                </div>
+                />
+                <datalist id="Levels">
+                  <option value="1">Level 1</option>
+                  <option value="2">Level 2</option>
+                  <option value="3">Level 3</option>
+                  <option value="4">Level 4</option>
+                  <option value="5">Level 5</option>
+                  <option value="6">Level 6</option>
+                  <option value="7">Level 7</option>
+                  <option value="Graduate"></option>
+                </datalist>
+                {errors.level && (
+                  <span className="alert">{errors.level.message}</span>
+                )}
+              </div>
 
-                <div className="input_box">
-                  <span className="reg_detail">Gender</span>
-                  <Controller
-                    name="gender"
-                    rules={{
-                      required: "Gender is required",
-                    }}
-                    control={control}
-                    render={({ field, fieldState }) => (
-                      <Input
-                        {...field}
-                        error={fieldState.error}
-                        list="Gender"
-                        placeholder="Gender"
-                        type="text"
-                      />
-                    )}
-                  />
+              <div className="input_box">
+                <span className="reg_detail">Gender</span>
+                <Controller
+                  name="gender"
+                  rules={{
+                    required: "Gender is required",
+                  }}
+                  control={control}
+                  render={({ field, fieldState }) => (
+                    <Input
+                      {...field}
+                      error={fieldState.error}
+                      list="Gender"
+                      placeholder="Select a Gender"
+                      type="number"
+                    
+
+                    />
+                  )}
+                />
                   <datalist id="Gender">
                     <option value="Male"></option>
                     <option value="Female"></option>
                     {/* <option value="other" /> */}
                   </datalist>
-                  {errors.gender && (
-                    <span className="alert">{errors.gender.message}</span>
-                  )}
-                </div>
+                {errors.level && (
+                  <span className="alert">{errors.level.message}</span>
+                )}
+              </div>
               </div>
 
               <div className="btn_container">
