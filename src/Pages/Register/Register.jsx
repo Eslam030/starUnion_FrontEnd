@@ -1,4 +1,5 @@
 import { useState, useEffect, useCallback } from "react";
+import Select from 'react-select';
 import { Link, useNavigate } from "react-router-dom";
 import { Input } from "@material-tailwind/react";
 import OtpInput from "react-otp-input";
@@ -11,7 +12,7 @@ import {
 } from "../../Api/Endpoints/AppEndPoints"; // api
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 // Images
-import Logolayout from "../../assets/star_logo.png";
+import Logolayout from "../../assets/star_logo2.png";
 import registerImg from "../../assets/register_img.png";
 // CSS file
 import "./Register.css";
@@ -164,6 +165,59 @@ const Register = () => {
     },
     [navigate]
   );
+
+  const levelOptions = [
+    { value: '1', label: 'Level 1' },
+    { value: '2', label: 'Level 2' },
+    { value: '3', label: 'Level 3' },
+    { value: '4', label: 'Level 4' },
+    { value: '5', label: 'Level 5' },
+    { value: '6', label: 'Level 6' },
+    { value: '7', label: 'Level 7' },
+    { value: 'Graduate', label: 'Graduate' },
+  ];
+
+  const customStyles = {
+    control: (provided, state) => ({
+      ...provided,
+      borderColor: state.isFocused ? '#6c63ff' : '#ced4da', 
+      boxShadow: state.isFocused ? '0 0 0 1px #6c63ff' : null, 
+      height: '45px', 
+      marginTop: '10px', 
+      outline: 'none',
+      border: 'none',
+      borderRadius: '5px', 
+      fontSize: '16px', 
+    }),
+    option: (provided, state) => ({
+      ...provided,
+      backgroundColor: state.isSelected
+        ? '#6c63ff'
+        : state.isFocused
+        ? '#f8f9fa'
+        : null,
+      color: state.isSelected ? '#fff' : '#212529', 
+      '&:hover': {
+        backgroundColor: '#f8f9fa', 
+      },
+    }),
+    menu: (provided) => ({
+      ...provided,
+      zIndex: 9999, 
+    }),
+    placeholder: (provided) => ({
+      ...provided,
+      color: '#6c757d', 
+      marginBottom: '15px',
+      fontSize: '15px',
+    }),
+    singleValue: (provided) => ({
+      ...provided,
+      color: '#495057',
+      marginBottom: '15px',
+      fontSize: '15px',
+    }),
+  };
 
   return (
     <>
@@ -481,22 +535,21 @@ const Register = () => {
                     }}
                     control={control}
                     render={({ field, fieldState }) => (
-                      <select
+                      <Select
+                        className="select_level"
+                        styles={customStyles}
                         {...field}
+                        options={levelOptions}
+                        defaultValue={levelOptions[0]}
+                        placeholder={"Select Level"}
+                        isSearchable={false}
+                        classNamePrefix="react-select"
                         error={fieldState.error}
-                        placeholder="Select a Level"
-                        id="levelSelect"
-                      >
-                        <option value="" disabled>Select a Level</option>
-                        <option value="1">Level 1</option>
-                        <option value="2">Level 2</option>
-                        <option value="3">Level 3</option>
-                        <option value="4">Level 4</option>
-                        <option value="5">Level 5</option>
-                        <option value="6">Level 6</option>
-                        <option value="7">Level 7</option>
-                        <option value="Graduate">Graduate</option>
-                      </select>
+                        onChange={(selectedOption) => {
+                          field.onChange(selectedOption ? selectedOption.value : '');
+                        }}
+                        value={levelOptions.find(option => option.value === field.value)}
+                      />
                     )}
                   />
                   {errors.level && (

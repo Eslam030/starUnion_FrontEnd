@@ -6,7 +6,7 @@ import OtpInput from 'react-otp-input';
 import { sendOTP, check_OTP, changePass } from '../../Api/Endpoints/AppEndPoints'; // api
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
 // Image
-import Logolayout from "../../assets/star_logo.png";
+import Logolayout from "../../assets/star_logo2.png";
 // CSS file
 import './Forget.css'
 

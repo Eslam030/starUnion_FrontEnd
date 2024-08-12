@@ -219,7 +219,7 @@
 
 .gender_title {
     color: #5B36C2;
-}
+} 
 .gender_box {
     display: flex;
     gap: 5px;
@@ -259,7 +259,8 @@
     color: #5B36C2;
 } 
 
- .user_input input {
+ .user_input input,
+ .user_input  select {
     height: 45px;
     width: 100%;
     margin-top: 10px;
@@ -381,7 +382,7 @@
     }
     .UserPage .edit_sec button {
         bottom: 24px;
-        left: 94px;
+        left: calc(100% - 82%);
         width: 175px;
         padding: 10px;
     }

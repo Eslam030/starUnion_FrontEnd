@@ -1,7 +1,7 @@
 import { Link as LinkRoll } from "react-scroll";
 import { Link } from "react-router-dom";
 import "./Navbar.css";
-import star_logo from "../../assets/star_logo.png";
+import star_logo from '../../assets/star_logo2.png';
 import User_01 from "../../assets/User_01.png";
 import { clearAuthToken } from "../../Auth/authSlice";
 import { useSelector, useDispatch } from 'react-redux';
@@ -111,7 +111,7 @@ const showSideBar = () => {
     {token
     ? 
     <div className="user_info">
-      <div className="nameOfUser">{username}</div>
+      <Link to={`/userPage/${username}`}><p className="nameOfUser">{username}</p></Link>
       <div className="user_details">
           <div className="user-page" onClick={toggleMenu}>
             <img src={User_01} alt="User" className="user_img" />

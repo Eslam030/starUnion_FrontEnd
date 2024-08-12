@@ -175,7 +175,8 @@ ul li {
 }
 
 .logoLayout img {
-    width: 55px;
+    width: 50px;
+    border-radius: 50%;
 }
 
 .show {

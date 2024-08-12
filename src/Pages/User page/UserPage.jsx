@@ -1,5 +1,6 @@
 import React, { useEffect, useState, useCallback, useMemo } from "react";
 import { useSelector } from "react-redux";
+import Select from 'react-select';
 import { Link, useParams } from "react-router-dom";
 import PreLoader from "../../Components/Loading/PreLoader"; // Loader file
 import { Input } from "@material-tailwind/react";
@@ -7,7 +8,7 @@ import { useForm, Controller } from "react-hook-form";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
-
+ 
 import {
   UserPageData,
   checkUserForChange,
@@ -24,7 +25,7 @@ import userIcon from "../../assets/user_icon1.png";
 import userSaveIcon from "../../assets/userSave_icon2.png";
 import lampImg from "../../assets/lamp1.png";
 import lightImg from "../../assets/light1.png";
-import Logolayout from "../../assets/star_logo.png";
+import Logolayout from "../../assets/star_logo2.png";
 import Girl_Img from "../../assets/User_img1.png";
 import Man_Img from "../../assets/userM.png";
 // CSS file
@@ -249,17 +250,61 @@ const UserPage = () => {
     [token, notify]
   );
 
-  // const userImage = useMemo(() => {
-  //   return (
-  //     <>
-  //     `${DOMAIN}/main/getImage?path=${userData.photo}` 
-  //     < ImageEncode imageUrl={userData.photo}/>
-  //      (userData.gender === "M" ? Man_Img : Girl_Img)
-  //     </>
-  //   );
-  // }, [userData]);
+  const levelOptions = [
+    { value: '1', label: 'Level 1' },
+    { value: '2', label: 'Level 2' },
+    { value: '3', label: 'Level 3' },
+    { value: '4', label: 'Level 4' },
+    { value: '5', label: 'Level 5' },
+    { value: '6', label: 'Level 6' },
+    { value: '7', label: 'Level 7' },
+    { value: 'Graduate', label: 'Graduate' },
+  ];
 
+  const customStyles = {
+    control: (provided, state) => ({
+      ...provided,
+      borderColor: state.isFocused ? '#6c63ff' : '#ced4da', 
+      boxShadow: state.isFocused ? '0 0 0 1px #6c63ff' : null, 
+      backgroundColor: '#eee',
+      height: '45px', 
+      marginTop: '10px', 
+      outline: 'none',
+      border: 'none',
+      borderRadius: '5px', 
+      fontSize: '16px', 
+    }),
+    option: (provided, state) => ({
+      ...provided,
+      backgroundColor: state.isSelected
+        ? '#6c63ff'
+        : state.isFocused
+        ? '#f8f9fa'
+        : null,
+      color: state.isSelected ? '#fff' : '#212529', 
+      '&:hover': {
+        backgroundColor: '#f8f9fa', 
+      },
+    }),
+    menu: (provided) => ({
+      ...provided,
+      zIndex: 9999, 
+    }),
+    placeholder: (provided) => ({
+      ...provided,
+      color: '#6c757d', 
+      marginBottom: '15px',
+      fontSize: '15px',
+    }),
+    singleValue: (provided) => ({
+      ...provided,
+      color: '#495057',
+      marginBottom: '15px',
+      fontSize: '15px',
+    }),
+  };
 
+ 
   return (
     <>
       <PreLoader />
@@ -548,43 +593,36 @@ const UserPage = () => {
                         )}
                       </div>
 
-                      <div className="user_input">
-                        <p className="input_title">Level</p>
-                        <Controller
-                          name="level"
-                          defaultValue={userData.level}
-                          rules={{
-                            maxLength: 7,
-                            pattern: {
-                              value: /^\d+$/, // This regex matches only numeric inputs
-                              message: "Level must be an integer", // Custom error message
-                            },
-                          }}
-                          control={control}
-                          render={({ field, fieldState }) => (
-                            <Input
-                              {...field}
-                              error={fieldState.error}
-                              list="Levels"
-                              placeholder="Select a Level"
-                              type="number"
-                            />
-                          )}
-                        />
-                        <datalist id="Levels">
-                          <option value="1">Level 1</option>
-                          <option value="2">Level 2</option>
-                          <option value="3">Level 3</option>
-                          <option value="4">Level 4</option>
-                          <option value="5">Level 5</option>
-                          <option value="6">Level 6</option>
-                          <option value="7">Level 7</option>
-                          {/* <option value="other" /> */}
-                        </datalist>
-                        {errors.level && (
-                          <span className="alert">{errors.level.message}</span>
-                        )}
-                      </div>
+                <div className="user_input">
+                  <span className="reg_detail">Level</span>
+                  <Controller
+                    name="level"
+                    rules={{
+                      required: "Level is required",
+                    }}
+                    control={control}
+                    render={({ field, fieldState }) => (
+                      <Select
+                        className="select_level"
+                        styles={customStyles}
+                        {...field}
+                        options={levelOptions}
+                        defaultValue={levelOptions[0]}
+                        placeholder={"Select Level"}
+                        isSearchable={false}
+                        classNamePrefix="react-select"
+                        error={fieldState.error}
+                        onChange={(selectedOption) => {
+                          field.onChange(selectedOption ? selectedOption.value : '');
+                        }}
+                        value={levelOptions.find(option => option.value === field.value)}
+                      />
+                    )}
+                  />
+                  {errors.level && (
+                    <span className="alert">{errors.level.message}</span>
+                  )}
+                </div>
 
                       <div className="user_input">
                         <p className="input_title">Mobile</p>
@@ -625,6 +663,7 @@ const UserPage = () => {
                         )}
                         <div className="gender_box">
                           {userData.gender === "M" ? (
+                        
                             <Input
                               id="male"
                               type="radio"
@@ -642,7 +681,9 @@ const UserPage = () => {
                           )}
 
                           <label htmlFor="male">Male</label>
+
                         </div>
+
                         <div className="gender_box">
                           {userData.gender === "F" ? (
                             <Input
@@ -662,6 +703,7 @@ const UserPage = () => {
                           )}
                           <label htmlFor="female">Female</label>
                         </div>
+
                       </div>
 
                       <div className="save_container">
@@ -681,7 +723,7 @@ const UserPage = () => {
                     </div>
                   </form>
                 </div>
-
+                {/* Password Edit Section */}
                 <div className="Password_Sec">
                   <form
                     className={!changeOptions ? "temp_form" : ""}

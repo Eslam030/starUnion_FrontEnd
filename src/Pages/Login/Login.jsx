@@ -8,7 +8,7 @@ import { FaEye, FaEyeSlash } from 'react-icons/fa';
 import { loginPage } from "../../Api/Endpoints/AppEndPoints"; // api
 import { setAuthToken } from "../../Auth/authSlice"; // For store the token and username
 import LogIllustrator from "../../assets/login-illustrator.svg";
-import Logolayout from "../../assets/star_logo.png";
+import Logolayout from "../../assets/star_logo2.png";
 import "./Login.css";
 
 const Login = () => {

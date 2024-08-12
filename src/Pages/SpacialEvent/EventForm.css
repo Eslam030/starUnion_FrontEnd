@@ -8,9 +8,13 @@
 
 @media (max-width: 765px) {
     .form_container form .user_reg {
-        align-items: normal ;
+        align-items: normal;
     }
     .event_form {
-        padding: 90px 3% 10% 3%;
+        padding: 90px 1% 10% 2%;
     }
+}
+
+.TEST {
+    padding: 10px 0 !important;
 }

@@ -10,7 +10,7 @@ import {
   EventRegistration,
 } from "../../Api/Endpoints/AppEndPoints";
 import ImageEncode from "../../Components/ImageComponents/ImageEncode";
-import Logolayout from "../../assets/star_logo.png";
+import Logolayout from "../../assets/star_logo2.png";
 import "./Event_page.css";
 
 const Event_page = () => {

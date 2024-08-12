@@ -4,7 +4,7 @@ import PreLoader from "../../Components/Loading/PreLoader";
 import { workShopPages } from "../../Api/Endpoints/AppEndPoints"; // api
 import ImageEncode from "../../Components/ImageComponents/ImageEncode";
 // Images
-import Logolayout from "../../assets/star_logo.png";
+import Logolayout from "../../assets/star_logo2.png";
 import vector_down from "../../assets/Vector-down.png";
 // CSS file
 import "./WS_page.css";

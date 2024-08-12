@@ -7,7 +7,7 @@ import { workShopDetails, instructors, Tob5, registerWorkShop, userRegistrations
 import { ToastContainer, toast } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css';
 // Images
-import Logolayout from "../../assets/star_logo.png";
+import Logolayout from "../../assets/star_logo2.png";
 import dot from "../../assets/Ellipse.png";
 import vector_down from "../../assets/Polygon.png";
 // CSS file
@@ -177,7 +177,8 @@ const WS_details = () => {
                   <span>Details</span>
                   <div className="instructors">
                     <div className="instructors_title">
-                      <img src={dot} alt="image" width={6} /> <h1>Instructors</h1>
+                      <img src={dot} alt="image" width={6} /> 
+                      <h1 onClick={addActive1} style={{cursor: 'pointer'}}>Instructors</h1>
                       <button className="btn_click">
                         <img
                           src={vector_down}
@@ -205,7 +206,8 @@ const WS_details = () => {
                   </div>
                   <div className="instructors">
                     <div className="instructors_title">
-                      <img src={dot} alt="image" width={6} /> <h1>Contents</h1>
+                      <img src={dot} alt="image" width={6} /> 
+                      <h1 onClick={addActive2} style={{cursor: 'pointer'}}>Contents</h1>
                       <button className="btn_click">
                         <img
                           src={vector_down}
