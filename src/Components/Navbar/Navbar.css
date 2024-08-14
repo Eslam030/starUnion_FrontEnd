@@ -206,9 +206,14 @@ svg {
         right: -100%;
         transition: 0.4s;
         z-index: 1000;
+        overflow-y: auto; /* Enable vertical scroll */
         
     }
     
+    .sideNav::-webkit-scrollbar {
+        width: 5px;
+      }
+      
 
     .sideNav.active_nav {
         right: 0;
@@ -220,7 +225,7 @@ svg {
         display: flex;
         flex-direction: column;
         justify-content: space-between;
-        margin: 30px 0 50px 0;
+        margin: 30px 0 100px 0;
         align-items: center;
         position: relative;
     }
@@ -257,7 +262,7 @@ svg {
         flex-direction: column;
         align-items: center;
         justify-content: center;
-        margin-top: 100%;
+        margin-top: 50%;
     }
 
     .main_links .nav_menu_items li {

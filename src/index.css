@@ -98,6 +98,19 @@ ul li {
     border: 1px solid #5D37C6;
 }
 
+.btn-op.disabled {
+    background-color: #5d37c6a7;
+    outline: none;
+    border: none;
+    color: #fff;
+    cursor: not-allowed;
+}
+
+.btn-op.disabled:hover {
+    background-color: #5d37c6a7;
+    color: #fff;
+}
+
 .btn-op.more:hover {
     background-color: #5D37C6;
     color: #fff;

@@ -253,7 +253,7 @@ const WS_details = () => {
                     <button className="btn-op"> Register </button>
                   </Link> 
                   : 
-                  null
+                  <button className="btn-op disabled" disabled> Passed </button>
                   )
                   }
                 </div>

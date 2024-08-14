@@ -1,7 +1,16 @@
 /* Same Style in workshop page */
 
+.event_card_title {
+    width: 70%;
+    text-align: center;
+}
+
 @media (max-width: 760px) {
     .Event_container {
         justify-content: center;
     }
+    .event_card_title {
+        width: 60%;
+    }
+    
 }

@@ -18,19 +18,20 @@
 
 .event {
     flex: 1;
-    background-color: #c9c9c9;
+    background-color: #F8F8F8;
     border-radius: 10px;
     margin: 5px;
     padding: 15px;
     position: relative;
+    max-width: 35%;
 }
 .event .date {
     position: absolute;
     top: -35px;
     left: 0;
     color: #000;
-    background-color: #c9c9c9;
-    padding: 5px;
+    background-color: #fdfdfd;
+    padding: 5px 10px;
     border-radius: 10px;
     /* width: 52%;
     text-align: center; */
@@ -67,6 +68,9 @@
 @media (max-width: 768px) {
     .events {
         background: linear-gradient(-293deg, #000 46%, #5B36C2 96%);
+    }
+    .event {
+        max-width: 100%;
     }
 
     .event .date {

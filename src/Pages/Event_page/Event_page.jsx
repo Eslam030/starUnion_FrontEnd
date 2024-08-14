@@ -181,14 +181,14 @@ const Event_page = () => {
                 <div className="workshop_card_img">
                   <ImageEncode imageUrl={e.fields.logo}/>
                 </div>
-                <div className="workshop_card_content">
+                <div className="workshop_card_content" style={{justifyContent: 'normal'}}>
                   <div className="workshop_date">
                     <span className="month">
                       {getMonthFromDate(e.fields.date)}
                     </span>
                     <p className="day">{getDayFromDate(e.fields.date)}</p>
                   </div>
-                  <div className="workshop_card_title">
+                  <div className="workshop_card_title event_card_title">
                     <h1>{e.pk}</h1>
                     <p className="workshop_card_description">
                       {e.fields.description}

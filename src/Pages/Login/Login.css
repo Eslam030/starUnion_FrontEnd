@@ -88,6 +88,9 @@
     cursor: pointer;
     transition: .3s ease;
 }
+.login .login_card form .Log_btn:hover {
+    scale: 0.95;
+}
 
 .form {
     width: 100%;
