@@ -306,11 +306,12 @@ const UserPage = () => {
     option: (provided, state) => ({
       ...provided,
       backgroundColor: state.isSelected
-        ? '#6c63ff'
-        : state.isFocused
-        ? '#f8f9fa'
-        : null,
-      color: state.isSelected ? '#fff' : '#212529', 
+      ? '#6c63ff'
+      : state.isFocused
+      ? '#6c63ff'
+      : null,
+      color: state.isSelected  ? '#fff' : '#212529', 
+      color: state.isFocused  ? '#fff' : '#212529', 
     }),
     menu: (provided) => ({
       ...provided,
