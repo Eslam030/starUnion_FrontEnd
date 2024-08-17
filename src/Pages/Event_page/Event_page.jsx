@@ -4,11 +4,7 @@ import { useSelector } from "react-redux";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import PreLoader from "../../Components/Loading/PreLoader";
-import {
-  eventPages,
-  registerEvent,
-  EventRegistration,
-} from "../../Api/Endpoints/AppEndPoints";
+import { eventPages, registerEvent, EventRegistration } from "../../Api/Endpoints/AppEndPoints";
 import ImageEncode from "../../Components/ImageComponents/ImageEncode";
 import Logolayout from "../../assets/star_logo2.png";
 import "./Event_page.css";
@@ -22,10 +18,8 @@ const Event_page = () => {
 
   const [events, setEvents] = useState([]);
   const [registeredEvents, setRegisteredEvents] = useState([]);
-  const [pastEvent, setPastEvent] = useState(false); // State to track if event is past
-  const [SpecialEventName, setSpecialEventName] = useState("");
+  const [SpecialEventName, setSpecialEventName] = useState([]);
   const [isSpecialEvent, setIsSpecialEvent] = useState(false);
-
 
   const notify = () => {
     toast.success("Registered Successfully!", {
@@ -58,12 +52,10 @@ const Event_page = () => {
       (response) => {
         if (response.data) {
           setEvents(response.data);
-          const isPastEvent = response.data.some((ev) => ev.status === "PA");
           const specialEvent = response.data.filter(ev => ev.special === true); 
           const spacialEvent = specialEvent.map((ev) => ev.pk);
-          setPastEvent(isPastEvent);
-          setSpecialEventName(spacialEvent)
-          setIsSpecialEvent(specialEvent.length  > 0);
+          setSpecialEventName(spacialEvent);
+          setIsSpecialEvent(specialEvent.length > 0);
           if (response.access) {
             console.log(response.access);
           }
@@ -126,7 +118,7 @@ const Event_page = () => {
         );
       }
     },
-    [token, navigate, notify, notifyError]
+    [token, navigate, notify, notifyError, SpecialEventName, location.pathname, location.search]
   );
 
   const isRegistered = useCallback(
@@ -135,6 +127,12 @@ const Event_page = () => {
     },
     [registeredEvents]
   );
+
+  const isEventPast = (eventDate) => {
+    const today = new Date();
+    const eventDateObj = new Date(eventDate);
+    return eventDateObj < today;
+  };
 
   const getMonthFromDate = (dateString) => {
     const months = [
@@ -179,9 +177,9 @@ const Event_page = () => {
             {events.map((e) => (
               <div className="workshop_card" key={e.id}>
                 <div className="workshop_card_img">
-                  <ImageEncode imageUrl={e.fields.logo}/>
+                  <ImageEncode imageUrl={e.fields.logo} />
                 </div>
-                <div className="workshop_card_content" style={{justifyContent: 'normal'}}>
+                <div className="workshop_card_content" style={{ justifyContent: 'normal' }}>
                   <div className="workshop_date">
                     <span className="month">
                       {getMonthFromDate(e.fields.date)}
@@ -196,8 +194,12 @@ const Event_page = () => {
                   </div>
                 </div>
                 {isRegistered(e.pk) ? (
-                  <button className="btn-op registered ev" disabled>
+                  <button className="btn-op registered event" disabled>
                     Registered
+                  </button>
+                ) : isEventPast(e.fields.date) ? (
+                  <button className="btn-op disabled event" disabled>
+                    Passed
                   </button>
                 ) : (
                   <button

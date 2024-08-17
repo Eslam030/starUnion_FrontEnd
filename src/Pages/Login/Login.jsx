@@ -16,16 +16,17 @@ const Login = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const { control, handleSubmit, formState: { errors } } = useForm({ mode: 'onTouched' });
-  const [message, setMessage] = useState("");  // Store response messages
-  const [isError, setIsError] = useState(false); // Track if the message is an error
+  const [message, setMessage] = useState("");  
+  const [isError, setIsError] = useState(false)
+  const [loading, setLoading] = useState(false)
   const [showPassword, setShowPassword] = useState(false);
-
 
   const togglePasswordVisibility = useCallback(() => {
     setShowPassword(prev => !prev);
   }, []);
 
   const onSubmit = useCallback((data) => {
+    setLoading(true); // Start loading when login begins
     loginPage(data.username, data.email, data.password, 
       (response) => {
         if (response.message === "done") {
@@ -37,13 +38,15 @@ const Login = () => {
           setMessage("Login failed: " + response.message);
           setIsError(true);
         }
+        setLoading(false); // End loading when request is complete
       },
       (error) => {
         setMessage("Server error, please try again later.");
         setIsError(true);
+        setLoading(false); // End loading on error
       }
     );
-  }, [dispatch, navigate]);
+  }, [dispatch, navigate, location.state]);
 
   return (
     <>
@@ -96,7 +99,9 @@ const Login = () => {
             </div>
             <p>Forget Password? <Link to="/login/forgetPassword" className="register_link">Forget</Link></p>      
             <p>Don't have an account? <Link to="/register" className="register_link">Register</Link> </p>
-            <button className="Log_btn">Log In</button>
+            <button className="Log_btn" disabled={loading}>
+              {loading ? "Logging in..." : "Log In"}
+            </button>
           </form>
           {message && <div className={isError ? "error_message_log" : "success_message_log"}>{message}</div>}
         </div>

@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useCallback, useMemo } from "react";
+import React, { useEffect, useState, useCallback, useRef } from "react";
 import { useSelector } from "react-redux";
 import Select from 'react-select';
 import { Link, useParams } from "react-router-dom";
@@ -32,18 +32,22 @@ import Man_Img from "../../assets/userM.png";
 import "./UserPage.css";
 
 const UserPage = () => {
+  
+  const [userData, setUserData] = useState({ level: '3'});
   const {
     control,
     register,
     handleSubmit,
     formState: { errors },
     getValues,
-  } = useForm({ mode: "onTouched" });
+    reset
+  } = useForm({ mode: "onTouched", defaultValues: {
+    level: userData.level
+  }});
   const { UserName } = useParams();
   const username = useSelector((state) => state.auth.username);
   const token = useSelector((state) => state.auth.token);
 
-  const [userData, setUserData] = useState({});
   const [isUser, setIsUser] = useState(false);
   const [onLight, setOnLight] = useState(false);
   const [editMode, setEditMode] = useState(false);
@@ -57,6 +61,14 @@ const UserPage = () => {
   const [showCurrPassword, setShowCurrPassword] = useState(false);
   const [showNewPassword, setShowNewPassword] = useState(false);
   const [showConfPassword, setShowConfPassword] = useState(false);
+
+  useEffect(() => {
+    if (userData) {
+      reset({
+        level: userData.level,  // Set userData.level as the default value in the form
+      });
+    }
+  }, [userData, reset]);
 
   const togglePasswordVisibilityCurr = useCallback(() => {
     setShowCurrPassword((prev) => !prev);
@@ -250,6 +262,21 @@ const UserPage = () => {
     [token, notify]
   );
 
+  const menuRef = useRef(null);
+
+  const handleClickOutside = useCallback((event) => {
+    if (menuRef.current && !menuRef.current.contains(event.target)) {
+      setShowEvents((prev) => !prev);
+      // setShowEvents(false)
+      setEditMode(false)
+    }
+  }, []);
+
+  useEffect(() => {
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
+  }, [handleClickOutside]);
+
   const levelOptions = [
     { value: '1', label: 'Level 1' },
     { value: '2', label: 'Level 2' },
@@ -260,6 +287,7 @@ const UserPage = () => {
     { value: '7', label: 'Level 7' },
     { value: 'Graduate', label: 'Graduate' },
   ];
+
 
   const customStyles = {
     control: (provided, state) => ({
@@ -273,6 +301,7 @@ const UserPage = () => {
       border: 'none',
       borderRadius: '5px', 
       fontSize: '16px', 
+      
     }),
     option: (provided, state) => ({
       ...provided,
@@ -282,9 +311,6 @@ const UserPage = () => {
         ? '#f8f9fa'
         : null,
       color: state.isSelected ? '#fff' : '#212529', 
-      '&:hover': {
-        backgroundColor: '#f8f9fa', 
-      },
     }),
     menu: (provided) => ({
       ...provided,
@@ -416,7 +442,7 @@ const UserPage = () => {
 
         {/* For Edit */}
         {editMode && (
-          <div className="bk show">
+          <div className="bk show" ref={menuRef}>
             <div className="userEdit_container">
               <div className="edit_form">
                 <svg
@@ -607,15 +633,14 @@ const UserPage = () => {
                         styles={customStyles}
                         {...field}
                         options={levelOptions}
-                        defaultValue={levelOptions[0]}
-                        placeholder={"Select Level"}
+                        value={levelOptions.find(option => option.value === field.value)} // Controlled by form value
+                        placeholder={" Level " + field.value}
                         isSearchable={false}
                         classNamePrefix="react-select"
                         error={fieldState.error}
                         onChange={(selectedOption) => {
-                          field.onChange(selectedOption ? selectedOption.value : '');
+                          field.onChange( selectedOption.value );
                         }}
-                        value={levelOptions.find(option => option.value === field.value)}
                       />
                     )}
                   />
@@ -776,6 +801,10 @@ const UserPage = () => {
                             value: 8,
                             message: "Must be at least 8 characters",
                           },
+                          pattern: {
+                            value: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@!#$%^&*()_+{}\[\]:;"'<>,.?/~`|\\-]).{8,}$/,
+                            message: `Must contain a-z & A-Z & 0-9 & characters`,
+                          },
                         }}
                         control={control}
                         render={({ field }) => (
@@ -785,6 +814,7 @@ const UserPage = () => {
                               error={Boolean(errors?.new_password?.message)}
                               placeholder="*************"
                               {...field}
+                              
                             />
 
                             <span
@@ -861,7 +891,7 @@ const UserPage = () => {
 
         {/* Show the WS Registration */}
         {showWS && registeredWorkshopsData.length > 0 && (
-          <div className="bk show">
+          <div className="bk show" ref={menuRef}>
             <div className="registerSection_container">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -873,7 +903,7 @@ const UserPage = () => {
               </svg>
               <h2 className="model_title">My Workshops</h2>
               {registeredWorkshopsData.map((WS_Data) => (
-                <div className="registerSec_card" key={WS_Data.id}>
+                <div className="registerSec_card" key={WS_Data.id} ref={menuRef}>
                   <div className="UserRegisterData">
                     <div className="WS_img">
                       <img
@@ -919,7 +949,7 @@ const UserPage = () => {
 
         {/* Show the Event Registration */}
         {showEvents && registeredEventsData.length > 0 && (
-          <div className="bk show">
+          <div className="bk show" ref={menuRef}>
             <div className="registerSection_container">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -952,7 +982,7 @@ const UserPage = () => {
         )}
 
         {showWS && registeredWorkshopsData.length === 0 && (
-          <div className="bk show">
+          <div className="bk show" ref={menuRef}>
             <div className="registerSection_container">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -970,7 +1000,7 @@ const UserPage = () => {
         )}
 
         {showEvents && registeredEventsData.length === 0 && (
-          <div className="bk show">
+          <div className="bk show" ref={menuRef}>
             <div className="registerSection_container">
               <svg
                 xmlns="http://www.w3.org/2000/svg"

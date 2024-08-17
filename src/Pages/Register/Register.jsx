@@ -197,9 +197,6 @@ const Register = () => {
         ? '#f8f9fa'
         : null,
       color: state.isSelected ? '#fff' : '#212529', 
-      '&:hover': {
-        backgroundColor: '#f8f9fa', 
-      },
     }),
     menu: (provided) => ({
       ...provided,
@@ -434,8 +431,8 @@ const Register = () => {
                         message: "Must be at least 8 characters",
                       },
                       pattern: {
-                        value: /^[a-zA-Z0-9@#$%&-]+$/,
-                        message: "Not a valid password",
+                        value: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@!#$%^&*()_+{}\[\]:;"'<>,.?/~`|\\-]).{8,}$/,
+                        message: `Must contain a-z & A-Z & 0-9 & characters`,
                       },
                     }}
                     control={control}
@@ -508,7 +505,7 @@ const Register = () => {
                         message: "Must be at least 3 characters",
                       },
                       pattern: {
-                        value: /^[a-zA-Z_ ]+$/,
+                        value: /^[a-zA-Z-_ ]+$/,
                         message: "Not a valid name",
                       },
                     }}

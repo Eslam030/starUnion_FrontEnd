@@ -111,7 +111,7 @@ svg {
     text-align: center;
     background: #101010b0;
     left: -25px;
-    top: 70px;
+    top: 55px;
     position: absolute;
     width: 150px;
     border-radius: 5px;
@@ -298,6 +298,7 @@ svg {
         background-color: #191919;
         color: #fff;
         padding: 15px;
+        margin-bottom: 7px;
         font-size: 14px;
         display: inline-flex;
         align-items: center;

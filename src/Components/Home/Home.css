@@ -11,6 +11,7 @@
 .Home_page img{
     width: 40%;
     height: auto;
+    user-select: none;
 }
 
 .txt {
@@ -51,7 +52,7 @@
     }
     .txt p {
         font-size: 13px;
-        padding-bottom: 100px;
+        padding-bottom: 45px;
     }   
     .btn {
         width: 200px;
