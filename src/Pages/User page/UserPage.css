@@ -306,6 +306,19 @@
     .lamp_img {
         display: none !important;
     }
+
+    .userEdit_container {
+        top: 15%;
+    }
+
+    .bk {
+        position: static;
+        background-color: transparent;
+    }
+
+    .registerSection_container {
+        top: 50%;
+    }
 }
 
 
@@ -391,11 +404,6 @@
         align-items: normal !important;
         gap: 15px;
     }
-
-    /* .update_container .user_input {
-        width: 100%;
-        margin: 7px 0;
-    } */
 }
 
 

@@ -262,20 +262,20 @@ const UserPage = () => {
     [token, notify]
   );
 
+  //? For the closing of the menu
   const menuRef = useRef(null);
+  // const handleClickOutside = useCallback((event) => {
+  //   if (menuRef.current && !menuRef.current.contains(event.target)) {
+  //     setShowEvents((prev) => !prev);
+  //     // setShowEvents(false)
+  //     setEditMode(false)
+  //   }
+  // }, []);
 
-  const handleClickOutside = useCallback((event) => {
-    if (menuRef.current && !menuRef.current.contains(event.target)) {
-      setShowEvents((prev) => !prev);
-      // setShowEvents(false)
-      setEditMode(false)
-    }
-  }, []);
-
-  useEffect(() => {
-    document.addEventListener('mousedown', handleClickOutside);
-    return () => document.removeEventListener('mousedown', handleClickOutside);
-  }, [handleClickOutside]);
+  // useEffect(() => {
+  //   document.addEventListener('mousedown', handleClickOutside);
+  //   return () => document.removeEventListener('mousedown', handleClickOutside);
+  // }, [handleClickOutside]);
 
   const levelOptions = [
     { value: '1', label: 'Level 1' },
@@ -892,7 +892,7 @@ const UserPage = () => {
 
         {/* Show the WS Registration */}
         {showWS && registeredWorkshopsData.length > 0 && (
-          <div className="bk show" ref={menuRef}>
+          <div className="bk show">
             <div className="registerSection_container">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -950,7 +950,7 @@ const UserPage = () => {
 
         {/* Show the Event Registration */}
         {showEvents && registeredEventsData.length > 0 && (
-          <div className="bk show" ref={menuRef}>
+          <div className="bk show">
             <div className="registerSection_container">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -983,7 +983,7 @@ const UserPage = () => {
         )}
 
         {showWS && registeredWorkshopsData.length === 0 && (
-          <div className="bk show" ref={menuRef}>
+          <div className="bk show" >
             <div className="registerSection_container">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -1001,7 +1001,7 @@ const UserPage = () => {
         )}
 
         {showEvents && registeredEventsData.length === 0 && (
-          <div className="bk show" ref={menuRef}>
+          <div className="bk show" >
             <div className="registerSection_container">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
