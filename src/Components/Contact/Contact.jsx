@@ -1,12 +1,26 @@
 import React from "react";
 import "./Contact.css";
+import { ToastContainer, toast } from "react-toastify";
 
 const Contact = () => {
-  const [result, setResult] = React.useState("");
+  const [result, setResult] = React.useState(false);
+
+  const notify = () => {
+    toast.success("Sending Successfully!", {
+      position: "top-right",
+      autoClose: 5000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "dark",
+    });
+  };
 
   const onSubmit = async (event) => {
     event.preventDefault();
-    setResult("Sending....");
+    setResult(true);
     const formData = new FormData(event.target);
 
     formData.append("access_key", "a9d4cd84-319f-4f80-8f35-483e452ad122"); // For Email 
@@ -19,11 +33,11 @@ const Contact = () => {
     const data = await response.json();
 
     if (data.success) {
-      setResult("Form Submitted Successfully");
+      notify(); 
+      setResult(false);
       event.target.reset();
     } else {
       console.log("Error", data);
-      setResult(data.message);
     }
   };
   return (
@@ -67,9 +81,9 @@ const Contact = () => {
           <textarea name="Message" rows="4" required></textarea>
 
           <div className="sub_form">
-            <button type="submit">Send Message</button>
+            <button type="submit">{result ? 'Sending...' : 'Send Massage'}</button>
           </div>
-          <span className="progress">{result}</span>
+          <ToastContainer />
         </form>
       </div>
     </div>

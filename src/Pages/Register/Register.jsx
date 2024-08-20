@@ -98,8 +98,8 @@ const Register = () => {
       (response) => {
         setMessage("OTP sent successfully. Check your email.");
         setIsMessageError(false);
-        setTimer(50);
-      },
+        setTimer(60);
+      },  
       (error) => {
         console.log(error);
         setMessage("Failed to send OTP. Please try again.");
@@ -110,11 +110,12 @@ const Register = () => {
 
   const onSubmit = async (data) => {
     const { Confirm_password, ...cleanData } = data;
-
+    
+    cleanData.email = cleanData.email.toLowerCase();
     // Check username and email uniqueness before sending OTP
     const isUnique = await checkUsernameOrEmailUnique(
       data.username,
-      data.email
+      cleanData.email
     );
     if (!isUnique) return;
     setIsMessageError(false);
@@ -243,7 +244,7 @@ const Register = () => {
                         message: "Must be at least 3 characters",
                       },
                       pattern: {
-                        value: /^[a-zA-Z]+$/,
+                        value: /^[a-zA-Z_ ]+$/,
                         message: "Not a valid name",
                       },
                     }}
@@ -274,7 +275,7 @@ const Register = () => {
                         message: "Must be at least 3 characters",
                       },
                       pattern: {
-                        value: /^[a-zA-Z]+$/,
+                        value: /^[a-zA-Z_ ]+$/,
                         message: "Not a valid name",
                       },
                     }}
@@ -501,12 +502,8 @@ const Register = () => {
                     name="collage"
                     rules={{
                       required: "Collage is required",
-                      minLength: {
-                        value: 3,
-                        message: "Must be at least 3 characters",
-                      },
                       pattern: {
-                        value: /^[a-zA-Z-_ ]+$/,
+                        value: /^[a-zA-Z0-9-_ ]+$/,
                         message: "Not a valid name",
                       },
                     }}
