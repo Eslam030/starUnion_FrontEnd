@@ -245,7 +245,7 @@ const Register = () => {
                       },
                       pattern: {
                         value: /^[a-zA-Z_ ]+$/,
-                        message: "Not a valid name",
+                        message: "Not a valid name (Remove characters if exists) ",
                       },
                     }}
                     control={control}
@@ -306,8 +306,8 @@ const Register = () => {
                         message: "Must be at least 3 characters",
                       },
                       pattern: {
-                        value: /^[a-zA-Z0-9]+$/,
-                        message: "Not a valid name",
+                        value: /^[a-zA-Z0-9]+$/,  
+                        message: "Not a valid name (Remove spaces if exists ) ",
                       },
                     }}
                     control={control}
@@ -340,7 +340,7 @@ const Register = () => {
                       required: "Email is required",
                       pattern: {
                         value:
-                          /^[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?$/,
+                        /^[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?$/i,
                         message: "Not a valid email",
                       },
                     }}
@@ -402,7 +402,7 @@ const Register = () => {
                         message: "Must be at least 3 characters",
                       },
                       pattern: {
-                        value: /^[a-zA-Z_ ]+$/,
+                        value: /^[a-zA-Z0-9_ ]+$/,
                         message: "Not a valid name",
                       },
                     }}

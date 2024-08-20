@@ -187,7 +187,7 @@ const EventForm = () => {
                         message: "Must be at least 3 characters",
                       },
                       pattern: {
-                        value: /^[a-zA-Z]+$/,
+                        value: /^[a-zA-Z_ ]+$/,
                         message: "Not a valid name",
                       },
                     }}
@@ -218,7 +218,7 @@ const EventForm = () => {
                         message: "Must be at least 3 characters",
                       },
                       pattern: {
-                        value: /^[a-zA-Z]+$/,
+                        value: /^[a-zA-Z_ ]+$/,
                         message: "Not a valid name",
                       },
                     }}
@@ -249,7 +249,7 @@ const EventForm = () => {
                       required: "Email is required",
                       pattern: {
                         value:
-                          /^[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?$/,
+                          /^[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?$/i,
                         message: "Not a valid email",
                       },
                     }}

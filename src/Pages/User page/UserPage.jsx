@@ -554,7 +554,7 @@ const UserPage = () => {
                               message: "Must be at least 3 characters",
                             },
                             pattern: {
-                              value: /^[a-zA-Z_ ]+$/,
+                              value: /^[a-zA-Z0-9_ ]+$/,
                               message: "Not a valid name",
                             },
                           }}
@@ -600,7 +600,7 @@ const UserPage = () => {
                               message: "Must be at least 3 characters",
                             },
                             pattern: {
-                              value: /^[a-zA-Z_ ]+$/,
+                              value: /^[a-zA-Z0-9-_ ]+$/,
                               message: "Not a valid name",
                             },
                           }}
