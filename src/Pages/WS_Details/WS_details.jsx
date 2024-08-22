@@ -169,7 +169,7 @@ const WS_details = () => {
                 </div>
                 <div className="main_details">
                   <p>Start day: <span>{w.fields.start_date}</span></p>
-                  <p>End day: <span>{`${(new Date(w.fields.start_date) > today || w.fields.availability  ? w.fields.end_data : "Present")}`}</span></p>
+                  <p>End day: <span>{`${(new Date(w.fields.start_date) > today || w.fields.availability  ? w.fields.end_data : "--")}`}</span></p>
                   <p>Price: <span>{`${(new Date(w.fields.start_date) > today || w.fields.availability  ? w.fields.price === 0 ? "Free" : w.fields.price + ' EG' : "--")}`}</span></p>
                   <p>Location: <a href={w.fields.location} target="_blank" ><span>Click here</span></a></p>
                 </div>

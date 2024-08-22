@@ -245,7 +245,7 @@ const Register = () => {
                       },
                       pattern: {
                         value: /^[a-zA-Z-_ ]+$/,
-                        message: "Remove special characters & numbers [@!$%&]",
+                        message: "Remove special characters or numbers ",
                       },
                     }}
                     control={control}
@@ -276,7 +276,7 @@ const Register = () => {
                       },
                       pattern: {
                         value: /^[a-zA-Z-_ ]+$/,
-                        message: "Remove special characters & numbers [@!$%&]",
+                        message: "Remove special characters or numbers",
                       },
                     }}
                     control={control}
@@ -307,7 +307,7 @@ const Register = () => {
                       },
                       pattern: {
                         value: /^[a-zA-Z0-9]+$/,  
-                        message: "Not a valid name (Remove spaces if exists ) ",
+                        message: "Remove special characters or spaces",
                       },
                     }}
                     control={control}
