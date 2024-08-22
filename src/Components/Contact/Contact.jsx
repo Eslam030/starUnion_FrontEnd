@@ -6,7 +6,7 @@ const Contact = () => {
   const [result, setResult] = React.useState(false);
 
   const notify = () => {
-    toast.success("Sending Successfully!", {
+    toast.success("message sent successfully!", {
       position: "top-right",
       autoClose: 5000,
       hideProgressBar: false,

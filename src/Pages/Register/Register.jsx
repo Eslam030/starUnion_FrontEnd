@@ -244,8 +244,8 @@ const Register = () => {
                         message: "Must be at least 3 characters",
                       },
                       pattern: {
-                        value: /^[a-zA-Z_ ]+$/,
-                        message: "Not a valid name (Remove characters if exists) ",
+                        value: /^[a-zA-Z-_ ]+$/,
+                        message: "Remove special characters & numbers [@!$%&]",
                       },
                     }}
                     control={control}
@@ -275,8 +275,8 @@ const Register = () => {
                         message: "Must be at least 3 characters",
                       },
                       pattern: {
-                        value: /^[a-zA-Z_ ]+$/,
-                        message: "Not a valid name",
+                        value: /^[a-zA-Z-_ ]+$/,
+                        message: "Remove special characters & numbers [@!$%&]",
                       },
                     }}
                     control={control}
