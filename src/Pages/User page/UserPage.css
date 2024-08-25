@@ -237,6 +237,7 @@
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
+    margin: 0 10px;
 }
 
 .update_container .user_input {
@@ -257,7 +258,11 @@
     font-size: 16px;
     font-weight: 500;
     color: #5B36C2;
-} 
+}
+
+.userInfo {
+    width: 100%;
+}
 
  .user_input input,
  .user_input  select {
@@ -318,6 +323,10 @@
 
     .registerSection_container {
         top: 50%;
+    }
+
+    .btn {
+        left: 157px;
     }
 }
 

@@ -53,7 +53,7 @@ const Forget = () => {
       (response) => {
           setMessage("OTP sent successfully. Check your email.");
           setIsMessageError(false);
-          setTimer(50);
+          setTimer(60);
           console.log(response)
     },
       (error) => {
@@ -138,7 +138,12 @@ const onSubmit = (data) => {
                 name="email"
                 control={control}
                 rules={{ 
-                  required: "Email is required" 
+                  required: "Email is required",
+                  pattern: {
+                    value:
+                    /^[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?$/i,
+                    message: "Not a valid email",
+                  }, 
                 }}
                 render={({ field }) => (
                   <Input {...field} type="text" placeholder="Email" className="input_field" error={Boolean(errors?.email?.message)}/>
@@ -160,6 +165,10 @@ const onSubmit = (data) => {
                           value: 8,
                           message: "Must be at least 8 characters",
                       },
+                      pattern: {
+                        value: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@!#$%^&*()_+{}\[\]:;"'<>,.?/~`|\\-]).{8,}$/,
+                        message: `Must contain a-z & A-Z & 0-9 & characters`,
+                      },
                   }}
                   render={({ field }) => (
                     <div className="input_container">
@@ -172,6 +181,7 @@ const onSubmit = (data) => {
               />
               {errors?.password?.message && <span className="alert_forget">{errors?.password?.message} *</span>}
           </div>
+
           <div className="forget_input">
               <Controller
                   name="Confirm_password"

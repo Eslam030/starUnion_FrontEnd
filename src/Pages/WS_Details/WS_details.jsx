@@ -1,4 +1,4 @@
-import { Link, useParams, useNavigate, useLocation } from "react-router-dom";
+import { Link, useParams, useNavigate } from "react-router-dom";
 import { useState, useEffect, useMemo, useCallback } from "react";
 import { useSelector } from 'react-redux';
 import PreLoader from '../../Components/Loading/PreLoader';
@@ -17,7 +17,6 @@ const WS_details = () => {
   const token = useSelector((state) => state.auth.token);
   const username = useSelector((state) => state.auth.username);
   const { name } = useParams();
-  const location = useLocation();
   const navigate = useNavigate();
   const today = new Date();
   const [state, setState] = useState({
@@ -116,23 +115,19 @@ const WS_details = () => {
 
   const onClickToRegisterWs = useCallback((nameOfWS) => {
     if (!token) {
-      navigate("/login", {
-        state: {
-          previousUrl: location.pathname + location.search
-        }
-      });
+      navigate("/login");
     } else {
       registerWorkShop(token, nameOfWS, "register",
         (response) => {
           setState(prevState => ({ ...prevState, registeredWorkshops: [...prevState.registeredWorkshops, { pk: nameOfWS, status: "register" }] }));
-          notify();
+          // notify();
         },
         (error) => {
           console.error('Error fetching events:', error);
         }
       );
     }
-  }, [token, navigate, notify]);
+  }, [token, navigate]);
 
   const isRegistered = useCallback((nameOfWS) => {
     return registeredWorkshops.some(ws => ws.pk === nameOfWS && (ws.status === 'register' || ws.status === 'taking'));
@@ -169,7 +164,7 @@ const WS_details = () => {
                 </div>
                 <div className="main_details">
                   <p>Start day: <span>{w.fields.start_date}</span></p>
-                  <p>End day: <span>{`${(new Date(w.fields.start_date) > today || w.fields.availability  ? w.fields.end_data : "--")}`}</span></p>
+                  <p>End day: <span>{`${(new Date(w.fields.start_date) > today || w.fields.availability  ? w.fields.end_date : "--")}`}</span></p>
                   <p>Price: <span>{`${(new Date(w.fields.start_date) > today || w.fields.availability  ? w.fields.price === 0 ? "Free" : w.fields.price + ' EG' : "--")}`}</span></p>
                   <p>Location: <a href={w.fields.location} target="_blank" ><span>Click here</span></a></p>
                 </div>
@@ -207,7 +202,7 @@ const WS_details = () => {
                   <div className="instructors">
                     <div className="instructors_title">
                       <img src={dot} alt="image" width={6} /> 
-                      <h1 onClick={addActive2} style={{cursor: 'pointer'}}>Contents</h1>
+                      <h1 onClick={addActive2} style={{cursor: 'pointer'}}>Content</h1>
                       <button className="btn_click">
                         <img
                           src={vector_down}

@@ -20,6 +20,23 @@ const Workshop = () => {
   const [registeredWorkshops, setRegisteredWorkshops] = useState([]);
   const today = new Date();
 
+  const notify_Succ = () => {
+    toast.success("Registered Successfully!", {
+      position: "top-right",
+      autoClose: 5000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "dark",
+      onClose: () => {
+        // Do nothing here to prevent unwanted navigation
+      },
+    });
+  };
+
+
   useEffect(() => {
     workShopPages(
       (response) => {
@@ -41,8 +58,6 @@ const Workshop = () => {
   }, []);
 
 
-
-
   useEffect(() => {
     if (token) {
       userRegistrations(
@@ -57,18 +72,7 @@ const Workshop = () => {
     }
   }, []);
 
-  const notify = () => {
-    toast.success("Registered Successfully!", {
-      position: "top-right",
-      autoClose: 5000,
-      hideProgressBar: false,
-      closeOnClick: true,
-      pauseOnHover: true,
-      draggable: true,
-      progress: undefined,
-      theme: "dark",
-    });
-  };
+ 
 
   const onClickToRegister = (nameOfWS) => {
     if (!token) {
@@ -84,7 +88,6 @@ const Workshop = () => {
             ...prevState,
             { pk: nameOfWS, status: "register" },
           ]);
-          notify();
         },
         (error) => {
           setWS_Register(false);
@@ -148,12 +151,10 @@ const Workshop = () => {
               <div className="content">
                 <h2>{w.pk}</h2>
                 {isRegistered(w.pk) ? (
-                  <Link>
                     <button className="btn-op registered" disabled>
                       {" "}
                       Registered{" "}
                     </button>
-                  </Link>
                 ) : (
                   (new Date(w.fields.start_date) > today || w.fields.availability ? 
                     <Link onClick={() => onClickToRegister(w.pk)}>
@@ -171,7 +172,7 @@ const Workshop = () => {
       </div>
       <div className="btn_div">
         <Link to="/workshops">
-          <button className="btn-op more" onClick={notify}>
+          <button className="btn-op more" onClick={notify_Succ}>
             More
           </button>
         </Link>

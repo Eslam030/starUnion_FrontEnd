@@ -306,7 +306,7 @@ const Register = () => {
                         message: "Must be at least 3 characters",
                       },
                       pattern: {
-                        value: /^[a-zA-Z0-9]+$/,  
+                        value: /^[a-zA-Z0-9_-]+$/,  
                         message: "Remove special characters or spaces",
                       },
                     }}
@@ -314,7 +314,7 @@ const Register = () => {
                     render={({ field }) => (
                       <Input
                         error={Boolean(errors?.username?.message)}
-                        placeholder="Doe"
+                        placeholder="JohnDoe"
                         {...field}
                       />
                     )}
