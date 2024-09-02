@@ -1,17 +1,16 @@
 import React, { useEffect, useState, useCallback, useRef } from "react";
-import { useSelector } from "react-redux";
 import Select from 'react-select';
 import { Link, useParams } from "react-router-dom";
-import PreLoader from "../../Components/Loading/PreLoader"; // Loader file
+import PreLoader from "../../Components/Loading/PreLoader"; 
 import { Input } from "@material-tailwind/react";
 import { useForm, Controller } from "react-hook-form";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
+import useIsAuthUser from "../../Auth/useAuthUserCookies";
  
 import {
   UserPageData,
-  checkUserForChange,
   UserPageUpdate,
   userRegistrations,
   registerWorkShop,
@@ -32,7 +31,8 @@ import Man_Img from "../../assets/userM.png";
 import "./UserPage.css";
 
 const UserPage = () => {
-  
+
+  const { isAuthUser, userAuthName } = useIsAuthUser();
   const [userData, setUserData] = useState({ level: '3'});
   const {
     control,
@@ -45,8 +45,7 @@ const UserPage = () => {
     level: userData.level
   }});
   const { UserName } = useParams();
-  const username = useSelector((state) => state.auth.username);
-  const token = useSelector((state) => state.auth.token);
+
 
   const [isUser, setIsUser] = useState(false);
   const [onLight, setOnLight] = useState(false);
@@ -121,10 +120,11 @@ const UserPage = () => {
 
   // workshop registration api
   useEffect(() => {
-    if (token) {
+    if (isAuthUser) {
       userRegistrations(
-        username,
+        userAuthName,
         (response) => {
+          console.log(response);
           setRegisteredWorkshopsData(response.data);
         },
         (error) => {
@@ -132,13 +132,13 @@ const UserPage = () => {
         }
       );
     }
-  }, [token, username]);
+  },[isAuthUser,userAuthName]);
 
   // Event Registration api
   useEffect(() => {
-    if (token) {
+    if (isAuthUser) {
       EventRegistration(
-        username,
+        userAuthName,
         "get_user_events",
         (response) => {
           const registeredEvents = response.data.filter(
@@ -151,15 +151,15 @@ const UserPage = () => {
         }
       );
     }
-  }, [token, username]);
+  }, [isAuthUser, userAuthName]);
 
   // User Data api
   useEffect(() => {
     UserPageData(
-      UserName,
+      userAuthName,
       (response) => {
         if (response.message === "Done" && response.user) { 
-          setUserData(response.user); // Assuming the user data is contained in response.user
+          setUserData(response.user); 
         } else {
           setLoading(false);
         }
@@ -169,35 +169,23 @@ const UserPage = () => {
         setLoading(false);
       }
     );
-  }, [UserName]);
+  }, [userAuthName]);
 
+  // Check user to edit
   useEffect(() => {
-    if (token) {
-      checkUserForChange(
-        token,
-        UserName,
-        (response) => {
-          if (response.message == "Yes") {
-            setIsUser(true);
-            setOnLight(true);
-          } else {
-            setIsUser(false);
-            setOnLight(false);
-          }
-        },
-        (error) => {
-          console.log(error);
-          setIsUser(false);
-        }
-      );
+    if (isAuthUser && userAuthName === UserName) {
+      setIsUser(true);
+      setOnLight(true);
+    } else {
+        setIsUser(false);
+        setOnLight(false);
     }
-  }, [token, username]);
+  },[isAuthUser,userAuthName]);
 
   const onSubmit_ProfileSec = useCallback(
     (data) => {
       data.gender = userData.gender;  
       UserPageUpdate(
-        token,
         data,
         (response) => {
           if (response.message === "Done") {
@@ -216,14 +204,13 @@ const UserPage = () => {
         }
       );
     },
-    [token, userData, notify]
+    [userData, notify]
   );
 
   const onSubmit_PassSec = useCallback(
     (data) => {
       const { current_password, new_password } = data;
       UpdatePassword(
-        token,
         current_password,
         new_password,
         (response) => {
@@ -239,13 +226,12 @@ const UserPage = () => {
         }
       );
     },
-    [token, notify]
+    [notify]
   );
 
   const RemoveWS_Register = useCallback(
     (WS_Name) => {
       registerWorkShop(
-        token,
         WS_Name,
         "unregister",
         (response) => {
@@ -259,7 +245,7 @@ const UserPage = () => {
         }
       );
     },
-    [token, notify]
+    [notify]
   );
 
   //? For the closing of the menu

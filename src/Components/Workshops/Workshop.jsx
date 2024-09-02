@@ -1,6 +1,5 @@
 import { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { useSelector } from "react-redux";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import {
@@ -8,17 +7,18 @@ import {
   registerWorkShop,
   userRegistrations,
 } from "../../Api/Endpoints/AppEndPoints"; // api
+import useIsAuthUser from "../../Auth/useAuthUserCookies";
 import ImageEncode from "../ImageComponents/ImageEncode";
 // CSS file
 import "./Workshop.css";
 
 const Workshop = () => {
-  const token = useSelector((state) => state.auth.token);
-  const username = useSelector((state) => state.auth.username);
+  const {isAuthUser, userAuthName} = useIsAuthUser()
   const navigate = useNavigate();
   const [workShop, setWorkShop] = useState([]);
   const [registeredWorkshops, setRegisteredWorkshops] = useState([]);
   const today = new Date();
+
 
   const notify_Succ = () => {
     toast.success("Registered Successfully!", {
@@ -41,7 +41,6 @@ const Workshop = () => {
     workShopPages(
       (response) => {
         if (response.data) {
-          // Slice the array to keep only the first three events
           setWorkShop(response.data.slice(0, 3));
           if (response.access) {
             console.log(response.access);
@@ -59,9 +58,9 @@ const Workshop = () => {
 
 
   useEffect(() => {
-    if (token) {
+    if (isAuthUser) {
       userRegistrations(
-        username,
+        userAuthName,
         (response) => {
           setRegisteredWorkshops(response.data);
         },
@@ -70,20 +69,18 @@ const Workshop = () => {
         }
       );
     }
-  }, []);
+  },[isAuthUser,userAuthName]);
 
- 
 
   const onClickToRegister = (nameOfWS) => {
-    if (!token) {
+    if (!isAuthUser) {
       navigate("/login");
     } else {
       registerWorkShop(
-        token,
         nameOfWS,
         "register",
         (response) => {
-          
+          console.log(response);
           setRegisteredWorkshops((prevState) => [
             ...prevState,
             { pk: nameOfWS, status: "register" },

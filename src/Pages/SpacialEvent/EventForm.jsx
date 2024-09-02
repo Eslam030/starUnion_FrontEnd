@@ -5,7 +5,7 @@ import { Input } from "@material-tailwind/react";
 import { useForm, Controller } from "react-hook-form";
 import { DOMAIN } from "../../Api/config";
 import { ToastContainer, toast } from "react-toastify";
-import { registerSpacialEvent, eventPages, checkSpacialEventsRouts } from "../../Api/Endpoints/AppEndPoints"; // api
+import { registerSpacialEvent, eventPages, checkSpacialEventsRouts } from "../../Api/Endpoints/AppEndPoints"; 
 // Images
 import Logolayout from "../../assets/star_logo2.png";
 import DotpyImg from '../../assets/dotpyi 1.png'
@@ -20,6 +20,10 @@ const EventForm = () => {
   const pathname = location.pathname
   const eventName = decodeURIComponent(pathname.split('/').pop()) 
   const companyName = decodeURIComponent(pathname.split('/').slice(2,3))
+
+  const [events, setEvents] = useState([]);
+  const [userEmail, setUserEmail] = useState();
+  const [message, setMessage] = useState("");
 
 
   const {
@@ -45,10 +49,6 @@ const EventForm = () => {
       theme: "dark",
     });
   }, []);
-
-  const [events, setEvents] = useState([]);
-  const [userEmail, setUserEmail] = useState();
-  const [message, setMessage] = useState(""); // State to store message
 
   useEffect(() => {
     checkSpacialEventsRouts(companyName, eventName, 

@@ -1,18 +1,15 @@
 import { useState, useCallback } from "react";
 import { useForm, Controller } from "react-hook-form";
-import { useDispatch } from "react-redux";
 import { Link, useNavigate, useLocation } from "react-router-dom";
 import { Input } from "@material-tailwind/react";
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
 
-import { loginPage } from "../../Api/Endpoints/AppEndPoints"; // api
-import { setAuthToken } from "../../Auth/authSlice"; // For store the token and username
+import { loginPage } from "../../Api/Endpoints/AppEndPoints"; 
 import LogIllustrator from "../../assets/login-illustrator.svg";
 import Logolayout from "../../assets/star_logo2.png";
 import "./Login.css";
 
 const Login = () => {
-  const dispatch = useDispatch();
   const navigate = useNavigate();
   const location = useLocation();
   const { control, handleSubmit, formState: { errors } } = useForm({ mode: 'onTouched' });
@@ -26,27 +23,26 @@ const Login = () => {
   }, []);
 
   const onSubmit = useCallback((data) => {
-    setLoading(true); // Start loading when login begins
+    setLoading(true); 
     loginPage(data.username, data.email, data.password, 
       (response) => {
         if (response.message === "done") {
           setMessage("Login successful! Redirecting...");
-          dispatch(setAuthToken({ token: response.access, username: response.user }));
           setIsError(false);
           navigate(location.state?.previousUrl || '/');
         } else {
           setMessage("Login failed: " + response.message);
           setIsError(true);
         }
-        setLoading(false); // End loading when request is complete
+        setLoading(false); 
       },
       (error) => {
         setMessage("Server error, please try again later.");
         setIsError(true);
-        setLoading(false); // End loading on error
+        setLoading(false); 
       }
     );
-  }, [dispatch, navigate, location.state]);
+  }, [navigate, location.state]);
 
   return (
     <>

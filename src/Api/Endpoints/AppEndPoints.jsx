@@ -16,12 +16,12 @@ export const UserPageData = (username, onSuccess, onError) => {
 };
 
 // UserPage endpoint to update user information
-export const UserPageUpdate = (token, data, onSuccess, onError) => {
+export const UserPageUpdate = (data, onSuccess, onError) => {
   $.ajax({
     url: DOMAIN + "/main/updateData/",
     method: "PUT",
-    headers: {
-      Authorization: "JWT " + token,
+    xhrFields: {
+        withCredentials: true 
     },
     data: data,
     success: onSuccess,
@@ -30,12 +30,12 @@ export const UserPageUpdate = (token, data, onSuccess, onError) => {
 };
 
 // UserPage endpoint to check user for updates
-export const checkUserForChange = (token, username, onSuccess, onError) => {
+export const checkUserForChange = (username, onSuccess, onError) => {
   $.ajax({
     url: `${DOMAIN}/main/userForChange/`,
     method: "GET",
-    headers: {
-      Authorization: "JWT " + token,
+    xhrFields: {
+      withCredentials: true 
     },
     data: {
       username: username,
@@ -50,6 +50,9 @@ export const loginPage = (username, email, password, onSuccess, onError) => {
   $.ajax({
     url: `${DOMAIN}/main/login/`,
     method: "POST",
+    xhrFields: {
+      withCredentials: true  
+    },
     data: {
       username_or_email: username || email,
       password: password,
@@ -78,6 +81,9 @@ export const check_OTP = (email, otp, op, onSuccess, onError) => {
   $.ajax({
     url: `${DOMAIN}/main/otpcheck/`,
     method: "GET",
+    xhrFields: {
+      withCredentials: true  
+    },
     data: {
       email: email,
       otpToCheck: otp,
@@ -111,12 +117,12 @@ export const eventPages = (onSuccess, onError) => {
 };
 
 // Event endpoint For Registration to event
-export const registerEvent = (token, op, event_name, onSuccess, onError) => {
+export const registerEvent = ( op, event_name, onSuccess, onError) => {
   $.ajax({
     url: `${DOMAIN}/event/registerevent/`,
     method: "POST",
-    headers: {
-      Authorization: "JWT " + token,
+    xhrFields: {
+      withCredentials: true,
     },
     data: {
       operation: op,
@@ -182,12 +188,12 @@ export const workShopPages = (onSuccess, onError) => {
 };
 
 // Workshop endpoint For Registration to workshop
-export const registerWorkShop = (token, WS_name, op, onSuccess, onError) => {
+export const registerWorkShop = (WS_name, op, onSuccess, onError) => {
   $.ajax({
     url: `${DOMAIN}/workshop/registerwork/`,
     method: "POST",
-    headers: {
-      Authorization: "JWT " + token,
+    xhrFields: {
+        withCredentials: true  
     },
     data: {
       workshop: WS_name,
@@ -253,8 +259,8 @@ export const changePass = (token, email, password, onSuccess, onError) => {
   $.ajax({
     url: `${DOMAIN}/main/changepass/`,
     method: "PUT",
-    headers: {
-      Authorization: "JWT " + token,
+    xhrFields: {
+        withCredentials: true  
     },
     data: {
       email: email,
@@ -267,7 +273,6 @@ export const changePass = (token, email, password, onSuccess, onError) => {
 
 // Update pass endpoint
 export const UpdatePassword = (
-  token,
   curr_pass,
   new_pass,
   onSuccess,
@@ -276,9 +281,9 @@ export const UpdatePassword = (
   $.ajax({
     url: `${DOMAIN}/main/changepass/`,
     method: "PUT",
-    headers: {
-      Authorization: "JWT " + token,
-    },
+    xhrFields: {
+          withCredentials: true 
+      },
     data: {
       current: curr_pass,
       new: new_pass,
@@ -298,4 +303,14 @@ export const Get_Sponsors = (onSuccess, onError) => {
   });
 };
 
-
+export const GetCookiesAuth = (onSuccess,onError) => {
+  $.ajax({
+    url: DOMAIN + '/main/checkauthentication/',
+    method: 'GET',
+    xhrFields: {
+        withCredentials: true  
+    },
+    success: onSuccess,
+    error: onError,
+  })
+}

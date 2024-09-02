@@ -1,9 +1,9 @@
 import { Link, useParams, useNavigate } from "react-router-dom";
 import { useState, useEffect, useMemo, useCallback } from "react";
-import { useSelector } from 'react-redux';
+import useIsAuthUser from "../../Auth/useAuthUserCookies";
 import PreLoader from '../../Components/Loading/PreLoader';
 import ImageEncode from "../../Components/ImageComponents/ImageEncode";
-import { workShopDetails, instructors, Tob5, registerWorkShop, userRegistrations } from "../../Api/Endpoints/AppEndPoints"; // api
+import { workShopDetails, instructors, Tob5, registerWorkShop, userRegistrations } from "../../Api/Endpoints/AppEndPoints"; 
 import { ToastContainer, toast } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css';
 // Images
@@ -14,8 +14,7 @@ import vector_down from "../../assets/Polygon.png";
 import "./WS_details.css";
 
 const WS_details = () => {
-  const token = useSelector((state) => state.auth.token);
-  const username = useSelector((state) => state.auth.username);
+  const {isAuthUser, userAuthName} = useIsAuthUser();
   const { name } = useParams();
   const navigate = useNavigate();
   const today = new Date();
@@ -89,8 +88,8 @@ const WS_details = () => {
   }, [name]);
 
   useEffect(() => {
-    if (token) {
-      userRegistrations(username,
+    if (isAuthUser) {
+      userRegistrations(userAuthName,
         (response) => {
           setState(prevState => ({ ...prevState, registeredWorkshops: response.data }));
         },
@@ -98,7 +97,7 @@ const WS_details = () => {
           console.log(error.message);
         }
       );
-    }
+  }
 
     Tob5(name,
       (response) => {
@@ -108,26 +107,26 @@ const WS_details = () => {
         console.error('Error fetching events:', error);
       }
     );
-  }, [name, token, username]);
+  }, [name, isAuthUser, userAuthName]);
 
   const firstThree = useMemo(() => Tob5Data.slice(0, 3), [Tob5Data]);
   const lastTwo = useMemo(() => Tob5Data.slice(3, 5), [Tob5Data]);
 
   const onClickToRegisterWs = useCallback((nameOfWS) => {
-    if (!token) {
+    if (!isAuthUser) {
       navigate("/login");
     } else {
-      registerWorkShop(token, nameOfWS, "register",
+      registerWorkShop(nameOfWS, "register",
         (response) => {
           setState(prevState => ({ ...prevState, registeredWorkshops: [...prevState.registeredWorkshops, { pk: nameOfWS, status: "register" }] }));
-          // notify();
+          notify();
         },
         (error) => {
           console.error('Error fetching events:', error);
         }
       );
     }
-  }, [token, navigate]);
+  }, [isAuthUser, navigate]);
 
   const isRegistered = useCallback((nameOfWS) => {
     return registeredWorkshops.some(ws => ws.pk === nameOfWS && (ws.status === 'register' || ws.status === 'taking'));

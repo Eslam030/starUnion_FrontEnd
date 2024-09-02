@@ -66,7 +66,11 @@ const Footer = () => {
           </a>
         </li>
         <li>
-          <a href="">Linkedin</a>
+          <a 
+          href="https://www.linkedin.com/company/star-union2024/posts/?feedView=all"
+          target="_blank"
+          >Linkedin
+          </a>
         </li>
           </ul>
       </div>

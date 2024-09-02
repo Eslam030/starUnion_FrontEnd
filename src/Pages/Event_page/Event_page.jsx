@@ -5,13 +5,13 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import PreLoader from "../../Components/Loading/PreLoader";
 import { eventPages, registerEvent, EventRegistration } from "../../Api/Endpoints/AppEndPoints";
+import useIsAuthUser from "../../Auth/useAuthUserCookies";
 import ImageEncode from "../../Components/ImageComponents/ImageEncode";
 import Logolayout from "../../assets/star_logo2.png";
 import "./Event_page.css";
 
 const Event_page = () => {
-  const token = useSelector((state) => state.auth.token);
-  const username = useSelector((state) => state.auth.username);
+  const {isAuthUser, userAuthName} = useIsAuthUser();
   
   const navigate = useNavigate();
   const location = useLocation();
@@ -71,9 +71,9 @@ const Event_page = () => {
   }, []);
 
   useEffect(() => {
-    if (token) {
+    if (isAuthUser) {
       EventRegistration(
-        username,
+        userAuthName,
         "get_user_events",
         (response) => {
           setRegisteredEvents(response.data);
@@ -83,14 +83,14 @@ const Event_page = () => {
         }
       );
     }
-  }, [token, username]);
+  }, [isAuthUser, userAuthName]);
 
   const onClickToRegister = useCallback(
     (nameOfE, companyName) => {
       const isSpecial = SpecialEventName.includes(nameOfE);
       if (isSpecial) {
         navigate(`/events/${companyName}/${nameOfE}`);
-      } else if (!token) {
+      } else if (!isAuthUser) {
         navigate("/login", {
           state: {
             previousUrl: location.pathname + location.search
@@ -98,7 +98,6 @@ const Event_page = () => {
         });
       } else {
         registerEvent(
-          token,
           "register",
           nameOfE,
           (response) => {
@@ -118,7 +117,7 @@ const Event_page = () => {
         );
       }
     },
-    [token, navigate, notify, notifyError, SpecialEventName, location.pathname, location.search]
+    [isAuthUser, navigate, notify, notifyError, SpecialEventName, location.pathname, location.search]
   );
 
   const isRegistered = useCallback(
