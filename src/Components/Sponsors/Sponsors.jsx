@@ -1,8 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import './Sponsors.css'
-import dotpy_sub from '../../assets/dotpyi 1.png'
 import { Get_Sponsors } from '../../Api/Endpoints/AppEndPoints'; 
-import { DOMAIN } from '../../Api/config'; 
 import ImageEncode from "../ImageComponents/ImageEncode";
 
 const Sponsors = () => {

@@ -182,7 +182,7 @@ export const workShopPages = (onSuccess, onError) => {
   $.ajax({
     url: `${DOMAIN}/workshop/workshops/`,
     method: "GET",
-    success: onSuccess,
+    success: onSuccess, 
     error: onError,
   });
 };

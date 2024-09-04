@@ -16,7 +16,7 @@ const useIsAuthUser = () => {
                     dispatch(setAuthToken({ username: response.user }));
                     setIsAuthUser(true);
                     setUserAuthName(response.user);
-                } else {
+                } else if(response.message === "Not Authenticated") {
                     setIsAuthUser(false);
                     setUserAuthName(null); 
                 }
@@ -29,7 +29,7 @@ const useIsAuthUser = () => {
         );
     }, [dispatch]);
 
-    return { isAuthUser, userAuthName };
+    return { isAuthUser, userAuthName, setIsAuthUser };
 };
 
 export default useIsAuthUser;

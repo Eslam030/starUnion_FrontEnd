@@ -1,22 +1,21 @@
 import React, { useState, useEffect, useRef, useCallback } from "react";
 import { DOMAIN } from "../../Api/config";
+import $ from "jquery"
 import { Link as LinkRoll } from "react-scroll";
 import { Link } from "react-router-dom";
 import "./Navbar.css";
 import star_logo from '../../assets/star_logo2.png';
 import User_01 from "../../assets/User_01.png";
-import { clearAuthToken } from "../../Auth/authSlice";
 import useIsAuthUser from "../../Auth/useAuthUserCookies";
-import { useSelector, useDispatch } from 'react-redux';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import 'boxicons';
 
+
 const Navbar = () => {
-  const username = useSelector(state => state.auth.username);
   const [sideBar, setSideBar] = useState(false); 
   const [isOpen, setIsOpen] = useState(false);   
   
-  const isAuthUser = useIsAuthUser();
+  const {isAuthUser, userAuthName, setIsAuthUser} = useIsAuthUser();
+   
   // Ref for the menu box
   const menuRef = useRef(null);
 
@@ -36,10 +35,12 @@ const Navbar = () => {
         withCredentials: true  
       },
       success: function (response) {
-        console.log(response);
+        setIsAuthUser(false); 
       },
       error: function (error) {
-        console.log(error);
+        if (error.response && error.response.status === 401) {
+          setIsAuthUser(false);  
+      }
       }
     });
   };
@@ -94,18 +95,16 @@ const Navbar = () => {
         {isAuthUser
           ? 
           <div className="user_info">
-            <Link to={`/userPage/${username}`}><p className="nameOfUser">{username}</p></Link>
+            <Link to={`/userPage/${userAuthName}`}><p className="nameOfUser">{userAuthName}</p></Link>
             <div className="user_details">
               <div className="user-page" onClick={toggleMenu} ref={menuRef}>
                 <img src={User_01} alt="User" className="user_img" />
               </div>
               <div className={`btns ${isOpen ? 'Active' : 'unActive'}`} ref={menuRef}>
-                <Link to={`/userPage/${username}`}>
+                <Link to={`/userPage/${userAuthName}`}>
                   <button>Profile</button>
                 </Link>
-                <Link onClick={logout}>
-                  <button>Logout</button>
-                </Link>
+                  <button onClick={logout}>Logout</button>
               </div>
             </div>
           </div>
@@ -136,7 +135,7 @@ const Navbar = () => {
 
               {isAuthUser ? 
                 <div className="user_sideNav_info">
-                  <Link to={`/userPage/${username}`}><p className="nameOfUser">{username}</p></Link>
+                  <Link to={`/userPage/${userAuthName}`}><p className="nameOfUser">{userAuthName}</p></Link>
                   <div className="user-page">
                     <img src={User_01} alt="" className="user_img" />
                   </div>
@@ -176,12 +175,10 @@ const Navbar = () => {
               {isAuthUser 
                 ? 
                 <div className="sideNav_acc">
-                  <Link to={`/userPage/${username}`}>
+                  <Link to={`/userPage/${userAuthName}`}>
                     <button>Profile</button>
                   </Link>
-                  <Link onClick={logout}>
-                    <button>Logout</button>
-                  </Link>
+                    <button onClick={logout}>Logout</button>
                 </div>
                 : 
                 <Link to="/login">

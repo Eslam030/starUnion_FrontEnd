@@ -1,6 +1,5 @@
 import { Link } from "react-router-dom";
 import "./Errorpage.css";
-import Footer from "../../Components/Footer/Footer";
 import Logolayout from "../../assets/star_logo.png";
 
 const Errorpage = () => {

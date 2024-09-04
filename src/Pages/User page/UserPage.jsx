@@ -25,8 +25,6 @@ import userSaveIcon from "../../assets/userSave_icon2.png";
 import lampImg from "../../assets/lamp1.png";
 import lightImg from "../../assets/light1.png";
 import Logolayout from "../../assets/star_logo2.png";
-import Girl_Img from "../../assets/User_img1.png";
-import Man_Img from "../../assets/userM.png";
 // CSS file
 import "./UserPage.css";
 
@@ -124,7 +122,6 @@ const UserPage = () => {
       userRegistrations(
         userAuthName,
         (response) => {
-          console.log(response);
           setRegisteredWorkshopsData(response.data);
         },
         (error) => {
