@@ -6,6 +6,7 @@ import { setAuthToken } from "../Auth/authSlice";
 const useIsAuthUser = () => {
     const [isAuthUser, setIsAuthUser] = useState(false);
     const [userAuthName, setUserAuthName] = useState(null);
+    const [loading, setLoading] = useState(true); // Loading state
 
     const dispatch = useDispatch();
 
@@ -16,20 +17,22 @@ const useIsAuthUser = () => {
                     dispatch(setAuthToken({ username: response.user }));
                     setIsAuthUser(true);
                     setUserAuthName(response.user);
-                } else if(response.message === "Not Authenticated") {
+                } else if (response.message === "Not Authenticated") {
                     setIsAuthUser(false);
-                    setUserAuthName(null); 
+                    setUserAuthName(null);
                 }
+                setLoading(false); // Authentication check complete, stop loading
             },
             (error) => {
                 console.error("Error fetching auth status:", error);
                 setIsAuthUser(false);
-                setUserAuthName(null); 
+                setUserAuthName(null);
+                setLoading(false); // Error encountered, stop loading
             }
         );
     }, [dispatch]);
 
-    return { isAuthUser, userAuthName, setIsAuthUser };
+    return { isAuthUser, userAuthName, loading, setIsAuthUser };
 };
 
 export default useIsAuthUser;

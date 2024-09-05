@@ -153,13 +153,6 @@ svg {
     display: none;
 }
 
-@media (max-width: 840px) {
-    ul li {
-        margin: 0 10px;
-    }
-}
-
-
 @media (max-width: 1005px) {
     nav {
         justify-content: space-between;
@@ -322,4 +315,14 @@ svg {
         color: #fff;
     }
 
+}
+
+@media (max-width: 840px) {
+    ul li {
+        margin: 0 10px;
+    }
+
+    .loading_spinner {
+        display: none;
+    }
 }

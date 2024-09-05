@@ -9,12 +9,13 @@ import User_01 from "../../assets/User_01.png";
 import useIsAuthUser from "../../Auth/useAuthUserCookies";
 import 'boxicons';
 
+import { SpinnerCircular } from 'spinners-react';
 
 const Navbar = () => {
   const [sideBar, setSideBar] = useState(false); 
   const [isOpen, setIsOpen] = useState(false);   
   
-  const {isAuthUser, userAuthName, setIsAuthUser} = useIsAuthUser();
+  const {isAuthUser, userAuthName, setIsAuthUser , loading} = useIsAuthUser();
    
   // Ref for the menu box
   const menuRef = useRef(null);
@@ -92,10 +93,16 @@ const Navbar = () => {
           </li>
         </ul>
 
-        {isAuthUser
-          ? 
+        {loading ? (
+          // Display loading spinner while loading
+          <div className="loading_spinner">
+            <SpinnerCircular color={"#6139D0"} />
+          </div>
+        ) : isAuthUser ? (
           <div className="user_info">
-            <Link to={`/userPage/${userAuthName}`}><p className="nameOfUser">{userAuthName}</p></Link>
+            <Link to={`/userPage/${userAuthName}`}>
+              <p className="nameOfUser">{userAuthName}</p>
+            </Link>
             <div className="user_details">
               <div className="user-page" onClick={toggleMenu} ref={menuRef}>
                 <img src={User_01} alt="User" className="user_img" />
@@ -104,11 +111,11 @@ const Navbar = () => {
                 <Link to={`/userPage/${userAuthName}`}>
                   <button>Profile</button>
                 </Link>
-                  <button onClick={logout}>Logout</button>
+                <button onClick={logout}>Logout</button>
               </div>
             </div>
           </div>
-          : 
+        ) : (
           <div className="login_section">
             <Link to="/login">
               <button className="login_btn">    
@@ -116,7 +123,7 @@ const Navbar = () => {
               </button>
             </Link>
           </div>
-        }
+        )}
         <div className="nav_icon" onClick={showSideBar}>
           <box-icon name='menu' color='#6139d0'></box-icon>
         </div>
@@ -168,7 +175,7 @@ const Navbar = () => {
                     Contact US
                   </LinkRoll>
                 </li>
-              </ul>
+              </ul> 
             </div>
 
             <div className="register_section">
