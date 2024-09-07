@@ -81,9 +81,10 @@ const Register = () => {
         setMessage("Email already exists");
         setIsMessageError(true);
         return false;
+      } else {
+        setIsMessageError(false);
+        return true;
       }
-      setIsMessageError(false);
-      return true;
     } catch (error) {
       console.error("Error checking username or email:", error);
       setMessage("Error checking username or email.");

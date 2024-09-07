@@ -44,7 +44,6 @@ const UserPage = () => {
   }});
   const { UserName } = useParams();
 
-
   const [isUser, setIsUser] = useState(false);
   const [onLight, setOnLight] = useState(false);
   const [editMode, setEditMode] = useState(false);
@@ -153,8 +152,9 @@ const UserPage = () => {
   // User Data api
   useEffect(() => {
     UserPageData(
-      userAuthName,
+      UserName,
       (response) => {
+        console.log(response)
         if (response.message === "Done" && response.user) { 
           setUserData(response.user); 
         } else {
