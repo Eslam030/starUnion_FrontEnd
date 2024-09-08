@@ -154,7 +154,6 @@ const UserPage = () => {
     UserPageData(
       UserName,
       (response) => {
-        console.log(response)
         if (response.message === "Done" && response.user) { 
           setUserData(response.user); 
         } else {

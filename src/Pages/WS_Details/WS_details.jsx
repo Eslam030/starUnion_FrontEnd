@@ -78,7 +78,6 @@ const WS_details = () => {
 
     instructors(
       (response) => {
-        console.log(response)
         const filteredInstructors = response.data.filter(instructor => instructor.workshop === name);
         setState(prevState => ({ ...prevState, instructorData: filteredInstructors || [] }));
       },
