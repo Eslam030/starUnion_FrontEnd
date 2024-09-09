@@ -10,13 +10,14 @@ import useIsAuthUser from "../../Auth/useAuthUserCookies";
 import 'boxicons';
 
 import { SpinnerCircular } from 'spinners-react';
+import { useDispatch } from "react-redux";
 
 const Navbar = () => {
   const [sideBar, setSideBar] = useState(false); 
   const [isOpen, setIsOpen] = useState(false);   
   
   const {isAuthUser, userAuthName, setIsAuthUser , loading} = useIsAuthUser();
-   
+  const dispatch = useDispatch()
   // Ref for the menu box
   const menuRef = useRef(null);
 
@@ -28,7 +29,9 @@ const Navbar = () => {
     setSideBar(!sideBar);
   };
 
+
   const logout = () => {
+    
     $.ajax({
       url: DOMAIN + '/main/logout/',
       method: 'POST',

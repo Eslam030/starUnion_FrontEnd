@@ -298,6 +298,11 @@ const UserPage = () => {
     menu: (provided) => ({
       ...provided,
       zIndex: 9999, 
+     
+    }),
+    menuList: (provided) => ({
+      ...provided,
+      maxHeight: '100px', 
     }),
     placeholder: (provided) => ({
       ...provided,
