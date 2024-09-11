@@ -15,7 +15,7 @@ const Home = () => {
           Discover the ultimate destination for all your needs - join us now!
         </p>
         <Link>
-          {/* <button className="btn">Join Us</button> */}
+          <button className="btn">Join Us</button>
         </Link>
       </div>
       <img src={Star_logo} alt="Star logo" className="star_img" />

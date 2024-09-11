@@ -181,6 +181,7 @@ const UserPage = () => {
   const onSubmit_ProfileSec = useCallback(
     (data) => {
       data.gender = userData.gender;  
+      data.photo = ""; 
       UserPageUpdate(
         data,
         (response) => {
