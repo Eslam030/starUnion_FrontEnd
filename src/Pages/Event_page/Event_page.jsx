@@ -1,9 +1,11 @@
 import React, { useState, useEffect, useCallback } from "react";
 import { Link, useNavigate, useLocation } from "react-router-dom";;
 import { ToastContainer, toast } from "react-toastify";
+import { useDispatch } from "react-redux";
+import { setSpacialEventPassed } from "../../Auth/authSlice";
 import "react-toastify/dist/ReactToastify.css";
 import PreLoader from "../../Components/Loading/PreLoader";
-import { eventPages, registerEvent, EventRegistration } from "../../Api/Endpoints/AppEndPoints";
+import { eventPages, registerEvent, EventRegistration, checkSpacialEventsRouts } from "../../Api/Endpoints/AppEndPoints";
 import useIsAuthUser from "../../Auth/useAuthUserCookies";
 import ImageEncode from "../../Components/ImageComponents/ImageEncode";
 import Logolayout from "../../assets/star_logo2.png";
@@ -12,6 +14,8 @@ import "./Event_page.css";
 const Event_page = () => {
   const {isAuthUser, userAuthName} = useIsAuthUser();
   
+  const dispatch = useDispatch();
+
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -19,6 +23,8 @@ const Event_page = () => {
   const [registeredEvents, setRegisteredEvents] = useState([]);
   const [SpecialEventName, setSpecialEventName] = useState([]);
   const [isSpecialEvent, setIsSpecialEvent] = useState(false);
+
+
 
   const notify = () => {
     toast.success("Registered Successfully!", {
@@ -53,8 +59,21 @@ const Event_page = () => {
           setEvents(response.data);
           const specialEvent = response.data.filter(ev => ev.special === true); 
           const spacialEvent = specialEvent.map((ev) => ev.pk);
+          const spacialEventDate = specialEvent.map((ev) => ev.fields.status);
+
           setSpecialEventName(spacialEvent);
           setIsSpecialEvent(specialEvent.length > 0);
+
+          const spacialEventStatus = specialEvent.map((ev) => ev.fields.status);
+
+          // Check if any event's status is "PA"
+          const isPast = spacialEventStatus.some(status => status === "PA");
+          const hasActiveEvent = spacialEventStatus.some(status => status === "CM");
+
+          const shouldCloseRoute = isPast && !hasActiveEvent;
+
+          dispatch(setSpacialEventPassed(shouldCloseRoute));
+      
           if (response.access) {
             console.log(response.access);
           }

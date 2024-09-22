@@ -5,7 +5,9 @@ import Star_logo from '../../assets/star_logo2-removebg-preview.png'
 import { Link } from "react-router-dom";
 
 
+
 const Home = () => {
+
   return (
     <div className="Home_page" id="Home">
       <div className="txt">
@@ -14,7 +16,7 @@ const Home = () => {
         <p>
           Discover the ultimate destination for all your needs - join us now!
         </p>
-        {/* <Link>
+        {/* <Link to={'/joinUs'}>
           <button className="btn">Join Us</button>
         </Link> */}
       </div>

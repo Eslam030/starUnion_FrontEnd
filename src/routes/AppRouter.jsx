@@ -11,6 +11,8 @@ import WS_details from "../Pages/WS_Details/WS_details.jsx";
 import Forget from "../Pages/Forget_pass/Forget.jsx";
 import EventForm from "../Pages/SpacialEvent/EventForm.jsx";
 import CloseAuth from "../Auth/CloseAuth.jsx";
+import CloseSpecialEvent from "../Auth/CloseSpecialEvent.jsx";
+import JoinUs from "../Pages/JoinUs/JoinUs.jsx";
 
 
 
@@ -19,6 +21,10 @@ const Router = createBrowserRouter([
       path: "/",
       element: <App />,
       errorElement: <Errorpage />,
+    },
+    {
+      path: '/JoinUs',
+      element: <JoinUs />,
     },
     {
       path: "/login",
@@ -46,7 +52,7 @@ const Router = createBrowserRouter([
     },
     {
       path: "/events/:company/:eventName",
-      element: <EventForm />
+      element:<CloseSpecialEvent><EventForm /></CloseSpecialEvent> 
 
     },
     {

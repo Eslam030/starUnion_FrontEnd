@@ -175,7 +175,7 @@ const Register = () => {
     },
     [navigate]
   );
-
+ 
   const levelOptions = [
     { value: '1', label: 'Level 1' },
     { value: '2', label: 'Level 2' },

@@ -5,6 +5,7 @@ export const authSlice = createSlice({
     name: 'auth',
     initialState: {
         username: null,
+        spacialEventPassed: true,
     },
     reducers: {
         setAuthToken: (state, action) => {
@@ -13,11 +14,14 @@ export const authSlice = createSlice({
         clearAuthToken: (state) => {
             state.username = null;
         },
+        setSpacialEventPassed: (state, action) => {
+            state.spacialEventPassed = action.payload;
+        },
     },
 });
 
 // Action creators are generated for each case reducer function
-export const { setAuthToken, clearAuthToken } = authSlice.actions;
+export const { setAuthToken, clearAuthToken, setSpacialEventPassed } = authSlice.actions;
 
 export default authSlice.reducer;
 

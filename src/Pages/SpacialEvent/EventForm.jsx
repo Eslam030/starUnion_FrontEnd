@@ -8,7 +8,7 @@ import { ToastContainer, toast } from "react-toastify";
 import { registerSpacialEvent, eventPages, checkSpacialEventsRouts } from "../../Api/Endpoints/AppEndPoints"; 
 // Images
 import Logolayout from "../../assets/star_logo2.png";
-import DotpyImg from '../../assets/dotpyi 1.png'
+// import DotpyImg from '../../assets/dotpyi 1.png'
 import './EventForm.css'
 
 
@@ -36,7 +36,7 @@ const EventForm = () => {
       gender: "Male", // Set default value for level
     },
    });
-
+ 
   const notify = useCallback((msg, type = "success") => {
     toast[type](msg, {
       position: "top-right",
@@ -112,11 +112,12 @@ const EventForm = () => {
     { value: '7', label: 'Level 7' },
     { value: 'Graduate', label: 'Graduate' },
   ];
+  
   const genderOptions = [
     { value: 'Male', label: 'Male' },
     { value: 'Female', label: 'Female' },
   ];
-
+  
   const customStyles = {
     control: (provided, state) => ({
       ...provided,
@@ -134,12 +135,10 @@ const EventForm = () => {
       backgroundColor: state.isSelected
         ? '#6c63ff'
         : state.isFocused
-        ? '#f8f9fa'
+        ? '#6c63ff'
         : null,
-      color: state.isSelected ? '#fff' : '#212529', 
-      '&:hover': {
-        backgroundColor: '#f8f9fa', 
-      },
+      color: state.isSelected ? '#fff' : '#212529',
+      color: state.isFocused  ? '#fff' : '#212529',  
     }),
     menu: (provided) => ({
       ...provided,
@@ -300,6 +299,62 @@ const EventForm = () => {
                   )}
                 </div>
 
+                <div className="input_box">
+                  <span className="reg_detail">University</span>
+                  <Controller
+                    name="university"
+                    rules={{
+                      required: "University is required",
+                      minLength: {
+                        value: 3,
+                        message: "Must be at least 3 characters",
+                      },
+                      pattern: {
+                        value: /^[a-zA-Z0-9_ ]+$/,
+                        message: "Not a valid name",
+                      },
+                    }}
+                    control={control}
+                    render={({ field }) => (
+                      <Input
+                        error={Boolean(errors?.university?.message)}
+                        placeholder="Cairo University"
+                        {...field}
+                      />
+                    )}
+                  />
+                  {errors?.university?.message && (
+                    <span className="alert">
+                      {errors?.university?.message} *
+                    </span>
+                  )}
+                </div>
+
+                <div className="input_box">
+                  <span className="reg_detail">Collage</span>
+                  <Controller
+                    name="collage"
+                    rules={{
+                      required: "Collage is required",
+                      pattern: {
+                        value: /^[a-zA-Z0-9-_ ]+$/,
+                        message: "Not a valid name",
+                      },
+                    }}
+                    control={control}
+                    render={({ field }) => (
+                      <Input
+                        error={Boolean(errors?.collage?.message)}
+                        placeholder="Computers and Artificial intelligence"
+                        {...field}
+                      />
+                    )}
+                  />
+                  {errors?.collage?.message && (
+                    <span className="alert">{errors?.collage?.message} *</span>
+                  )}
+                </div>
+
                   <div className="input_box">
                   <span className="reg_detail">Level</span>
                   <Controller
@@ -346,14 +401,14 @@ const EventForm = () => {
                         {...field}
                         options={genderOptions}
                         defaultValue={genderOptions[0]}
-                        placeholder={"Select Level"}
+                        placeholder={"Gender"}
                         isSearchable={false}
                         classNamePrefix="react-select"
                         error={fieldState.error}
                         onChange={(selectedOption) => {
                           field.onChange(selectedOption ? selectedOption.value : '');
                         }}
-                        value={levelOptions.find(option => option.value === field.value)}
+                        value={genderOptions.find(option => option.value === field.value)}
                       />
                     )}
                   />
@@ -376,10 +431,10 @@ const EventForm = () => {
             </form>
           </div>
         <ToastContainer />
-          <div className="register_img spacialEventsImg">
+          {/* <div className="register_img spacialEventsImg">
             <img src={DotpyImg} alt="" className="dotpy_img" style={{width: '180px'}}/>
             <img src={`${DOMAIN}/main/getImage?path=${events.map(e => e.logo)}`} alt="Register Image" />
-          </div>
+          </div> */}
         </div>
       </div>
     </>

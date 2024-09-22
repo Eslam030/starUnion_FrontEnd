@@ -16,7 +16,7 @@ const useIsAuthUser = () => {
                 if (response.message === "Authenticated") {
                     dispatch(setAuthToken({ username: response.user }));
                     setIsAuthUser(true);
-                    setUserAuthName(response.user);
+                    setUserAuthName(response.user); 
                 } else if (response.message === "Not Authenticated") {
                     setIsAuthUser(false);
                     setUserAuthName(null);

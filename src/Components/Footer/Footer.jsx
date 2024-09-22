@@ -1,4 +1,5 @@
-import { Link } from "react-scroll";
+import { Link as LinkRoll } from "react-scroll";
+import { Link } from "react-router-dom";
 import "./Footer.css";
 
 const Footer = () => {
@@ -12,7 +13,7 @@ const Footer = () => {
         <h4>Our Services</h4>
         <ul>
         <li>
-          <a href="">Learning</a>
+          <Link to="/workshops">Learning</Link>
         </li>
         </ul>
       </div>
@@ -21,24 +22,24 @@ const Footer = () => {
         <h4>Company</h4>
         <ul>
         <li>
-          <Link to="HOME" spy={true} smooth={true} offset={50} duration={0}>
+          <LinkRoll to="HOME" spy={true} smooth={true} offset={50} duration={0}>
             Home
-          </Link>
+          </LinkRoll>
         </li>
         <li>
-          <Link to="About" spy={true} smooth={true} offset={50} duration={0}>
+          <LinkRoll to="About" spy={true} smooth={true} offset={50} duration={0}>
             About US
-          </Link>
+          </LinkRoll>
         </li>
         <li>
-          <Link to="workshop" spy={true} smooth={true} offset={50} duration={0}>
+          <LinkRoll to="workshop" spy={true} smooth={true} offset={50} duration={0}>
             Workshop
-          </Link>
+          </LinkRoll>
         </li>
         <li>
-          <Link to="Events" spy={true} smooth={true} offset={50} duration={0}>
+          <LinkRoll to="Events" spy={true} smooth={true} offset={50} duration={0}>
             Events
-          </Link>
+          </LinkRoll>
         </li>
         </ul>
       </div>
@@ -47,9 +48,9 @@ const Footer = () => {
         <h4>Supports</h4>
         <ul>
         <li>
-          <Link to="contact" spy={true} smooth={true} offset={50} duration={0}>
+          <LinkRoll to="contact" spy={true} smooth={true} offset={50} duration={0}>
             Contact US
-          </Link>
+          </LinkRoll>
         </li>
         </ul>
       </div>
