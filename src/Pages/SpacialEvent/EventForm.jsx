@@ -108,9 +108,7 @@ const EventForm = () => {
     { value: '3', label: 'Level 3' },
     { value: '4', label: 'Level 4' },
     { value: '5', label: 'Level 5' },
-    { value: '6', label: 'Level 6' },
-    { value: '7', label: 'Level 7' },
-    { value: 'Graduate', label: 'Graduate' },
+    { value: 'other', label: 'Other' },
   ];
   
   const genderOptions = [
@@ -123,6 +121,7 @@ const EventForm = () => {
       ...provided,
       borderColor: state.isFocused ? '#6c63ff' : '#ced4da', 
       boxShadow: state.isFocused ? '0 0 0 1px #6c63ff' : null, 
+      backgroundColor: '#fff',
       height: '45px', 
       marginTop: '10px', 
       outline: 'none',
@@ -133,16 +132,21 @@ const EventForm = () => {
     option: (provided, state) => ({
       ...provided,
       backgroundColor: state.isSelected
-        ? '#6c63ff'
-        : state.isFocused
-        ? '#6c63ff'
-        : null,
-      color: state.isSelected ? '#fff' : '#212529',
-      color: state.isFocused  ? '#fff' : '#212529',  
+      ? '#6c63ff'
+      : state.isFocused
+      ? '#6c63ff'
+      : null,
+      color: state.isSelected  ? '#fff' : '#212529', 
+      color: state.isFocused  ? '#fff' : '#212529', 
     }),
     menu: (provided) => ({
       ...provided,
       zIndex: 9999, 
+     
+    }),
+    menuList: (provided) => ({
+      ...provided,
+      maxHeight: '120px', 
     }),
     placeholder: (provided) => ({
       ...provided,

@@ -284,7 +284,6 @@ const UserPage = () => {
       border: 'none',
       borderRadius: '5px', 
       fontSize: '16px', 
-      
     }),
     option: (provided, state) => ({
       ...provided,

@@ -5,7 +5,7 @@ export const authSlice = createSlice({
     name: 'auth',
     initialState: {
         username: null,
-        spacialEventPassed: true,
+        spacialEventPassed: false,
     },
     reducers: {
         setAuthToken: (state, action) => {

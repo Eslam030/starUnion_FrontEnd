@@ -65,14 +65,6 @@ const Event_page = () => {
           setIsSpecialEvent(specialEvent.length > 0);
 
           const spacialEventStatus = specialEvent.map((ev) => ev.fields.status);
-
-          // Check if any event's status is "PA"
-          const isPast = spacialEventStatus.some(status => status === "PA");
-          const hasActiveEvent = spacialEventStatus.some(status => status === "CM");
-
-          const shouldCloseRoute = isPast && !hasActiveEvent;
-
-          dispatch(setSpacialEventPassed(shouldCloseRoute));
       
           if (response.access) {
             console.log(response.access);

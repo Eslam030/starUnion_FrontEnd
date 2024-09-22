@@ -18,15 +18,12 @@ const Event = () => {
           const spacialEventDate = specialEvent.map((ev) => ev.fields.date);
           const spacialEventDateStatus = specialEvent.map((ev) => ev.fields.status);
           // For closing the spacial events route
-          // const expiredEventDateState = isEventPast(spacialEventDate[0])   
-          // console.log(expiredEventDateState)
-
           const spacialEventStatus = specialEvent.map((ev) => ev.fields.status);
 
           // Check if any event's status is "PA"
           const isPast = spacialEventStatus.some(status => status === "PA");
-          const hasActiveEvent = spacialEventStatus.some(status => status === "CM");
-
+          const hasActiveEvent = spacialEventStatus.some(status => status === "CM" || status === "CW");
+      
           const shouldCloseRoute = isPast && !hasActiveEvent;
 
           dispatch(setSpacialEventPassed(shouldCloseRoute));

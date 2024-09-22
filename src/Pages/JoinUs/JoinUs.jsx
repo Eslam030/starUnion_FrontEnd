@@ -315,7 +315,7 @@ const JoinUs = () => {
                             <div className="input_box">
                                 <span className="">Level</span>
                                 <Controller
-                                    name="Level"
+                                    name="level_select"
                                     rules={{
                                     required: "Level is required",
                                     }}
@@ -337,8 +337,8 @@ const JoinUs = () => {
                                     />
                                     )}
                                 />
-                                {errors.Level && (
-                                    <span className="alert">{errors.Level.message}</span>
+                                {errors.level_select && (
+                                    <span className="alert">{errors.level_select.message}</span>
                                 )}
                             </div>
                             
