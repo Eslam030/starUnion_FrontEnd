@@ -1,12 +1,25 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import "./Home.css";
 // import Star_logo2 from "../../assets/star_logo2.png";
 import Star_logo from '../../assets/star_logo2-removebg-preview.png'
 import { Link } from "react-router-dom";
+import { IsJoinUsBtn } from "../../Api/Endpoints/AppEndPoints";
 
 
 
 const Home = () => {
+
+  const [isJoinUS, setJoinUs] = useState(false);
+
+  useEffect(() => {
+    IsJoinUsBtn(
+      (response) => {
+        setJoinUs(response.message)
+      }, (error) => {
+        console.error(error)
+      }
+    )
+  }, [] )
 
   return (
     <div className="Home_page" id="Home">
@@ -16,9 +29,13 @@ const Home = () => {
         <p>
           Discover the ultimate destination for all your needs - join us now!
         </p>
-        <Link to={'/joinUs'}>
+        {isJoinUS ?        
+         <Link to={'/joinUs'}>
           <button className="btn">Join Us</button>
         </Link>
+        :
+        ""
+      }
       </div>
       <img src={Star_logo} alt="Star logo" className="star_img" />
     </div>

@@ -1,10 +1,12 @@
-import { useState, useEffect, useCallback } from "react";
+
 import Select from 'react-select';
 import { Link, useNavigate } from "react-router-dom";
 import { Input } from "@material-tailwind/react";
 import { useForm, Controller } from "react-hook-form";
 import { DOMAIN } from "../../Api/config";
 import Logolayout from "../../assets/star_logo2.png";
+import joinUs_img from "../../assets/joinUs.png";
+import { joinUsRegister } from "../../Api/Endpoints/AppEndPoints";
 
 const JoinUs = () => {
     const navigate = useNavigate();
@@ -15,17 +17,26 @@ const JoinUs = () => {
       formState: { errors },
       getValues,
     } = useForm({ mode: "onTouched",
-      defaultValues: {
-        level: "1",
-        gender: "Male",
-      },
+
      });
 
-     const onSubmit =  () => {
-        console.log("Done");
-    };
+     const sendJoinUsForm = (data) => {
+        joinUsRegister(data,
+            (response) => {
+              console.log('Success:', response);
+              navigate('/'); 
+            },
+            (error) => {
+              console.error('Error:', error);
+            }  
+        )
+     }
 
-     
+
+     const onSubmit = (data) => {
+        sendJoinUsForm(data)
+     }
+      
   const levelOptions = [
     { value: '1', label: 'Level 1' },
     { value: '2', label: 'Level 2' },
@@ -35,8 +46,8 @@ const JoinUs = () => {
   ];
 
   const genderOptions = [
-    { value: 'Male', label: 'Male' },
-    { value: 'Female', label: 'Female' },
+    { value: 'M', label: 'Male' },
+    { value: 'F', label: 'Female' },
   ];
 
   const universityOptions = [
@@ -58,18 +69,18 @@ const JoinUs = () => {
     {
       label: 'Technical',
       options: [
-        { value: 'web', label: 'Web' },
-        { value: 'mobile', label: 'Mobile' },
-        { value: 'ai', label: 'AI' },
+        { value: 'WEB', label: 'Web' },
+        { value: 'MOB', label: 'Mobile' },
+        { value: 'AI', label: 'AI' },
       ],
     },
     {
       label: 'Non-Technical',
       options: [
-        { value: 'hr', label: 'HR' },
-        { value: 'social_media', label: 'Social Media' },
-        { value: 'pr', label: 'PR' },
-        { value: 'graphic_design', label: 'Graphic Design' },
+        { value: 'HR', label: 'HR' },
+        { value: 'SM', label: 'Social Media' },
+        { value: 'PR', label: 'PR' },
+        { value: 'GD', label: 'Graphic Design' },
       ],
     },
   ];
@@ -102,7 +113,10 @@ const JoinUs = () => {
       ...provided,
       zIndex: 9999,
     }),
-
+    menuList: (provided) => ({
+        ...provided,
+        maxHeight: '120px', 
+      }),
     placeholder: (provided) => ({
       ...provided,
       color: '#6c757d', 
@@ -283,7 +297,7 @@ const JoinUs = () => {
                             <div className="input_box">
                                 <span className="reg_detail">Faculty</span>
                                 <Controller
-                                    name="faculty"
+                                    name="collage"
                                     rules={{
                                     required: "Faculty is required",
                                     }}
@@ -306,8 +320,8 @@ const JoinUs = () => {
                                     />
                                     )}
                                 />
-                                {errors.faculty && (
-                                    <span className="alert">{errors.faculty.message}</span>
+                                {errors.collage && (
+                                    <span className="alert">{errors.collage.message}</span>
                                 )}
                             </div>
 
@@ -342,10 +356,10 @@ const JoinUs = () => {
                                 )}
                             </div>
                             
-                            <div className="input_box">
+                            <div className="input_box" style={{marginBottom: "40px"}}>
                                 <span className="">Committees</span>
                                 <Controller
-                                    name="committees"
+                                    name="committee"
                                     control={control}
                                     rules={{
                                         required: "Committee selection is required",
@@ -367,8 +381,8 @@ const JoinUs = () => {
                                         />
                                     )}
                                     />
-                                    {errors.committees && (
-                                    <span className="alert">{errors.committees.message}</span>
+                                    {errors.committee && (
+                                    <span className="alert">{errors.committee.message}</span>
                                     )}
                             </div>
                         </div>
@@ -379,6 +393,9 @@ const JoinUs = () => {
                             </button>
                          </div>
                     </form>
+            </div>
+            <div className="register_img">
+                <img src={joinUs_img} alt="JoinUs Image" />
             </div>
         </div>
     </div>

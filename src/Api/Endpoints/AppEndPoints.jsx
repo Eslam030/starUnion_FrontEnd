@@ -303,6 +303,7 @@ export const Get_Sponsors = (onSuccess, onError) => {
   });
 };
 
+// Check for user auth or not
 export const GetCookiesAuth = (onSuccess,onError) => {
   $.ajax({
     url: DOMAIN + '/main/checkauthentication/',
@@ -313,4 +314,28 @@ export const GetCookiesAuth = (onSuccess,onError) => {
     success: onSuccess,
     error: onError,
   })
+}
+
+// join us endpoint
+export const joinUsRegister = (data, onSuccess, onError) => {
+  $.ajax({
+    url: `${DOMAIN}/main/joinus/`,
+    method: "POST",
+    data: data,
+    success: onSuccess,
+    error: onError,
+  });
+}
+
+// check join us btn endpoint
+export const IsJoinUsBtn = (onSuccess, onError) => {
+  $.ajax({
+    url: `${DOMAIN}/main/featurechecker/`,
+    method: "GET",
+    data: {
+      feature: "join_us",
+    },
+    success: onSuccess,
+    error: onError,
+  });
 }
