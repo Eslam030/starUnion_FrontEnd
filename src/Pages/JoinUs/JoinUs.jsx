@@ -1,9 +1,7 @@
-
 import Select from 'react-select';
 import { Link, useNavigate } from "react-router-dom";
 import { Input } from "@material-tailwind/react";
 import { useForm, Controller } from "react-hook-form";
-import { DOMAIN } from "../../Api/config";
 import Logolayout from "../../assets/star_logo2.png";
 import joinUs_img from "../../assets/joinUs.png";
 import { joinUsRegister } from "../../Api/Endpoints/AppEndPoints";
@@ -81,6 +79,7 @@ const JoinUs = () => {
         { value: 'SM', label: 'Social Media' },
         { value: 'PR', label: 'PR' },
         { value: 'GD', label: 'Graphic Design' },
+        { value: 'PV', label: 'Photographing & Video' }
       ],
     },
   ];
