@@ -4,22 +4,39 @@ import "./Home.css";
 import Star_logo from '../../assets/star_logo2-removebg-preview.png'
 import { Link } from "react-router-dom";
 import { IsJoinUsBtn } from "../../Api/Endpoints/AppEndPoints";
+import { useDispatch } from "react-redux";
+import { setIsJoinUs } from "../../Auth/authSlice";
 
 
 
 const Home = () => {
+  const dispatch = useDispatch();
 
   const [isJoinUS, setJoinUs] = useState(false);
+
+  // useEffect(() => {
+  //   IsJoinUsBtn(
+  //     (response) => {
+
+  //       setJoinUs(response.message);
+  //       dispatch(setIsJoinUs(response.message));
+  //     }, (error) => {
+  //       console.error(error)
+  //     }
+  //   )
+  // }, [])
 
   useEffect(() => {
     IsJoinUsBtn(
       (response) => {
-        setJoinUs(response.message)
-      }, (error) => {
+        setJoinUs(response.message);
+        dispatch(setIsJoinUs(response.message));
+      },
+      (error) => {
         console.error(error)
       }
-    )
-  }, [] )
+    );
+  }, []);
 
   return (
     <div className="Home_page" id="Home">

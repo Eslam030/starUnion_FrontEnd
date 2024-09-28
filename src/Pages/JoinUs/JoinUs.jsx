@@ -228,8 +228,7 @@ const JoinUs = () => {
                                     <span className="alert">{errors?.phone?.message} *</span>
                                 )}
                             </div>
-
-                            
+                          
                             <div className="input_box">
                                     <span className="reg_detail">Gender</span>
                                     <Controller
@@ -291,7 +290,6 @@ const JoinUs = () => {
                                     <span className="alert">{errors.university.message}</span>
                                 )}
                             </div>
-
                             
                             <div className="input_box">
                                 <span className="reg_detail">Faculty</span>
@@ -323,7 +321,6 @@ const JoinUs = () => {
                                     <span className="alert">{errors.collage.message}</span>
                                 )}
                             </div>
-
                             
                             <div className="input_box">
                                 <span className="">Level</span>

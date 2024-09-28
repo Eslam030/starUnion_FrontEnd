@@ -6,6 +6,7 @@ export const authSlice = createSlice({
     initialState: {
         username: null,
         spacialEventPassed: false,
+        IsJoinUsSelector: false,
     },
     reducers: {
         setAuthToken: (state, action) => {
@@ -17,11 +18,14 @@ export const authSlice = createSlice({
         setSpacialEventPassed: (state, action) => {
             state.spacialEventPassed = action.payload;
         },
+        setIsJoinUs: (state, action) => {
+            state.IsJoinUsSelector = action.payload;
+        },
     },
 });
 
 // Action creators are generated for each case reducer function
-export const { setAuthToken, clearAuthToken, setSpacialEventPassed } = authSlice.actions;
+export const { setAuthToken, clearAuthToken, setSpacialEventPassed, setIsJoinUs } = authSlice.actions;
 
 export default authSlice.reducer;
 

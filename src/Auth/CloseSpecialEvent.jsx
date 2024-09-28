@@ -1,6 +1,5 @@
 // Close Path 
 import { Navigate } from 'react-router-dom';
-import useIsAuthUser from './useAuthUserCookies';
 import { useSelector } from "react-redux"; 
 
 const CloseSpecialEvent = ({ children }) => {

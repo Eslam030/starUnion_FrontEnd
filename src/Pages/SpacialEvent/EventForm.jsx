@@ -3,7 +3,6 @@ import Select from 'react-select';
 import { Link, useNavigate, useLocation } from "react-router-dom";
 import { Input } from "@material-tailwind/react";
 import { useForm, Controller } from "react-hook-form";
-import { DOMAIN } from "../../Api/config";
 import { ToastContainer, toast } from "react-toastify";
 import { registerSpacialEvent, eventPages, checkSpacialEventsRouts } from "../../Api/Endpoints/AppEndPoints"; 
 // Images

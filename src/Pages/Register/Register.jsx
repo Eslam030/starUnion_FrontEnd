@@ -213,6 +213,10 @@ const Register = () => {
       ...provided,
       zIndex: 9999, 
     }),
+    menuList: (provided) => ({
+      ...provided,
+      maxHeight: '100px', 
+    }),
     placeholder: (provided) => ({
       ...provided,
       color: '#6c757d', 

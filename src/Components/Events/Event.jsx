@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom'
 import { useDispatch } from "react-redux";
-import { eventPages } from '../../Api/Endpoints/AppEndPoints'; // api
+import { eventPages } from '../../Api/Endpoints/AppEndPoints'; 
 import { setSpacialEventPassed } from '../../Auth/authSlice';
 // CSS file
 import './Event.css'

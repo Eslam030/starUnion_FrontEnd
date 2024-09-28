@@ -1,7 +1,6 @@
 import React, { useState, useEffect, useCallback } from "react";
 import { Link, useNavigate, useLocation } from "react-router-dom";;
 import { ToastContainer, toast } from "react-toastify";
-import { useDispatch } from "react-redux";
 import { setSpacialEventPassed } from "../../Auth/authSlice";
 import "react-toastify/dist/ReactToastify.css";
 import PreLoader from "../../Components/Loading/PreLoader";
@@ -14,7 +13,6 @@ import "./Event_page.css";
 const Event_page = () => {
   const {isAuthUser, userAuthName} = useIsAuthUser();
   
-  const dispatch = useDispatch();
 
   const navigate = useNavigate();
   const location = useLocation();
