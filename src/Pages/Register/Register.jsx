@@ -27,7 +27,6 @@ const Register = () => {
     getValues,
   } = useForm({ mode: "onTouched",
     defaultValues: {
-      level: "1",
       gender: "Male", // Set default value for level
     },
    });
@@ -548,8 +547,7 @@ const Register = () => {
                         styles={customStyles}
                         {...field}
                         options={levelOptions}
-                        defaultValue={levelOptions[0]}
-                        placeholder={"Select Level"}
+                        placeholder={"Select a Level"}
                         isSearchable={false}
                         classNamePrefix="react-select"
                         error={fieldState.error}

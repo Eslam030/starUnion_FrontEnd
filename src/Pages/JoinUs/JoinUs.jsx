@@ -5,8 +5,22 @@ import { useForm, Controller } from "react-hook-form";
 import Logolayout from "../../assets/star_logo2.png";
 import joinUs_img from "../../assets/joinUs.png";
 import { joinUsRegister } from "../../Api/Endpoints/AppEndPoints";
+import { useState } from 'react';
+import formData from '../../server/formData.json'
+import DynamicForm from '../../Components/DynamicForms/DynamicForm';
+
 
 const JoinUs = () => {
+    const [step, setStep] = useState(1);
+    const [dynamicValues, setDynamicValues] = useState({})
+    const steps = [1, 2];
+
+    const handleStepClick = (newStep) => {
+        if (newStep < step) {
+          setStep(newStep); // Allow going back
+        }
+      };
+
     const navigate = useNavigate();
     const {
       control,
@@ -30,10 +44,29 @@ const JoinUs = () => {
         )
      }
 
+    const onSubmit = (data) => {
+        if (step === 1) {
+          if (Object.keys(errors).length === 0) {
+            setStep(2); 
+            setDynamicValues(data)
+          } else {
+            console.log('Errors:');
+          }
+        } else if (step === 2) {
+          const dynamicFormValues = getValues(); 
+          // setDynamicValues(dynamicFormValues)
+          const secondFormValues = Object.fromEntries(
+            Object.entries(dynamicFormValues).filter(
+              ([key]) => !(key in dynamicValues)
+            )
+          )
+          const finalData = { ...dynamicValues, additional_info: secondFormValues};
+          console.log(finalData);
+          // sendJoinUsForm(data);
+        }
+      };
 
-     const onSubmit = (data) => {
-        sendJoinUsForm(data)
-     }
+
       
   const levelOptions = [
     { value: '1', label: 'Level 1' },
@@ -130,6 +163,13 @@ const JoinUs = () => {
     }),
   };
 
+  const variants = {
+    enter: { opacity: 0, x: 50 },
+    center: { opacity: 1, x: 0 },
+    exit: { opacity: 0, x: -50 },
+};
+
+
   return (
     <>
     <div className="body">
@@ -143,6 +183,8 @@ const JoinUs = () => {
                 <div className="reg_title">Join Us </div>
                     <form onSubmit={handleSubmit(onSubmit)}>
                         <div className="user_reg">
+                            {step === 1 && (
+                          <>
                             <div className="input_box">
                                 <span className="reg_detail">Full name</span>
                                 <Controller
@@ -243,8 +285,7 @@ const JoinUs = () => {
                                             styles={customStyles}
                                             {...field}
                                             options={genderOptions}
-                                            defaultValue={genderOptions[0]}
-                                            placeholder={"Select Gender"}
+                                            placeholder={"Select a Gender"}
                                             isSearchable={false}
                                             classNamePrefix="react-select"
                                             error={fieldState.error}
@@ -274,7 +315,6 @@ const JoinUs = () => {
                                         styles={customStyles}
                                         {...field}
                                         options={universityOptions}
-                                        defaultValue={universityOptions[0]}
                                         value={universityOptions.find(option => option.value === field.value)} // Controlled by form value
                                         placeholder={"Select University"}
                                         isSearchable={false}
@@ -304,10 +344,9 @@ const JoinUs = () => {
                                         className="select_level"
                                         styles={customStyles}
                                         {...field}
-                                        defaultValue={facultyOptions[0]}
                                         options={facultyOptions}
                                         value={facultyOptions.find(option => option.value === field.value)}
-                                        placeholder={"Select a Facility"}
+                                        placeholder={"Select a Faculty"}
                                         isSearchable={false}
                                         classNamePrefix="react-select"
                                         error={fieldState.error}
@@ -351,7 +390,7 @@ const JoinUs = () => {
                                     <span className="alert">{errors.level_select.message}</span>
                                 )}
                             </div>
-                            
+
                             <div className="input_box" style={{marginBottom: "40px"}}>
                                 <span className="">Committees</span>
                                 <Controller
@@ -381,12 +420,30 @@ const JoinUs = () => {
                                     <span className="alert">{errors.committee.message}</span>
                                     )}
                             </div>
-                        </div>
+                                </>
+                            )}
+                            {step === 2 && (
+                              <>
+                                  <DynamicForm formData={formData} register={register} control={control} errors={errors} />
+                              </>
+                            )}
 
+                        </div>
+ 
                         <div className="btn_container">
                             <button className="Register_btn" type="submit">
-                                Join
+                                {step === 1 ? 'Next' : 'join'}
                             </button>
+                         </div>
+
+                         <div className="pagination_circles">
+                            {steps.map((s, index) => (
+                            <div
+                                key={index}
+                                className={`circle ${step === s ? 'active' : ''}`}
+                                onClick={() => handleStepClick(s)}
+                            />
+                            ))}
                          </div>
                     </form>
             </div>

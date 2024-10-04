@@ -102,6 +102,7 @@ input[type=radio] {
     font-weight: bold;
     cursor: pointer;
     transition: .3s;
+    margin-top: 15px;
 }
 
 .form_container form .Register_btn:hover {

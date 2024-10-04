@@ -321,3 +321,23 @@ ul li {
     opacity: 1;
     visibility: hidden;
 }
+
+/* Pagination Circles */
+.circle {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background-color: gray;
+    margin: 0 5px;
+    display: inline-block;
+    cursor: pointer;
+  }
+  
+  .circle.active {
+    background-color: #5D37C6;
+  }
+
+  .input_box input[type="file"] {
+    padding: 10px;
+    cursor: pointer;
+  }

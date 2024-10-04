@@ -14,17 +14,6 @@ const Home = () => {
 
   const [isJoinUS, setJoinUs] = useState(false);
 
-  // useEffect(() => {
-  //   IsJoinUsBtn(
-  //     (response) => {
-
-  //       setJoinUs(response.message);
-  //       dispatch(setIsJoinUs(response.message));
-  //     }, (error) => {
-  //       console.error(error)
-  //     }
-  //   )
-  // }, [])
 
   useEffect(() => {
     IsJoinUsBtn(
