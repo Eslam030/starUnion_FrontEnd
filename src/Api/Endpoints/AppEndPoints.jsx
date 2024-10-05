@@ -322,6 +322,8 @@ export const joinUsRegister = (data, onSuccess, onError) => {
     url: `${DOMAIN}/main/joinus/`,
     method: "POST",
     data: data,
+    processData: false,   
+    contentType: false,   
     success: onSuccess,
     error: onError,
   });
@@ -339,3 +341,27 @@ export const IsJoinUsBtn = (onSuccess, onError) => {
     error: onError,
   });
 }
+
+// Get the availability of committees
+export const GetAvailabilityCommittees = (onSuccess, onError) => {
+  $.ajax({
+    url: `${DOMAIN}/main/getavailablecommittees/`,
+    method: "GET",
+    success: onSuccess,
+    error: onError,
+  });
+
+}
+
+// Get the JoinUs form 
+export const GetJoinUsForm = (FormQus, onSuccess, onError) => {
+  $.ajax({
+    url: `${DOMAIN}/main/getformtemplate/`,
+    method: "GET",
+    data: {
+      form_name : FormQus,
+    },
+    success: onSuccess,
+    error: onError,
+  });
+} 

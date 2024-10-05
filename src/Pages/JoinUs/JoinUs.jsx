@@ -4,15 +4,17 @@ import { Input } from "@material-tailwind/react";
 import { useForm, Controller } from "react-hook-form";
 import Logolayout from "../../assets/star_logo2.png";
 import joinUs_img from "../../assets/joinUs.png";
-import { joinUsRegister } from "../../Api/Endpoints/AppEndPoints";
-import { useState } from 'react';
-import formData from '../../server/formData.json'
+import { joinUsRegister, GetAvailabilityCommittees, GetJoinUsForm } from "../../Api/Endpoints/AppEndPoints";
+import { useEffect, useState } from 'react';
 import DynamicForm from '../../Components/DynamicForms/DynamicForm';
+
 
 
 const JoinUs = () => {
     const [step, setStep] = useState(1);
     const [dynamicValues, setDynamicValues] = useState({})
+    const [committeesOptions, setCommitteesOptions] = useState([]);  
+    const [formData, setFormData] = useState({});
     const steps = [1, 2];
 
     const handleStepClick = (newStep) => {
@@ -24,6 +26,7 @@ const JoinUs = () => {
     const navigate = useNavigate();
     const {
       control,
+      watch,
       register,
       handleSubmit,
       formState: { errors },
@@ -32,40 +35,123 @@ const JoinUs = () => {
 
      });
 
-     const sendJoinUsForm = (data) => {
-        joinUsRegister(data,
+     const selectedCommittee = watch("committee");
+
+     useEffect(() => {
+         if (selectedCommittee) {
+             console.log('Selected Committee:', selectedCommittee); // Log the selected committee value to console
+         }
+     }, [selectedCommittee]);
+
+
+     const committeeLabelMapping = {
+      'WEB': 'Web',
+      'MOB': 'Mobile',
+      'AI': 'AI',
+      'HR': 'HR',
+      'SM': 'Social Media',
+      'PR': 'PR',
+      'GD': 'Graphic Design',
+      'PV': 'Photographing & Video'
+  };
+
+  const technicalCommittees = ['WEB', 'MOB', 'AI'];
+  const nonTechnicalCommittees = ['HR', 'SM', 'PR', 'GD', 'PV'];
+
+      useEffect(() => {
+        GetAvailabilityCommittees(
             (response) => {
-              console.log('Success:', response);
-              navigate('/'); 
+                const technical = [];
+                const nonTechnical = [];
+
+                response.committees.forEach(committee => {
+                    const label = committeeLabelMapping[committee] || committee;  
+                    const option = { value: committee, label };
+
+                    if (technicalCommittees.includes(committee)) {
+                        technical.push(option);
+                    } else if (nonTechnicalCommittees.includes(committee)) {
+                        nonTechnical.push(option);
+                    }
+                });
+
+                setCommitteesOptions([
+                    {
+                        label: 'Technical',
+                        options: technical,
+                    },
+                    {
+                        label: 'Non-Technical',
+                        options: nonTechnical,
+                    }
+                ]);
             },
             (error) => {
-              console.error('Error:', error);
-            }  
-        )
-     }
+                console.error('Error:', error);
+            }
+        );
+    }, []);
 
-    const onSubmit = (data) => {
-        if (step === 1) {
-          if (Object.keys(errors).length === 0) {
-            setStep(2); 
-            setDynamicValues(data)
-          } else {
-            console.log('Errors:');
-          }
-        } else if (step === 2) {
-          const dynamicFormValues = getValues(); 
-          // setDynamicValues(dynamicFormValues)
-          const secondFormValues = Object.fromEntries(
-            Object.entries(dynamicFormValues).filter(
-              ([key]) => !(key in dynamicValues)
-            )
-          )
-          const finalData = { ...dynamicValues, additional_info: secondFormValues};
-          console.log(finalData);
-          // sendJoinUsForm(data);
+
+    useEffect(() => {
+      GetJoinUsForm("HR",
+        (response) =>{
+          setFormData(response.form)
+        }, (error) => {
+          console.error('Error:', error);
         }
-      };
+      )
+    } ,[])
 
+    const sendJoinUsForm = (data) => {
+      joinUsRegister(data,
+        (response) => {
+          console.log('Success:', response);
+          navigate('/'); 
+        },
+        (error) => {
+          console.error('Error:', error);
+        }
+      );
+    };
+    
+    const onSubmit = (data) => {
+      if (step === 1) {
+        if (Object.keys(errors).length === 0) {
+          setStep(2);
+          setDynamicValues(data);
+        } else {
+          console.log('Errors:', errors);
+        }
+      } else if (step === 2) {
+        const dynamicFormValues = getValues();
+    
+        const secondFormValues = Object.fromEntries(
+          Object.entries(dynamicFormValues).filter(
+            ([key]) => !(key in dynamicValues) && key !== 'file'
+          )
+        );
+  
+        const finalData = new FormData();
+        Object.keys(data).forEach(subKey => {
+          finalData.append(subKey, data[subKey]);
+        });
+        // Append the file from secondFormValues if it exists
+        if (dynamicFormValues.file) {
+          finalData.append('file', dynamicFormValues.file[0]); 
+        }
+
+        let SecondFormTemp =  {}
+        Object.keys(secondFormValues).forEach(subKey => {
+          if (!Array.isArray(secondFormValues[subKey])) { 
+            SecondFormTemp[subKey] = secondFormValues[subKey];
+          }
+        });
+        finalData.append('additional_questions', JSON.stringify(SecondFormTemp))
+    
+        sendJoinUsForm(finalData);
+      }
+    };
 
       
   const levelOptions = [
@@ -96,28 +182,6 @@ const JoinUs = () => {
     { value: 'Other', label: 'Other' },
   ];
 
-  const CommitteesOptions = [
-    {
-      label: 'Technical',
-      options: [
-        { value: 'WEB', label: 'Web' },
-        { value: 'MOB', label: 'Mobile' },
-        { value: 'AI', label: 'AI' },
-      ],
-    },
-    {
-      label: 'Non-Technical',
-      options: [
-        { value: 'HR', label: 'HR' },
-        { value: 'SM', label: 'Social Media' },
-        { value: 'PR', label: 'PR' },
-        { value: 'GD', label: 'Graphic Design' },
-        { value: 'PV', label: 'Photographing & Video' }
-      ],
-    },
-  ];
-  
-  
   const customStyles = {
     control: (provided, state) => ({
       ...provided,
@@ -162,13 +226,6 @@ const JoinUs = () => {
       fontSize: '15px',
     }),
   };
-
-  const variants = {
-    enter: { opacity: 0, x: 50 },
-    center: { opacity: 1, x: 0 },
-    exit: { opacity: 0, x: -50 },
-};
-
 
   return (
     <>
@@ -404,15 +461,18 @@ const JoinUs = () => {
                                         className="select_level"
                                         styles={customStyles}
                                         {...field}
-                                        options={CommitteesOptions}
+                                        options={committeesOptions}
                                         placeholder={"Select a Committee"}
                                         isSearchable={false}
                                         classNamePrefix="react-select"
                                         error={fieldState.error}
                                         onChange={(selectedOption) => {
-                                            field.onChange(selectedOption ? selectedOption.value : '');
-                                        }}
-                                        value={CommitteesOptions.flatMap(group => group.options).find(option => option.value === field.value)}
+                                          const selectedValue = selectedOption ? selectedOption.value : ''; // Store only the value
+                                          field.onChange(selectedValue);  // Update the form field with the selected value
+                                      }}
+                                        value={committeesOptions
+                                          .flatMap(group => group.options)
+                                          .find(option => option.value === field.value)}
                                         />
                                     )}
                                     />
