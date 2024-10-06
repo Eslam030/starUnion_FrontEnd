@@ -17,6 +17,7 @@ const JoinUs = () => {
     const [dynamicValues, setDynamicValues] = useState({})
     const [committeesOptions, setCommitteesOptions] = useState([]);  
     const [formData, setFormData] = useState({});
+    const [selectedCommittee, setSelectedCommittee] = useState(null);
     const steps = [1, 2];
 
     const handleStepClick = (newStep) => {
@@ -41,7 +42,6 @@ const JoinUs = () => {
     const navigate = useNavigate();
     const {
       control,
-      watch,
       register,
       handleSubmit,
       formState: { errors },
@@ -49,21 +49,6 @@ const JoinUs = () => {
     } = useForm({ mode: "onTouched",
 
      });
-
-     const selectedCommittee = watch("committee");
-
-     useEffect(() => {
-         if (selectedCommittee) {
-             GetJoinUsForm(selectedCommittee,
-              (response) =>{
-                setFormData(response.form)
-              }, (error) => {
-                console.error('Error:', error);
-              }
-            )
-            }
-      }, [selectedCommittee]);
-
 
     const committeeLabelMapping = {
       'WEB': 'Web',
@@ -79,39 +64,61 @@ const JoinUs = () => {
   const technicalCommittees = ['WEB', 'MOB', 'AI'];
   const nonTechnicalCommittees = ['HR', 'SM', 'PR', 'GD', 'PV'];
 
-    useEffect(() => {
-        GetAvailabilityCommittees(
-            (response) => {
-                const technical = [];
-                const nonTechnical = [];
+  // Get Availability Committees 
+  useEffect(() => {
 
-                response.committees.forEach(committee => {
-                    const label = committeeLabelMapping[committee] || committee;  
-                    const option = { value: committee, label };
+    GetAvailabilityCommittees(
+        (response) => {
+            const technical = [];
+            const nonTechnical = [];
 
-                    if (technicalCommittees.includes(committee)) {
-                        technical.push(option);
-                    } else if (nonTechnicalCommittees.includes(committee)) {
-                        nonTechnical.push(option);
-                    }
-                });
+            response.committees.forEach((committee) => {
+                const label = committeeLabelMapping[committee.committee_name] || committee.committee_name;  
+                const option = { 
+                    value: committee.committee_name, 
+                    label, 
+                    formName: committee.committee_form_name 
+                };
 
-                setCommitteesOptions([
-                    {
-                        label: 'Technical',
-                        options: technical,
-                    },
-                    {
-                        label: 'Non-Technical',
-                        options: nonTechnical,
-                    }
-                ]);
-            },
-            (error) => {
-                console.error('Error:', error);
-            }
-        );
-    }, []);
+                if (technicalCommittees.includes(committee.committee_name)) {
+                    technical.push(option);
+                } else if (nonTechnicalCommittees.includes(committee.committee_name)) {
+                    nonTechnical.push(option);
+                }
+            });
+
+            setCommitteesOptions([
+                {
+                    label: 'Technical',
+                    options: technical,
+                },
+                {
+                    label: 'Non-Technical',
+                    options: nonTechnical,
+                }
+            ]);
+        },
+        (error) => {
+            console.error('Error:', error);
+        }
+    );
+}, []);
+
+    const handleCommitteeChange = (selectedOption) => {
+      setSelectedCommittee(selectedOption);
+
+      const formName = selectedOption.formName;
+
+      // Call GetJoinUsForm to fetch the dynamic form
+      GetJoinUsForm(formName, 
+          (response) => {
+            setFormData(response.form)
+          },
+          (error) => {
+              console.error("Error fetching form:", error);
+          }
+      );
+  };
 
     const sendJoinUsForm = (data) => {
       joinUsRegister(data,
@@ -482,8 +489,9 @@ const JoinUs = () => {
                                         classNamePrefix="react-select"
                                         error={fieldState.error}
                                         onChange={(selectedOption) => {
-                                          const selectedValue = selectedOption ? selectedOption.value : ''; // Store only the value
-                                          field.onChange(selectedValue);  // Update the form field with the selected value
+                                          const selectedValue = selectedOption ? selectedOption.value : ''; 
+                                          field.onChange(selectedValue);  
+                                          handleCommitteeChange(selectedOption);
                                       }}
                                         value={committeesOptions
                                           .flatMap(group => group.options)
