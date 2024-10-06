@@ -89,6 +89,34 @@ const DynamicForm = ({ formData, register, control, errors }) => {
           </div>
         );
 
+      case 'textarea':
+          return (
+            <div key={field.name} style={{width: "100%"}}>
+              <span className="reg_detail">{field.label}</span>
+              <Controller
+                name={field.name}
+                control={control}
+                rules={{
+                  required: field.validation.required && `${field.label} is required`,
+                  minLength: field.validation.minLength && {
+                    value: field.validation.minLength,
+                    message: `Must be at least ${field.validation.minLength} characters`,
+                  }
+                }}
+                render={({ field: controllerField }) => (
+                  <textarea
+                    placeholder={field.placeholder}
+                    {...controllerField}
+                    className="joinUsTextArea"
+                  />
+                )}
+              />
+              {errors[field.name]?.message && (
+                <span className="alert">{errors[field.name].message}</span>
+              )}
+            </div>
+          );
+
       case 'radio':
         return (
           <div className="input_box" key={field.name}>
