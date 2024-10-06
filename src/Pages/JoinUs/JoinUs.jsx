@@ -193,7 +193,6 @@ const JoinUs = () => {
     { value: 'Cairo', label: 'Cairo' },
     { value: 'Helwan', label: 'Helwan' },
     { value: 'Ain-Shams', label: 'Ain-Shams' },
-    { value: 'MTI', label: 'MTI' },
     { value: 'Other', label: 'Other' },
   ];
 
