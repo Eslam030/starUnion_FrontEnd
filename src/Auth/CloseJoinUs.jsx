@@ -8,7 +8,7 @@ const CloseJoinUs = ({ children }) => {
 
     if(IsJoinUsBtn === false) {
         return <Navigate to={`/`}  replace  />;
-    } 
+      }
 
   return children
 

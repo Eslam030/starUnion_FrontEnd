@@ -26,7 +26,6 @@ const Router = createBrowserRouter([
     {
       path: '/JoinUs',
       element: <CloseJoinUs><JoinUs /></CloseJoinUs>,
-      // element: <JoinUs />,
     },
     {
       path: "/login",

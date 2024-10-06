@@ -5,8 +5,10 @@ import { useForm, Controller } from "react-hook-form";
 import Logolayout from "../../assets/star_logo2.png";
 import joinUs_img from "../../assets/joinUs.png";
 import { joinUsRegister, GetAvailabilityCommittees, GetJoinUsForm } from "../../Api/Endpoints/AppEndPoints";
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import DynamicForm from '../../Components/DynamicForms/DynamicForm';
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 
 
@@ -22,6 +24,19 @@ const JoinUs = () => {
           setStep(newStep); // Allow going back
         }
       };
+
+      const notify = useCallback((msg, type = "success") => {
+        toast[type](msg, {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "dark",
+        });
+      }, []);
 
     const navigate = useNavigate();
     const {
@@ -39,12 +54,18 @@ const JoinUs = () => {
 
      useEffect(() => {
          if (selectedCommittee) {
-             console.log('Selected Committee:', selectedCommittee); // Log the selected committee value to console
-         }
-     }, [selectedCommittee]);
+             GetJoinUsForm(selectedCommittee,
+              (response) =>{
+                setFormData(response.form)
+              }, (error) => {
+                console.error('Error:', error);
+              }
+            )
+            }
+      }, [selectedCommittee]);
 
 
-     const committeeLabelMapping = {
+    const committeeLabelMapping = {
       'WEB': 'Web',
       'MOB': 'Mobile',
       'AI': 'AI',
@@ -53,12 +74,12 @@ const JoinUs = () => {
       'PR': 'PR',
       'GD': 'Graphic Design',
       'PV': 'Photographing & Video'
-  };
+    };
 
   const technicalCommittees = ['WEB', 'MOB', 'AI'];
   const nonTechnicalCommittees = ['HR', 'SM', 'PR', 'GD', 'PV'];
 
-      useEffect(() => {
+    useEffect(() => {
         GetAvailabilityCommittees(
             (response) => {
                 const technical = [];
@@ -92,22 +113,16 @@ const JoinUs = () => {
         );
     }, []);
 
-
-    useEffect(() => {
-      GetJoinUsForm("HR",
-        (response) =>{
-          setFormData(response.form)
-        }, (error) => {
-          console.error('Error:', error);
-        }
-      )
-    } ,[])
-
     const sendJoinUsForm = (data) => {
       joinUsRegister(data,
         (response) => {
-          console.log('Success:', response);
-          navigate('/'); 
+          if(response.message === 'Done') {
+            notify("Submitted Successfully!");
+            setTimeout(() => {
+              navigate('/'); 
+            }, 2000)
+          }
+          
         },
         (error) => {
           console.error('Error:', error);
@@ -249,8 +264,8 @@ const JoinUs = () => {
                                     rules={{
                                     required: "Full Name is required",
                                     minLength: {
-                                        value: 5,
-                                        message: "Must be at least 5 characters",
+                                        value: 6,
+                                        message: "Must be at least 6 characters",
                                     },
                                     pattern: {
                                         value: /^[a-zA-Z-_ ]+$/,
@@ -506,12 +521,14 @@ const JoinUs = () => {
                             ))}
                          </div>
                     </form>
+                    <ToastContainer />
             </div>
             <div className="register_img">
                 <img src={joinUs_img} alt="JoinUs Image" />
             </div>
         </div>
     </div>
+
     
     </>
   )

@@ -5,7 +5,6 @@ import Select from "react-select";
 const DynamicForm = ({ formData, register, control, errors }) => {
 
   if (!formData || !Array.isArray(formData.formFields)) {
-    console.error('formData is undefined or formFields is not an array');
     return null; 
   }
 
