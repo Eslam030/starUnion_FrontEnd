@@ -10,9 +10,9 @@ import { setIsJoinUs } from "../../Auth/authSlice";
 
 
 const Home = () => {
-  const dispatch = useDispatch();
+  const dispatch = useDispatch(); 
 
-  const [isJoinUS, setJoinUs] = useState(false);
+  const [isJoinUS, setJoinUs] = useState(true);
 
 
   useEffect(() => {
