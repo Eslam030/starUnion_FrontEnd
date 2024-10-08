@@ -20,11 +20,7 @@ const JoinUs = () => {
     const [selectedCommittee, setSelectedCommittee] = useState(null);
     const steps = [1, 2];
 
-    const handleStepClick = (newStep) => {
-        if (newStep < step) {
-          setStep(newStep); // Allow going back
-        }
-      };
+
 
       const notify = useCallback((msg, type = "success") => {
         toast[type](msg, {
@@ -104,29 +100,39 @@ const JoinUs = () => {
     );
 }, []);
 
-    const handleCommitteeChange = (selectedOption) => {
-      setSelectedCommittee(selectedOption);
 
+const handleCommitteeChange = (selectedOption) => {
+  if (selectedCommittee?.value !== selectedOption.value) {
+      setSelectedCommittee(selectedOption);
       const formName = selectedOption.formName;
 
       // Call GetJoinUsForm to fetch the dynamic form
       GetJoinUsForm(formName, 
           (response) => {
-            setFormData(response.form)
+              setFormData(response.form);
           },
           (error) => {
               console.error("Error fetching form:", error);
           }
       );
-  };
+  }
+};
+
+const handleStepClick = (newStep) => {
+  if (newStep < step) {
+      setStep(newStep);
+  } 
+};
 
     const sendJoinUsForm = (data) => {
+      console.log(data)
       joinUsRegister(data,
         (response) => {
+          console.log(response)
           if(response.message === 'Done') {
             notify("Submitted Successfully!");
             setTimeout(() => {
-              navigate('/'); 
+              // navigate('/'); 
             }, 2000)
           }
           
@@ -136,7 +142,7 @@ const JoinUs = () => {
         }
       );
     };
-    
+
     const onSubmit = (data) => {
       if (step === 1) {
         if (Object.keys(errors).length === 0) {
@@ -146,6 +152,7 @@ const JoinUs = () => {
           console.log('Errors:', errors);
         }
       } else if (step === 2) {
+
         const dynamicFormValues = getValues();
     
         const secondFormValues = Object.fromEntries(
@@ -174,6 +181,7 @@ const JoinUs = () => {
         sendJoinUsForm(finalData);
       }
     };
+
 
       
   const levelOptions = [
