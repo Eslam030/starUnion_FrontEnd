@@ -51,7 +51,7 @@ const JoinUs = () => {
       'MOB': 'Mobile',
       'AI': 'AI',
       'HR': 'HR',
-      'SM': 'Social Media',
+      'SM': 'Digital Marketing',
       'PR': 'PR',
       'GD': 'Graphic Design',
       'PV': 'Photographing & Video'
