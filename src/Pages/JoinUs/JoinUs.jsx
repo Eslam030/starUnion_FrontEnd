@@ -125,14 +125,13 @@ const handleStepClick = (newStep) => {
 };
 
     const sendJoinUsForm = (data) => {
-      console.log(data)
       joinUsRegister(data,
         (response) => {
           console.log(response)
           if(response.message === 'Done') {
             notify("Submitted Successfully!");
             setTimeout(() => {
-              // navigate('/'); 
+              navigate('/'); 
             }, 2000)
           }
           

@@ -64,8 +64,8 @@ const DynamicForm = ({ formData, register, control, errors }) => {
             <Controller
               name={field.name}
               control={control}
-              rules={{
-                required: 'Field is required',               
+              rules={{    
+                required: field.validation.required ? "Filed is required" : null,        
                 minLength: field.validation.minLength && {
                   value: field.validation.minLength,
                   message: `Must be at least ${field.validation.minLength} characters`,
@@ -97,6 +97,7 @@ const DynamicForm = ({ formData, register, control, errors }) => {
                 name={field.name}
                 control={control}
                 rules={{
+                  required: field.validation.required ? "Filed is required" : null,
                   minLength: field.validation.minLength && {
                     value: field.validation.minLength,
                     message: `Must be at least ${field.validation.minLength} characters`,
@@ -142,7 +143,7 @@ const DynamicForm = ({ formData, register, control, errors }) => {
               name={field.name}
               control={control}
               rules={{
-                  required: field.validation.required && field.validation.errorMessage,
+                required: field.validation.required ? "Filed is required" : null,
                 }}
                 render={({ field: controllerField }) => (
                 <Select
