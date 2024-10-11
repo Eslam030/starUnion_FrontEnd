@@ -48,7 +48,7 @@ const JoinUs = () => {
 
     const committeeLabelMapping = {
       'WEB': 'Web',
-      'MOB': 'Mobile',
+      'AC': 'Academic',
       'AI': 'AI',
       'HR': 'HR',
       'SM': 'Digital Marketing',
@@ -57,7 +57,7 @@ const JoinUs = () => {
       'PV': 'Photographing & Video'
     };
 
-  const technicalCommittees = ['WEB', 'MOB', 'AI'];
+  const technicalCommittees = ['WEB', 'AC', 'AI'];
   const nonTechnicalCommittees = ['HR', 'SM', 'PR', 'GD', 'PV'];
 
   // Get Availability Committees 

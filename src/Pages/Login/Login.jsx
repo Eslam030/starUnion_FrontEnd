@@ -56,7 +56,7 @@ const Login = () => {
           <h1>
             <span>Star </span>Union
           </h1>
-          <form action="" onSubmit={handleSubmit(onSubmit)}>
+          <form onSubmit={handleSubmit(onSubmit)}>
             <div className="form">
               <Controller
                 name="username"
