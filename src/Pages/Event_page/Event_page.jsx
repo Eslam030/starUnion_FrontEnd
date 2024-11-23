@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useCallback } from "react";
 import { Link, useNavigate, useLocation } from "react-router-dom";;
 import { ToastContainer, toast } from "react-toastify";
-import { setSpacialEventPassed } from "../../Auth/authSlice";
+import { setSpacialEventPassed } from "../../Store/authSlice";
 import "react-toastify/dist/ReactToastify.css";
 import PreLoader from "../../Components/Loading/PreLoader";
 import { eventPages, registerEvent, EventRegistration, checkSpacialEventsRouts } from "../../Api/Endpoints/AppEndPoints";
@@ -181,8 +181,8 @@ const Event_page = () => {
             </div>
           </div>
           <div className="workshop_cards">
-            {events.map((e) => (
-              <div className="workshop_card" key={e.id}>
+            {events.map((e, index) => (
+              <div className="workshop_card" key={index}>
                 <div className="workshop_card_img">
                   <ImageEncode imageUrl={e.fields.logo} />
                 </div>

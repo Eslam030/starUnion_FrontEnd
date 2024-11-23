@@ -7,8 +7,9 @@ import { ToastContainer, toast } from "react-toastify";
 import { registerSpacialEvent, eventPages, checkSpacialEventsRouts } from "../../Api/Endpoints/AppEndPoints"; 
 // Images
 import Logolayout from "../../assets/star_logo2.png";
-// import DotpyImg from '../../assets/dotpyi 1.png'
+import DotpyImg from '../../assets/dotpyi 1.png'
 import './EventForm.css'
+import { DOMAIN } from "../../Api/config";
 
 
 
@@ -173,9 +174,7 @@ const EventForm = () => {
 
         <div className="register event_form">
           <div className="form_container">
-            <div className="reg_title">{events.map((e) => e.pk)}
-            </div>
-
+            <p className="reg_title">{events.map((e) => e.pk)}</p>
             <form onSubmit={handleSubmit(onSubmit)}>
               <div className="user_reg">
                 <div className="input_box">
@@ -433,11 +432,19 @@ const EventForm = () => {
               </div>
             </form>
           </div>
+
         <ToastContainer />
-          {/* <div className="register_img spacialEventsImg">
-            <img src={DotpyImg} alt="" className="dotpy_img" style={{width: '180px'}}/>
-            <img src={`${DOMAIN}/main/getImage?path=${events.map(e => e.logo)}`} alt="Register Image" />
-          </div> */}
+            {events.map((e, i)=>(
+              <>
+                {<div className="register_img spacialEventsImg" key={i}>
+                  {e.logo ? (
+                    <img src={`${DOMAIN}/main/getImage?path=${e.logo}`} alt="Register Image"  />
+                  ) : (
+                    <p></p>
+                  )}
+                  </div> }
+                </>
+            ))}
         </div>
       </div>
     </>

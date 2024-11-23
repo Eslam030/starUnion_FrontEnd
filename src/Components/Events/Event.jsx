@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom'
 import { useDispatch } from "react-redux";
 import { eventPages } from '../../Api/Endpoints/AppEndPoints'; 
-import { setSpacialEventPassed } from '../../Auth/authSlice';
+import { setSpacialEventPassed } from '../../Store/authSlice';
 // CSS file
 import './Event.css'
 
@@ -75,9 +75,9 @@ const Event = () => {
             </div>
 
         <div className="cards">
-        {events.map((e) =>(
+        {events.map((e, index) =>(
 
-        <div className="event" key={e.id}>
+        <div className="event" key={index}>
                 <p className='date '>{`${getMonthFromDate(e.fields.date)} ${getDayFromDate(e.fields.date)}, ${getYearFromDate(e.fields.date)}`}</p>
                 <div className="card">
                     <h1>{e.pk} </h1>

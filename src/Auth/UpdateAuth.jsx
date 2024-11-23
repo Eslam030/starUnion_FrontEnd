@@ -1,7 +1,7 @@
 import $ from 'jquery';
 import { DOMAIN } from '../Api/config'
 import { useDispatch, useSelector } from "react-redux";
-import { setAuthToken } from "../Auth/authSlice"; 
+import { setAuthToken } from "../Store/authSlice"; 
 
 export const UpdateAuth = () => {
     const dispatch = useDispatch();

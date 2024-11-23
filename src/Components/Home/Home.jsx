@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from "react";
-import "./Home.css";
-// import Star_logo2 from "../../assets/star_logo2.png";
 import Star_logo from '../../assets/star_logo2-removebg-preview.png'
 import { Link } from "react-router-dom";
 import { IsJoinUsBtn } from "../../Api/Endpoints/AppEndPoints";
 import { useDispatch } from "react-redux";
-import { setIsJoinUs } from "../../Auth/authSlice";
+import { setIsJoinUs } from "../../Store/authSlice";
+import "./Home.css";
+
 
 
 

@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { GetCookiesAuth } from "../Api/Endpoints/AppEndPoints";
 import { useDispatch } from "react-redux";
-import { setAuthToken } from "../Auth/authSlice";
+import { setAuthToken } from "../Store/authSlice";
 
 const useIsAuthUser = () => {
     const [isAuthUser, setIsAuthUser] = useState(false);

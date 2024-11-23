@@ -140,25 +140,25 @@ const WS_page = () => {
           </div>
           <div className="workshop_cards">
             {filteredWorkShop.length > 0 ? (
-              filteredWorkShop.slice(0, visibleWorkshops).map((event) => (
-                <div className="workshop_card" key={event.id}>
-                  <Link to={`/workshops/details/${event.pk}`}>
+              filteredWorkShop.slice(0, visibleWorkshops).map((WS, index) => (
+                <div className="workshop_card" key={index}>
+                  <Link to={`/workshops/details/${WS.pk}`}>
                     <div className="workshop_card_img">
-                      <ImageEncode imageUrl={event.fields.logo} />
+                      <ImageEncode imageUrl={WS.fields.logo} />
                     </div>
                     <div className="workshop_card_content">
                       <div className="workshop_date">
                         <span className="month">
-                          {getMonthFromDate(event.fields.start_date)}
+                          {getMonthFromDate(WS.fields.start_date)}
                         </span>
                         <p className="day">
-                          {getDayFromDate(event.fields.start_date)}
+                          {getDayFromDate(WS.fields.start_date)}
                         </p>
                       </div>
                       <div className="workshop_card_title">
-                        <h1>{event.pk}</h1>
+                        <h1>{WS.pk}</h1>
                         <p className="workshop_card_description">
-                          {event.fields.description}
+                          {WS.fields.description}
                         </p>
                       </div>
                     </div>

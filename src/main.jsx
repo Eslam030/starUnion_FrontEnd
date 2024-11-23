@@ -1,9 +1,8 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 import AppRouter from "./routes/AppRouter";
-// import { AuthProvider } from "./Auth/AuthContext";
 import { Provider } from 'react-redux'
-import { store } from "./Auth/store";
+import { store } from "./Store/store";
 
 
 

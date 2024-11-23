@@ -147,15 +147,11 @@ const WS_details = () => {
               <div className="col-1">
                 <ImageEncode imageUrl={w.fields.logo} />
               </div>
-              {/* <div className="col-2">
-                <img src={img1} alt="Image" loading="lazy" />
-                <img src={img3} alt="Image" loading="lazy" />
-              </div> */}
             </div>
           ))}
 
-          {workShop.map((w) => (
-            <div className="ws_sections" key={w.pk}>
+          {workShop.map((w, index) => (
+            <div className="ws_sections" key={index}>
               <div className="ws_section_details">
                 <div className="ws_section_title">
                   <h1>{`${w.pk} WorkShop`}</h1>

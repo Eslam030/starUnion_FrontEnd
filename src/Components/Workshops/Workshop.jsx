@@ -138,9 +138,9 @@ const Workshop = () => {
         </p>
       </div>
       <div className="cards_container">
-        {workShop.map((w) => (
-          <div className="workS_card" key={w.id}>
-            <Link to={`/workshops/details/${w.pk}`}>
+        {workShop.map((w, index) => (
+          <div className="workS_card" key={index}>
+            <Link to={`/workshops/details/${w.pk}`} >
               <div className="workS_date">{`${getMonthFromDate(
                 w.fields.start_date
               )} ${getDayFromDate(w.fields.start_date)} `}</div>

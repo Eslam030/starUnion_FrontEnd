@@ -20,9 +20,8 @@ const Sponsors = () => {
     return (
         <div className='Sponsors'>
             <h1>Sponsors & Partners</h1>
-            {sponsorsData.map((item) => (
-                // <img src={`${DOMAIN}/main/getImage?path=${item.fields.logo}`} alt="Sponsors Image" />
-                <ImageEncode imageUrl={item.fields.logo}  />
+            {sponsorsData.map((item, index) => (
+                <ImageEncode key={index} imageUrl={item.fields.logo}  />
             ))}
         </div>
     )

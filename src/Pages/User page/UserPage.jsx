@@ -28,6 +28,8 @@ import Logolayout from "../../assets/star_logo2.png";
 // CSS file
 import "./UserPage.css";
 
+import RegistrationSection from "../../Components/Hooks/RegistrationSection";
+
 const UserPage = () => {
 
   const { isAuthUser, userAuthName } = useIsAuthUser();
@@ -878,132 +880,23 @@ const UserPage = () => {
         <ToastContainer />
 
         {/* Show the WS Registration */}
-        {showWS && registeredWorkshopsData.length > 0 && (
-          <div className="bk show">
-            <div className="registerSection_container">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                viewBox="0 0 384 512"
-                className="close_img"
-                onClick={Close}
-              >
-                <path d="M342.6 150.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L192 210.7 86.6 105.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L146.7 256 41.4 361.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0L192 301.3 297.4 406.6c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L237.3 256 342.6 150.6z" />
-              </svg>
-              <h2 className="model_title">My Workshops</h2>
-              {registeredWorkshopsData.map((WS_Data) => (
-                <div className="registerSec_card" key={WS_Data.id} ref={menuRef}>
-                  <div className="UserRegisterData">
-                    <div className="WS_img">
-                      <img
-                        src={`${DOMAIN}/main/getImage?path=${WS_Data.fields.logo}`}
-                        alt=""
-                      />
-                    </div>
-                    <div className="WS_details">
-                      <p className="WS_status">
-                        Status:
-                        <span
-                          className={WS_Data.status != "register" && "accept"}
-                        >
-                          {WS_Data.status === "register" ? (
-                            <div className="status-msg">
-                              Pending for accepting{" "}
-                              <span className="dot-flashing"></span>
-                            </div>
-                          ) : (
-                            "Accepted"
-                          )}
-                        </span>
-                      </p>
-                      <p className="WS_pk">{WS_Data.pk} Workshop </p>
-                      <p className="WS_title">{WS_Data.fields.description}</p>
-                    </div>
-                  </div>
-                  {WS_Data.status === "register" ? (
-                    <button
-                      className="remove"
-                      onClick={() => RemoveWS_Register(WS_Data.pk)}
-                    >
-                      X
-                    </button>
-                  ) : (
-                    ""
-                  )}
-                </div>
-              ))}
-            </div>
-          </div>
-        )}
+        <RegistrationSection
+        show={showWS}
+        data={registeredWorkshopsData}
+        title="My Workshops"
+        onClose={Close}
+        removeAction={RemoveWS_Register}
+        type="Workshop"
+      />
 
-        {/* Show the Event Registration */}
-        {showEvents && registeredEventsData.length > 0 && (
-          <div className="bk show">
-            <div className="registerSection_container">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                viewBox="0 0 384 512"
-                className="close_img"
-                onClick={Close}
-              >
-                <path d="M342.6 150.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L192 210.7 86.6 105.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L146.7 256 41.4 361.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0L192 301.3 297.4 406.6c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L237.3 256 342.6 150.6z" />
-              </svg>
-              <h2 className="model_title">My Events</h2>
-              {registeredEventsData.map((E_Data) => (
-                <div className="registerSec_card" key={E_Data.id}>
-                  <div className="UserRegisterData">
-                    <div className="WS_img">
-                      <img
-                        src={`${DOMAIN}/main/getImage?path=${E_Data.fields.logo}`}
-                        alt="Image"
-                      />
-                    </div>
-                    <div className="WS_details">
-                      <p className="WS_pk">{E_Data.pk} Event </p>
-                      <p className="WS_title">{E_Data.fields.description}</p>
-                    </div>
-                  </div>
-                  {/* {E_Data.registered === true ? <button className="remove" onClick={() => RemoveWS_Register(E_Data.pk)}>X</button> : ""} */}
-                </div>
-              ))}
-            </div>
-          </div>
-        )}
-
-        {showWS && registeredWorkshopsData.length === 0 && (
-          <div className="bk show" >
-            <div className="registerSection_container">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                viewBox="0 0 384 512"
-                className="close_img"
-                onClick={Close}
-              >
-                <path d="M342.6 150.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L192 210.7 86.6 105.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L146.7 256 41.4 361.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0L192 301.3 297.4 406.6c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L237.3 256 342.6 150.6z" />
-              </svg>
-              <div className="noDataMessage">
-                Not registered yet to any workshop!
-              </div>
-            </div>
-          </div>
-        )}
-
-        {showEvents && registeredEventsData.length === 0 && (
-          <div className="bk show" >
-            <div className="registerSection_container">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                viewBox="0 0 384 512"
-                className="close_img"
-                onClick={Close}
-              >
-                <path d="M342.6 150.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L192 210.7 86.6 105.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L146.7 256 41.4 361.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0L192 301.3 297.4 406.6c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L237.3 256 342.6 150.6z" />
-              </svg>
-              <div className="noDataMessage">
-                Not registered yet to any Event!
-              </div>
-            </div>
-          </div>
-        )}
+      {/* Show the Event Registration */}
+      <RegistrationSection
+        show={showEvents}
+        data={registeredEventsData}
+        title="My Events"
+        onClose={Close}
+        type="Event"
+      />
       </div>
     </>
   );
