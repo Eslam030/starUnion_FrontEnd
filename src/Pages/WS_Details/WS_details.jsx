@@ -238,7 +238,7 @@ const WS_details = () => {
                       <button className='btn-op registered' disabled> Registered </button>
                     </Link>
                     :
-                    (new Date(w.fields.start_date) > today || w.fields.availability  ? 
+                    (w.fields.status != 'PA'  || w.fields.availability  ? 
                     <Link onClick={() => onClickToRegisterWs(w.pk)}>
                     <button className="btn-op"> Register </button>
                   </Link> 

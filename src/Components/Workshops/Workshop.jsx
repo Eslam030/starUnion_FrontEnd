@@ -153,7 +153,7 @@ const Workshop = () => {
                       Registered{" "}
                     </button>
                 ) : (
-                  (new Date(w.fields.start_date) > today || w.fields.availability ? 
+                  (w.fields.status != 'PA' || w.fields.availability ? 
                     <Link onClick={() => onClickToRegister(w.pk)}>
                     <button className="btn-op"> Register </button>
                   </Link> 
