@@ -1,7 +1,7 @@
 // RegistrationSection.js
 import React from 'react';
 
-const RegistrationSection = ({ show, data, title, onClose, removeAction, type }) => {
+const RegistrationSection = ({ show, data, title, onClose, removeAction, type, domain }) => {
   if (!show) return null;
 
   return (
@@ -22,7 +22,7 @@ const RegistrationSection = ({ show, data, title, onClose, removeAction, type })
             <div className="registerSec_card" key={item.id}>
               <div className="UserRegisterData">
                 <div className="WS_img">
-                  <img src={`${DOMAIN}/main/getImage?path=${item.fields.logo}`} alt="" />
+                  <img src={`${domain}/main/getImage?path=${item.fields.logo}`} alt="" />
                 </div>
                 <div className="WS_details">
                   <p className="WS_pk">{item.pk} {type}</p>

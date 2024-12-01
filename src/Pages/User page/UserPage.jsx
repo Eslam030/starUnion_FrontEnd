@@ -887,6 +887,7 @@ const UserPage = () => {
         onClose={Close}
         removeAction={RemoveWS_Register}
         type="Workshop"
+        domain={DOMAIN}
       />
 
       {/* Show the Event Registration */}
@@ -896,6 +897,7 @@ const UserPage = () => {
         title="My Events"
         onClose={Close}
         type="Event"
+        domain={DOMAIN}
       />
       </div>
     </>
