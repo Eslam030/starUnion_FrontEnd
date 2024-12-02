@@ -58,10 +58,10 @@ const WS_details = () => {
       (response) => {
         if (response.data) {
           const updatedWorkshops = response.data.map(workshop => {
-            const contentString = workshop.fields.content.replace(/'/g, '"');
+            // const contentString = workshop.fields.content.replace(/'/g, "'");
             try {
-              const contentJson = JSON.parse(contentString);
-              workshop.fields.content = contentJson;
+              // const contentJson = JSON.parse(workshop.fields.content);
+              workshop.fields.content = workshop.fields.content;
             } catch (e) {
               console.error('Error parsing content JSON', e);
               workshop.fields.content = {};
