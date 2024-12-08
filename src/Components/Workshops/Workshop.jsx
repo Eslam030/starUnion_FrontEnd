@@ -153,7 +153,7 @@ const Workshop = () => {
                       Registered{" "}
                     </button>
                 ) : (
-                  (w.fields.status != 'PA' || w.fields.availability ? 
+                  ( w.fields.availability ? 
                     <Link onClick={() => onClickToRegister(w.pk)}>
                     <button className="btn-op"> Register </button>
                   </Link> 
