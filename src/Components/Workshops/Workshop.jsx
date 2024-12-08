@@ -158,7 +158,13 @@ const Workshop = () => {
                     <button className="btn-op"> Register </button>
                   </Link> 
                   : 
-                  <button className="btn-op disabled" disabled> Passed </button>
+                  <button className="btn-op disabled" disabled>
+                        {w.fields.status === 'CM' 
+                          ? 'Coming Soon' 
+                          : w.fields.status === 'PA' 
+                          ? 'Passed' 
+                          : 'Current Working'}
+                  </button>
                   )
                 )}
               </div>

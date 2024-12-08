@@ -128,6 +128,7 @@ const WS_details = () => {
     }
   }, [isAuthUser, navigate]);
 
+
   const isRegistered = useCallback((nameOfWS) => {
     return registeredWorkshops.some(ws => ws.pk === nameOfWS && (ws.status === 'register' || ws.status === 'taking'));
   }, [registeredWorkshops]);
@@ -243,7 +244,13 @@ const WS_details = () => {
                     <button className="btn-op"> Register </button>
                   </Link> 
                   : 
-                  <button className="btn-op disabled" disabled> Passed </button>
+                  <button className="btn-op disabled" disabled>
+                  {w.fields.status === 'CM' 
+                    ? 'Coming Soon' 
+                    : w.fields.status === 'PA' 
+                    ? 'Passed' 
+                    : 'Current Working'}
+                  </button>
                   )
                   }
                 </div>
