@@ -205,7 +205,7 @@ const Event_page = () => {
                     Registered
                   </button>
                 ) : e.fields.availability ? 
-                  <Link onClick={() => onClickToRegister(e.pk)}>
+                  <Link onClick={() => onClickToRegister(e.pk,e.company)}>
                   <button className="btn-op event"> Register </button>
                 </Link>   
                 : (
