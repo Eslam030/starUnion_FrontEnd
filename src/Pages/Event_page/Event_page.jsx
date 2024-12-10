@@ -204,16 +204,17 @@ const Event_page = () => {
                   <button className="btn-op registered event" disabled>
                     Registered
                   </button>
-                ) : isEventPast(e.fields.date) ? (
+                ) : e.fields.availability ? 
+                  <Link onClick={() => onClickToRegister(e.pk)}>
+                  <button className="btn-op event"> Register </button>
+                </Link>   
+                : (
                   <button className="btn-op disabled event" disabled>
-                    Passed
-                  </button>
-                ) : (
-                  <button
-                    className="btn-op event"
-                    onClick={() => onClickToRegister(e.pk, e.company)}
-                  >
-                    Register
+                    {e.fields.status === 'CM' 
+                      ? 'Coming Soon' 
+                      : e.fields.status === 'PA' 
+                      ? 'Passed' 
+                      : 'Current Working'}
                   </button>
                 )}
               </div>
