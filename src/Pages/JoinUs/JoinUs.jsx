@@ -400,7 +400,7 @@ const handleStepClick = (newStep) => {
                                         styles={customStyles}
                                         {...field}
                                         options={universityOptions}
-                                        value={universityOptions.find(option => option.value === field.value)} // Controlled by form value
+                                        value={universityOptions.find(option => option.value === field.value)} 
                                         placeholder={"Select University"}
                                         isSearchable={false}
                                         classNamePrefix="react-select"

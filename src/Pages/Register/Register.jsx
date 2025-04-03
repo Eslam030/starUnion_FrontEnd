@@ -11,6 +11,7 @@ import {
   registerPage,
 } from "../../Api/Endpoints/AppEndPoints"; // api
 import { FaEye, FaEyeSlash } from "react-icons/fa";
+import ServerTimeoutModal from "../../Components/Server/ServerTimeoutModal";
 // Images
 import Logolayout from "../../assets/star_logo2.png";
 import registerImg from "../../assets/register_img.png";
@@ -41,6 +42,7 @@ const Register = () => {
 
   const [showPassword, setShowPassword] = useState(false);
   const [showConfPassword, setShowConfPassword] = useState(false);
+  const [showTimeOutModal, setShowTimeOutModal] = useState(false);
 
   const togglePasswordVisibility = useCallback(() => {
     setShowPassword((prev) => !prev);
@@ -94,8 +96,12 @@ const Register = () => {
       }
     } catch (error) {
       console.error("Error checking username or email:", error);
-      setMessage("Error checking username or email.");
-      setIsMessageError(true);
+      if (error.message.includes("Time-out")) {
+        setShowTimeOutModal(true); 
+      } else {
+        setMessage("Error checking username or email.");
+        setIsMessageError(true);
+      }
       return false;
     }
   }, []);
@@ -107,19 +113,27 @@ const Register = () => {
         setMessage("OTP sent successfully. Check your email.");
         setIsMessageError(false);
         setTimer(60);
+        setShowTimeOutModal(true); 
       },  
       (error) => {
-        console.log(error);
-        setMessage("Failed to send OTP. Please try again.");
-        setIsMessageError(true);
+        const errorMessage = error?.message || "Something went wrong. Please try again."
+        console.error("Error fetching workshops:", error);
+        if (errorMessage.includes("Time-out")) {
+          setShowTimeOutModal(true); 
+        } else {
+          
+          toast.error("Something went wrong. Please try again.");
+          setMessage("Failed to send OTP. Please try again.");
+          setIsMessageError(true);
+        }
       }
     );
   }, []);
 
   const onSubmit = async (data) => {
     const { Confirm_password, ...cleanData } = data;
-    
     cleanData.email = cleanData.email.toLowerCase();
+
     // Check username and email uniqueness before sending OTP
     const isUnique = await checkUsernameOrEmailUnique(
       data.username,
@@ -127,19 +141,21 @@ const Register = () => {
     );
     if (!isUnique) return;
     setIsMessageError(false);
+    setShowTimeOutModal(true)
     if (!isMessageError) {
       setRegistrationData(cleanData);
       setUserEmail(cleanData.email);
       send_the_otp(cleanData.email);
-      setClassShow("show");
-    }
+      setClassShow("");
+      setShowTimeOutModal(true);
+    } 
   };
 
   const checkOTP = useCallback(() => {
     check_OTP(
       userEmail,
       otp,
-      "register",
+      "register", 
       (response) => {
         if (response.message === "Done") {
           setMessage("OTP verified successfully!");
@@ -653,6 +669,7 @@ const Register = () => {
           </div>
         </div>
       </div>
+      {showTimeOutModal && <ServerTimeoutModal onClose={() => setShowTimeOutModal(false)} />}
     </>
   );
 };

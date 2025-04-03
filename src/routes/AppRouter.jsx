@@ -14,6 +14,7 @@ import CloseAuth from "../Auth/CloseAuth.jsx";
 import CloseSpecialEvent from "../Auth/CloseSpecialEvent.jsx";
 import JoinUs from "../Pages/JoinUs/JoinUs.jsx";
 import CloseJoinUs from "../Auth/CloseJoinUs.jsx";
+import RegisterForm from "../Pages/WorkShopForm/RegisterForm.jsx";
 
 
 
@@ -26,6 +27,10 @@ const Router = createBrowserRouter([
     {
       path: '/JoinUs',
       element: <CloseJoinUs><JoinUs /></CloseJoinUs>,
+    },
+    {
+      path: "/register/workshop",
+      element: <RegisterForm />,
     },
     {
       path: "/login",

@@ -19,7 +19,6 @@ const Workshop = () => {
   const [registeredWorkshops, setRegisteredWorkshops] = useState([]);
   const today = new Date();
 
-
   const notify_Succ = () => {
     toast.success("Registered Successfully!", {
       position: "top-right",
@@ -31,7 +30,6 @@ const Workshop = () => {
       progress: undefined,
       theme: "dark",
       onClose: () => {
-        // Do nothing here to prevent unwanted navigation
       },
     });
   };
@@ -71,27 +69,45 @@ const Workshop = () => {
     }
   },[isAuthUser,userAuthName]);
 
-
+  const workshopForms = {
+    "Web Frontend": "https://docs.google.com/forms/d/1K9awMXdYthziEO1GfVmDL7_-DSkCqaGE5znYQZjOgnc",
+    "Web Backend": "https://docs.google.com/forms/d/1TkJc67JS3z8CYe-58Wn6CuyX0xnnF5-JvU1z3HXYRuY",
+    "Flutter": "https://docs.google.com/forms/d/1cNajOutrYGDocZdTWjgH-ugFQoXiH1NkdRni8bcvEPY",
+    "AI": "https://docs.google.com/forms/d/1zLiymlfwBvqtDMPlft17eET-QnVA2dAuEZiqMjCUe08",
+  };
+  
   const onClickToRegister = (nameOfWS) => {
-    if (!isAuthUser) {
-      navigate("/login");
+    const formLink = workshopForms[Object.keys(workshopForms).find(key => key.toLowerCase() === nameOfWS.toLowerCase())];
+  
+    if (formLink) {
+      window.open(formLink, "_blank");
     } else {
-      registerWorkShop(
-        nameOfWS,
-        "register",
-        (response) => {
-          console.log(response);
-          setRegisteredWorkshops((prevState) => [
-            ...prevState,
-            { pk: nameOfWS, status: "register" },
-          ]);
-        },
-        (error) => {
-          setWS_Register(false);
-        }
-      );
+      toast.error("Registration form not available for this workshop.");
     }
   };
+  
+
+
+  // const onClickToRegister = (nameOfWS) => {
+  //   if (!isAuthUser) {
+  //     navigate("/login");
+  //   } else {
+  //     registerWorkShop(
+  //       nameOfWS,
+  //       "register",
+  //       (response) => {
+  //         console.log(response);
+  //         setRegisteredWorkshops((prevState) => [
+  //           ...prevState,
+  //           { pk: nameOfWS, status: "register" },
+  //         ]);
+  //       },
+  //       (error) => {
+  //         console.error(error);
+  //       }
+  //     );
+  //   }
+  // };
 
   const isRegistered = (nameOfWS) => {
     // Check if the workshop is in the list of registered workshops
@@ -154,9 +170,10 @@ const Workshop = () => {
                     </button>
                 ) : (
                   ( w.fields.availability ? 
-                    <Link onClick={() => onClickToRegister(w.pk)}>
-                    <button className="btn-op"> Register </button>
-                  </Link> 
+                  //   <Link onClick={() => onClickToRegister(w.pk)}>
+                  //   <button className="btn-op"> Register </button>
+                  // </Link> 
+                  <button className="btn-op" onClick={() => onClickToRegister(w.pk)}> Register </button>
                   : 
                   <button className="btn-op disabled" disabled>
                         {w.fields.status === 'CM' 

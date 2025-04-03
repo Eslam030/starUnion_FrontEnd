@@ -133,7 +133,7 @@ export const registerEvent = ( op, event_name, onSuccess, onError) => {
   });
 };
 
-// Event endpoint For Registration  Special Event
+// Event endpoint For Registration Special Event
 export const registerSpacialEvent = (data, event_name ,onSuccess, onError) => {
   $.ajax({
     url: `${DOMAIN}/event/registerevent/`,
@@ -230,6 +230,21 @@ export const workShopDetails = (WS_name, onSuccess, onError) => {
     error: onError,
   });
 };
+
+export const getWorkShopRegisterForm = (WS_name, onSuccess, onError) => {
+  $.ajax({
+    url: `${DOMAIN}/workshop/registerworkshop/?workshop=${WS_name}`,
+    method: "GET",
+    xhrFields: {
+      withCredentials: true  
+    },
+    data: {
+      workshop: WS_name,
+    },
+    success: onSuccess,
+    error: onError,
+  });
+}
 
 // Instructors endpoint
 export const instructors = (onSuccess, onError) => {

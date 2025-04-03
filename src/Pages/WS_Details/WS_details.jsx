@@ -112,21 +112,38 @@ const WS_details = () => {
   const firstThree = useMemo(() => Tob5Data.slice(0, 3), [Tob5Data]);
   const lastTwo = useMemo(() => Tob5Data.slice(3, 5), [Tob5Data]);
 
-  const onClickToRegisterWs = useCallback((nameOfWS) => {
-    if (!isAuthUser) {
-      navigate("/login");
+  const workshopForms = {
+    "Web Frontend": "https://docs.google.com/forms/d/1K9awMXdYthziEO1GfVmDL7_-DSkCqaGE5znYQZjOgnc",
+    "Web Backend": "https://docs.google.com/forms/d/1TkJc67JS3z8CYe-58Wn6CuyX0xnnF5-JvU1z3HXYRuY",
+    "Flutter": "https://docs.google.com/forms/d/1cNajOutrYGDocZdTWjgH-ugFQoXiH1NkdRni8bcvEPY",
+    "AI": "https://docs.google.com/forms/d/1zLiymlfwBvqtDMPlft17eET-QnVA2dAuEZiqMjCUe08",
+  };
+  
+  const onClickToRegisterWs = (nameOfWS) => {
+    const formLink = workshopForms[Object.keys(workshopForms).find(key => key.toLowerCase() === nameOfWS.toLowerCase())];
+  
+    if (formLink) {
+      window.open(formLink, "_blank");
     } else {
-      registerWorkShop(nameOfWS, "register",
-        (response) => {
-          setState(prevState => ({ ...prevState, registeredWorkshops: [...prevState.registeredWorkshops, { pk: nameOfWS, status: "register" }] }));
-          notify();
-        },
-        (error) => {
-          console.error('Error fetching events:', error);
-        }
-      );
+      toast.error("Registration form not available for this workshop.");
     }
-  }, [isAuthUser, navigate]);
+  };
+
+  // const onClickToRegisterWs = useCallback((nameOfWS) => {
+  //   if (!isAuthUser) {
+  //     navigate("/login");
+  //   } else {
+  //     registerWorkShop(nameOfWS, "register",
+  //       (response) => {
+  //         setState(prevState => ({ ...prevState, registeredWorkshops: [...prevState.registeredWorkshops, { pk: nameOfWS, status: "register" }] }));
+  //         notify();
+  //       },
+  //       (error) => {
+  //         console.error('Error fetching events:', error);
+  //       }
+  //     );
+  //   }
+  // }, [isAuthUser, navigate]);
 
 
   const isRegistered = useCallback((nameOfWS) => {
@@ -240,9 +257,10 @@ const WS_details = () => {
                     </Link>
                     :
                     ( w.fields.availability  ? 
-                    <Link onClick={() => onClickToRegisterWs(w.pk)}>
-                    <button className="btn-op"> Register </button>
-                  </Link> 
+                  //   <Link onClick={() => onClickToRegisterWs(w.pk)}>
+                  //   <button className="btn-op"> Register </button>
+                  // </Link> 
+                  <button className="btn-op" onClick={() => onClickToRegisterWs(w.pk)}> Register </button>
                   : 
                   <button className="btn-op disabled" disabled>
                   {w.fields.status === 'CM' 
