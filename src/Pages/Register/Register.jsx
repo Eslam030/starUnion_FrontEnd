@@ -11,7 +11,7 @@ import {
   registerPage,
 } from "../../Api/Endpoints/AppEndPoints"; // api
 import { FaEye, FaEyeSlash } from "react-icons/fa";
-import ServerTimeoutModal from "../../Components/Server/ServerTimeoutModal";
+import ServerTimeoutModal from "../../Components/ServerModel/ServerTimeoutModal";
 // Images
 import Logolayout from "../../assets/star_logo2.png";
 import registerImg from "../../assets/register_img.png";
@@ -525,11 +525,11 @@ const Register = () => {
                 </div>
 
                 <div className="input_box">
-                  <span className="reg_detail">Collage</span>
+                  <span className="reg_detail">College</span>
                   <Controller
                     name="collage"
                     rules={{
-                      required: "Collage is required",
+                      required: "College is required",
                       pattern: {
                         value: /^[a-zA-Z0-9-_ ]+$/,
                         message: "Not a valid name",
