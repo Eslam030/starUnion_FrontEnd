@@ -116,9 +116,9 @@ const WS_details = () => {
     "Frontend Magic": "https://docs.google.com/forms/d/1K9awMXdYthziEO1GfVmDL7_-DSkCqaGE5znYQZjOgnc",
     "Backend Alchemy": "https://docs.google.com/forms/d/1TkJc67JS3z8CYe-58Wn6CuyX0xnnF5-JvU1z3HXYRuY",
     "Artificial Intelligence Elixir": "https://docs.google.com/forms/d/1zLiymlfwBvqtDMPlft17eET-QnVA2dAuEZiqMjCUe08",
-    "Flutter Brew PotionAI": "https://docs.google.com/forms/d/1cNajOutrYGDocZdTWjgH-ugFQoXiH1NkdRni8bcvEPY",
+    "Flutter Brew Potion": "https://docs.google.com/forms/d/1cNajOutrYGDocZdTWjgH-ugFQoXiH1NkdRni8bcvEPY",
     "Graphic Design Charms": "https://docs.google.com/forms/d/14RC8mobdrpFNj_OBJ3DK97DUKR-GHZJW4IBnYpvauo8",
-    "PV Spells": "https://docs.google.com/forms/d/1BjKeo88P-yiGYzVirx1nI8MCNw-VRgfiL3nhNYZtqyg",
+    "Video Editing Spells": "https://docs.google.com/forms/d/1BjKeo88P-yiGYzVirx1nI8MCNw-VRgfiL3nhNYZtqyg",
   };
   
   const onClickToRegisterWs = (nameOfWS) => {
